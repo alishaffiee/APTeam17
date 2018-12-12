@@ -2,11 +2,12 @@ package Model;
 
 public class ItemType {
     private String name;
-    private int volume;
+    private int volume, cost;
 
-    public void ItemType(String name, int volume) {
+    public void ItemType(String name, int volume, int cost) {
         this.volume = volume;
         this.name = name;
+        this.cost = cost;
     }
 
     public int getVolume() {

@@ -1,4 +1,9 @@
 package Model.Vehicle;
 
-public class Vehicle {
+abstract public class Vehicle {
+    private int capacity;
+
+    public int getCapacity() {
+        return capacity;
+    }
 }

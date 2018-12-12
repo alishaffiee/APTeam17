@@ -12,12 +12,12 @@ public class Map {
     private Well well;
     private HashMap<Item, Integer> goals;
 
-    public Map(int height, int width, int goalMoney, HashMap<Item, Integer> goals) {
+    public Map(int height, int width, int goalMoney, HashMap<Item, Integer> goals, int initialMoney) {
         this.height = height;
         this.width = width;
         this.goalMoney = goalMoney;
         this.goals = goals;
-        money = 0;
+        money = initialMoney;
         cells = new ArrayList<>();
         for(int i = 0; i < height; i++) {
             for(int j = 0; j < width; j++) {
@@ -68,5 +68,9 @@ public class Map {
             }
         }
         return ans;
+    }
+
+    public Cell getRandomCell() {
+        return cells.get((int) (Math.random() * cells.size()));
     }
 }
