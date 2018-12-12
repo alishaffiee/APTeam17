@@ -1,6 +1,6 @@
 package Model;
 
-import Consts.Interfaces.Storageble;
+import src.Interfaces.Storageble;
 
 import java.util.ArrayList;
 

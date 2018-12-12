@@ -1,6 +1,6 @@
 package Model.Animal;
 
-import Consts.Interfaces.Storageble;
+import src.Interfaces.Storageble;
 
 public class WildAnimal extends Animal implements Storageble {
     private int Volume;

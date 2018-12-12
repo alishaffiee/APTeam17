@@ -1,6 +1,6 @@
 package Model;
 
-import Consts.Interfaces.Storageble;
+import src.Interfaces.Storageble;
 
 public class Item extends Entity implements Storageble {
     private ItemType itemType;
