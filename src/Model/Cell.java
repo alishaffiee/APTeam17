@@ -46,4 +46,16 @@ public class Cell {
             entity.nextTurn();
         }
     }
+
+    public int count(Item item) {
+        int ans = 0;
+        for(Entity entity : entities) {
+            if(entity instanceof Item) {
+                Item item1 = (Item) entity;
+                if(item1.getItemType().equals(item.getItemType()))
+                    ans++;
+            }
+        }
+        return ans;
+    }
 }
