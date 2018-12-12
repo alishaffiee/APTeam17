@@ -1,7 +1,7 @@
 package Model;
 
-public class Item extends Entity{
+public class Grass extends Entity{
     public void nextTurn() {
-        
+
     }
 }

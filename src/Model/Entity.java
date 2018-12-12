@@ -1,4 +1,5 @@
 package Model;
 
-public class Entity {
+abstract public class Entity {
+    public abstract void nextTurn();
 }

@@ -2,5 +2,5 @@ package Model.Animal;
 
 import Model.Entity;
 
-public class Animal extends Entity {
+abstract public class Animal extends Entity {
 }
