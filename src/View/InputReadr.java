@@ -1,6 +1,6 @@
-package Control;
+package View;
 
-public class Main {
+public class InputReadr {
     public static void main(String[] args) {
 
     }
