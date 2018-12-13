@@ -1,10 +1,10 @@
 package Model;
 
-import Consts.Consts;
+import Values.Values;
 
 public class Well {
     private int waterValue;
-    final static int UPGRADE_COST = Consts.WELL_FILL_COST, CAPACITY = Consts.WELL_CAPACITY;
+    final static int UPGRADE_COST = Values.WELL_FILL_COST, CAPACITY = Values.WELL_CAPACITY;
 
     public void Well() {
         waterValue = CAPACITY;

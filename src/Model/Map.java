@@ -1,22 +1,18 @@
 package Model;
 
-import Consts.Consts;
+import Values.Values;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Map {
-    private int height, width, goalMoney, money;
+    private int height, width, money;
     private ArrayList<Cell> cells;
     private Warehouse warehouse;
     private Well well;
-    private HashMap<Item, Integer> goals;
 
-    public Map(int height, int width, int goalMoney, HashMap<Item, Integer> goals, int initialMoney) {
+    public Map(int height, int width, int initialMoney) {
         this.height = height;
         this.width = width;
-        this.goalMoney = goalMoney;
-        this.goals = goals;
         money = initialMoney;
         cells = new ArrayList<>();
         for(int i = 0; i < height; i++) {
@@ -24,7 +20,7 @@ public class Map {
                 cells.add(new Cell(i, j));
             }
         }
-        warehouse = new Warehouse(Consts.WAREHOUSE_CAPACITY);
+        warehouse = new Warehouse(Values.WAREHOUSE_CAPACITY);
         well = new Well();
     }
 
@@ -38,18 +34,11 @@ public class Map {
         return warehouse;
     }
 
-    public boolean isCompeleted() {
-        if(money < goalMoney)
-            return false;
-        for(Item item : goals.keySet()) {
-            int count = 0;
-            for(Cell cell : cells) {
-                count += cell.count(item);
-            }
-            if(count < goals.get(item))
-                return false;
-        }
-        return true;
+    int count(ItemType itemType) {
+        int ans = 0;
+        for(Cell cell : cells)
+            ans += cell.count(itemType);
+        return ans;
     }
 
     public int getDistance(Cell a, Cell b) {
@@ -72,5 +61,9 @@ public class Map {
 
     public Cell getRandomCell() {
         return cells.get((int) (Math.random() * cells.size()));
+    }
+
+    public int getMoney() {
+        return money;
     }
 }

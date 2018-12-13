@@ -5,11 +5,11 @@ import src.Interfaces.Storageble;
 import java.util.ArrayList;
 
 public class Warehouse {
-    ArrayList<Storageble> storagebles;
+    ArrayList<ItemType> itemTypes;
     private int capacity;
 
     public Warehouse(int capacity) {
-        storagebles = new ArrayList<>();
+        itemTypes = new ArrayList<>();
         this.capacity = capacity;
     }
 
@@ -19,13 +19,15 @@ public class Warehouse {
 
     public int getFreeCapacity() {
         int ans = capacity;
-        for(Storageble storageble : storagebles) {
-            ans -= storageble.getVolume();
+        for(ItemType itemType : itemTypes) {
+            ans -= itemType.getVolume();
         }
         return ans;
     }
 
-    void add(Storageble storageble) {
-        storagebles.add(storageble);
+    void add(ItemType itemType) {
+        if(itemType.getVolume() < getFreeCapacity())
+            throw new RuntimeException("Not enough storage");
+        itemTypes.add(itemType);
     }
 }

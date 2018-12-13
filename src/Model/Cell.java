@@ -47,12 +47,12 @@ public class Cell {
         }
     }
 
-    public int count(Item item) {
+    public int count(ItemType itemType) {
         int ans = 0;
         for(Entity entity : entities) {
             if(entity instanceof Item) {
                 Item item1 = (Item) entity;
-                if(item1.getItemType().equals(item.getItemType()))
+                if(item1.getItemType().equals(itemType))
                     ans++;
             }
         }
