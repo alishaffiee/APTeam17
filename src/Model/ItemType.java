@@ -5,13 +5,14 @@ import java.util.ArrayList;
 public class ItemType {
     private static ArrayList<ItemType> itemTypes;
     private String name;
-    private int volume, buyCost, sellCost;
+    private int volume, buyCost, sellCost, lifeTime;
 
-    public void ItemType(String name, int volume, int buyCost, int sellCost) {
+    public void ItemType(String name, int volume, int buyCost, int sellCost, int lifeTime) {
         this.volume = volume;
         this.name = name;
         this.buyCost = buyCost;
         this.sellCost = sellCost;
+        this.lifeTime = lifeTime;
     }
 
     public int getVolume() {
@@ -41,5 +42,17 @@ public class ItemType {
                 return itemType;
         }
         return null;
+    }
+
+    public int getBuyCost() {
+        return buyCost;
+    }
+
+    public int getSellCost() {
+        return sellCost;
+    }
+
+    public int getLifeTime() {
+        return lifeTime;
     }
 }

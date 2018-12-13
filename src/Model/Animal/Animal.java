@@ -12,6 +12,10 @@ abstract public class Animal extends Entity {
         this.cell = map.getRandomCell();
     }
 
+    protected int sign(int x) {
+        return (x > 0 ? 1 : -1);
+    }
+
     public abstract Cell nextMove();
 
     public void setCell(Cell cell) {

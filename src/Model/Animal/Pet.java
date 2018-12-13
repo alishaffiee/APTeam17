@@ -17,12 +17,8 @@ public class Pet extends Animal{
         this.productTime = productTime;
     }
 
-    private int sign(int x) {
-        return (x > 0 ? 1 : -1);
-    }
-
     public Cell nextMove() {
-        if(turnsToHungry < map.getDistance(map.getNearestGrass(cell), cell) - 2) {
+        if(turnsToHungry < map.getDistance(map.getNearestGrass(cell), cell) - 2 &&  map.getNearestGrass(super.cell) != null) {
             Cell cell = map.getNearestGrass(super.cell);
             int dx = cell.getPositionX() - super.cell.getPositionX();
             int dy = cell.getPositionY() - super.cell.getPositionY();
@@ -44,7 +40,7 @@ public class Pet extends Animal{
         turnsToHungry--;
         turnsToProduct--;
         if(turnsToProduct == 0) {
-            cell.addEntity(new Item(prouduciton));
+            cell.addEntity(new Item(prouduciton, cell));
             turnsToProduct = productTime;
         }
     }

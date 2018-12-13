@@ -75,6 +75,30 @@ public class Map {
         return ans;
     }
 
+    public Cell getNearestAnimal(Cell cell) {
+        int mn = (int)2e9;
+        Cell ans = null;
+        for(Cell cell1 : cells) {
+            if(cell1.getAnimals().size() > 0 && mn < getDistance(cell, cell)) {
+                mn = getDistance(cell, cell1);
+                ans = cell1;
+            }
+        }
+        return ans;
+    }
+
+    public Cell getNearestItem(Cell cell) {
+        int mn = (int)2e9;
+        Cell ans = null;
+        for(Cell cell1 : cells) {
+            if(cell1.getItems().size() > 0 && mn < getDistance(cell, cell)) {
+                mn = getDistance(cell, cell1);
+                ans = cell1;
+            }
+        }
+        return ans;
+    }
+
     public Cell getRandomCell() {
         return cells.get((int) (Math.random() * cells.size()));
     }

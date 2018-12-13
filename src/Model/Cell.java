@@ -46,10 +46,6 @@ public class Cell {
     public void nextTurn() {
         for(Entity entity : entities) {
             entity.nextTurn();
-            if(entity instanceof Animal) {
-                Animal animal = (Animal) entity;
-                Cell cell = animal.nextMove();
-            }
         }
     }
 
@@ -61,6 +57,16 @@ public class Cell {
             }
         }
         return animals;
+    }
+
+    public ArrayList<Item> getItems() {
+        ArrayList<Item> items= new ArrayList<>();
+        for(Entity entity : entities) {
+            if(entity instanceof Item) {
+                items.add((Item) entity);
+            }
+        }
+        return items;
     }
 
     public void deleteAnimals() {
