@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Animal.Animal;
+
 import java.util.ArrayList;
 
 public class Cell {
@@ -44,6 +46,28 @@ public class Cell {
     public void nextTurn() {
         for(Entity entity : entities) {
             entity.nextTurn();
+            if(entity instanceof Animal) {
+                Animal animal = (Animal) entity;
+                Cell cell = animal.nextMove();
+            }
+        }
+    }
+
+    public ArrayList<Animal> getAnimals() {
+        ArrayList<Animal> animals= new ArrayList<>();
+        for(Entity entity : entities) {
+            if(entity instanceof Animal) {
+                animals.add((Animal)entity);
+            }
+        }
+        return animals;
+    }
+
+    public void deleteAnimals() {
+        for(Entity entity : entities) {
+            if(entity instanceof Animal) {
+                entities.remove(entity);
+            }
         }
     }
 

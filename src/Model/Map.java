@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Animal.Animal;
 import Values.Values;
 
 import java.util.ArrayList;
@@ -27,6 +28,21 @@ public class Map {
     public void nextTurn() {
         for(Cell cell : cells) {
             cell.nextTurn();
+        }
+
+        ArrayList<Animal> allAnimals = new ArrayList<>();
+
+        for(Cell cell : cells) {
+            ArrayList<Animal> animals = cell.getAnimals();
+            for(Animal animal : animals) {
+                animal.setCell(animal.nextMove());
+                allAnimals.add(animal);
+            }
+            cell.deleteAnimals();
+        }
+
+        for(Animal animal : allAnimals) {
+            animal.getCell().addEntity(animal);
         }
     }
 
@@ -65,5 +81,21 @@ public class Map {
 
     public int getMoney() {
         return money;
+    }
+
+    public Cell getCell(int x, int y) {
+        for(Cell cell : cells) {
+            if(cell.getPositionY() == x && cell.getPositionY() == y)
+                return cell;
+        }
+        return null;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
     }
 }
