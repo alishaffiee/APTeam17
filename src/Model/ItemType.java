@@ -7,7 +7,7 @@ public class ItemType {
     private String name;
     private int volume, buyCost, sellCost, lifeTime;
 
-    public void ItemType(String name, int volume, int buyCost, int sellCost, int lifeTime) {
+    public ItemType(String name, int volume, int buyCost, int sellCost, int lifeTime) {
         this.volume = volume;
         this.name = name;
         this.buyCost = buyCost;

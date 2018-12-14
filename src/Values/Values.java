@@ -1,10 +1,35 @@
 package Values;
 
 public class Values {
-    public static int WELL_FILL_COST = 20;
-    public static int WELL_CAPACITY = 20;
-    public static int WAREHOUSE_CAPACITY = 50;
-    public static int MAP_HEIGHT = 20;
-    public static int MAP_WIDTH = 20;
-    public static int INITIAL_MONEY = 10;
+    public static int WELL_FILL_COST = 20,
+            WELL_CAPACITY = 20,
+            WAREHOUSE_CAPACITY = 50,
+            MAP_HEIGHT = 20,
+            MAP_WIDTH = 20,
+            INITIAL_MONEY = 10,
+            CHICKEN_PRODUCT_TIME = 15,
+            COW_PRODUCT_TIME = 20,
+            SHEEP_PRODUCT_TIME = 20,
+            EGG_VOLUME = 1,
+            EGG_BUY_COST = 6,
+            EGG_SELL_COST = 5,
+            EGG_LIFE_TIME = 10,
+            MILK_VOLUME = 1,
+            MILK_BUY_COST = 6,
+            MILK_SELL_COST = 5,
+            MILK_LIFE_TIME = 10,
+            WOOL_VOLUME = 1,
+            WOOL_BUY_COST = 6,
+            WOOL_SELL_COST = 5,
+            WOOL_LIFE_TIME = 15,
+            LION_VOLUME = 10,
+            LION_BUY_COST = 100,
+            LION_SELL_COST = 100,
+            LION_LIFE_TIME = 15,
+            BEAR_VOLUME = 8,
+            BEAR_BUY_COST = 80,
+            BEAR_SELL_COST = 80,
+            BEAR_LIFE_TIME = 15,
+            LION_HEALTH = 5,
+            BEAR_HEALTH = 5;
 }
