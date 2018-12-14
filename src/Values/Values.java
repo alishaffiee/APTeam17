@@ -31,5 +31,7 @@ public class Values {
             BEAR_SELL_COST = 80,
             BEAR_LIFE_TIME = 15,
             LION_HEALTH = 5,
-            BEAR_HEALTH = 5;
+            BEAR_HEALTH = 5,
+            GRASS_LIFE_TIME = 30,
+            GRASS_VALUE = 10;
 }

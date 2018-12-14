@@ -1,16 +1,20 @@
 package Model;
 
 import Model.Animal.Animal;
+import Model.Animal.WildAnimal;
+import com.sun.org.apache.xpath.internal.axes.WalkingIterator;
 
 import java.util.ArrayList;
 
 public class Cell {
     private int positionX, positionY;
     private ArrayList<Entity> entities;
+    private Map map;
 
-    public Cell(int positionX, int positionY) {
+    public Cell(int positionX, int positionY, Map map) {
         this.positionX = positionX;
         this.positionY = positionY;
+        this.map = map;
         entities = new ArrayList<>();
     }
 
@@ -87,5 +91,43 @@ public class Cell {
             }
         }
         return ans;
+    }
+
+    public void pickup() {
+        ArrayList<Item> items = getItems();
+        int sum = 0;
+        for(Item item : items) {
+            sum += item.getVolume();
+        }
+        if(sum > map.getWarehouse().getFreeCapacity())
+            throw new RuntimeException("Not enough storage.");
+        for(Item item : items) {
+            map.getWarehouse().add(item.getItemType());
+            entities.remove(item);
+        }
+    }
+
+    public ArrayList<WildAnimal> getWildAnimals() {
+        ArrayList<WildAnimal> wildAnimals = new ArrayList<>();
+        for(Entity entity : entities) {
+            if(entity instanceof WildAnimal) {
+                wildAnimals.add((WildAnimal) entity);
+            }
+        }
+        return wildAnimals;
+    }
+
+    public void cage() {
+        ArrayList<WildAnimal> wildAnimals = getWildAnimals();
+        int sum = 0;
+        for(WildAnimal wildAnimal : wildAnimals) {
+            sum += wildAnimal.getVolume();
+        }
+        if(sum > map.getWarehouse().getFreeCapacity())
+            throw new RuntimeException("Not enough storage.");
+        for(WildAnimal wildAnimal : wildAnimals) {
+            map.getWarehouse().add(wildAnimal.getItemType());
+            entities.remove(wildAnimal);
+        }
     }
 }

@@ -10,6 +10,7 @@ public class Map {
     private ArrayList<Cell> cells;
     private Warehouse warehouse;
     private Well well;
+    private ArrayList<Workshop> workshops;
 
     public Map(int height, int width, int initialMoney) {
         this.height = height;
@@ -18,11 +19,16 @@ public class Map {
         cells = new ArrayList<>();
         for(int i = 0; i < height; i++) {
             for(int j = 0; j < width; j++) {
-                cells.add(new Cell(i, j));
+                cells.add(new Cell(i, j, this));
             }
         }
         warehouse = new Warehouse(Values.WAREHOUSE_CAPACITY);
-        well = new Well();
+        well = new Well(this);
+        workshops = new ArrayList<>();
+    }
+
+    public void addWorkshop(Workshop workshop) {
+        workshops.add(workshop);
     }
 
     public void nextTurn() {
@@ -43,6 +49,10 @@ public class Map {
 
         for(Animal animal : allAnimals) {
             animal.getCell().addEntity(animal);
+        }
+
+        for(Workshop workshop : workshops) {
+            workshop.nextTurn();
         }
     }
 
@@ -121,5 +131,29 @@ public class Map {
 
     public int getWidth() {
         return width;
+    }
+
+    public void addGrass(int x, int y) {
+        if(well.getWaterValue() == 0)
+            throw new RuntimeException("Not enough water.");
+        well.decreaseWater();
+        for(int dx = -1; dx < 2; dx++) {
+            for(int dy = -1; dy < 2; dy++) {
+                int p = x + dx, q = y + dy;
+                Cell cell = getCell(p, q);
+                if(cell == null)
+                    continue;
+                if(cell.hasGrass())
+                    cell.getEntities().remove(cell.getGrass());
+                cell.getEntities().add(new Grass(cell));
+            }
+        }
+    }
+
+    public void fillWell() {
+        if(Well.FILL_COST > money)
+            throw new RuntimeException("Not enough money.");
+        money -= Well.FILL_COST;
+        well.fill();
     }
 }

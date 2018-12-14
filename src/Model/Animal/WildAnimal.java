@@ -53,4 +53,8 @@ public class WildAnimal extends Animal implements Storageble {
         int[] dy = {0,0,0,1,-1};
         return map.getCell(cell.getPositionX() + dx[x], cell.getPositionY() + dy[x]);
     }
+
+    public ItemType getItemType() {
+        return itemType;
+    }
 }

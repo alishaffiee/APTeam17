@@ -1,9 +1,6 @@
 package Model.Animal;
 
-import Model.Cell;
-import Model.Item;
-import Model.ItemType;
-import Model.Map;
+import Model.*;
 
 import java.util.Random;
 
@@ -18,7 +15,9 @@ public class Pet extends Animal{
     }
 
     public Cell nextMove() {
-        if(turnsToHungry < map.getDistance(map.getNearestGrass(cell), cell) - 2 &&  map.getNearestGrass(super.cell) != null) {
+        if(turnsToHungry < map.getDistance(map.getNearestGrass(cell), cell) + 2 &&  map.getNearestGrass(super.cell) != null) {
+            if(super.cell.hasGrass())
+                return super.cell;
             Cell cell = map.getNearestGrass(super.cell);
             int dx = cell.getPositionX() - super.cell.getPositionX();
             int dy = cell.getPositionY() - super.cell.getPositionY();
@@ -42,6 +41,10 @@ public class Pet extends Animal{
         if(turnsToProduct == 0) {
             cell.addEntity(new Item(prouduciton, cell));
             turnsToProduct = productTime;
+        }
+        if(cell.hasGrass() && turnsToHungry < 4) {
+            Grass grass = cell.getGrass();
+            grass.eat();
         }
     }
 }
