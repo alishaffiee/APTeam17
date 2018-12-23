@@ -1,8 +1,8 @@
 package Model;
 
 import Model.Animal.Animal;
+import Model.Animal.Pet;
 import Model.Animal.WildAnimal;
-import com.sun.org.apache.xpath.internal.axes.WalkingIterator;
 
 import java.util.ArrayList;
 
@@ -53,11 +53,21 @@ public class Cell {
         }
     }
 
+    public ArrayList<Pet> getPets() {
+        ArrayList<Pet> pets = new ArrayList<>();
+        for(Entity entity : entities) {
+            if(entity instanceof Pet) {
+                pets.add((Pet)entity);
+            }
+        }
+        return pets;
+    }
+
     public ArrayList<Animal> getAnimals() {
-        ArrayList<Animal> animals= new ArrayList<>();
+        ArrayList<Animal> animals = new ArrayList<>();
         for(Entity entity : entities) {
             if(entity instanceof Animal) {
-                animals.add((Animal)entity);
+                animals.add((Animal) entity);
             }
         }
         return animals;

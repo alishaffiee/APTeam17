@@ -18,24 +18,18 @@ public class Cat extends Animal{
 
     @Override
     public Cell nextMove() {
-        if(map.getNearestItem(super.cell) != null) {
+        if (map.getNearestItem(super.cell) != null) {
             Cell cell = map.getNearestItem(super.cell);
             int dx = cell.getPositionX() - super.cell.getPositionX();
             int dy = cell.getPositionY() - super.cell.getPositionY();
-            if(Math.abs(dx) < Math.abs(dy)) {
+            if (Math.abs(dx) < Math.abs(dy)) {
                 return map.getCell(super.cell.getPositionX(), super.cell.getPositionY() + sign(dy));
-            }
-            else {
+            } else {
                 return map.getCell(super.cell.getPositionX() + sign(dx), super.cell.getPositionY());
             }
         }
-        Random random = new Random();
-        int x = random.nextInt(5);
-        int[] dx = {0,-1,1,0,0};
-        int[] dy = {0,0,0,1,-1};
-        return map.getCell(cell.getPositionX() + dx[x], cell.getPositionY() + dy[x]);
+        return randomMove(cell);
     }
-
     public static int getLevel() {
         return level;
     }

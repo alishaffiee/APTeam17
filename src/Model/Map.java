@@ -89,7 +89,7 @@ public class Map {
         int mn = (int)2e9;
         Cell ans = null;
         for(Cell cell1 : cells) {
-            if(cell1.getAnimals().size() > 0 && mn < getDistance(cell, cell)) {
+            if(cell1.getPets().size() > 0 && mn < getDistance(cell, cell)) {
                 mn = getDistance(cell, cell1);
                 ans = cell1;
             }
@@ -155,5 +155,9 @@ public class Map {
             throw new RuntimeException("Not enough money.");
         money -= Well.FILL_COST;
         well.fill();
+    }
+
+    public void addMoney(int money) {
+        this.money += money;
     }
 }

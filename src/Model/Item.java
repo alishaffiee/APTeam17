@@ -4,18 +4,18 @@ import src.Interfaces.Storageble;
 
 public class Item extends Entity implements Storageble {
     private ItemType itemType;
-    private int aliveTurn;
+    private int turnsToDie;
     private Cell cell;
 
     public Item(ItemType itemType, Cell cell) {
         this.itemType = itemType;
         this.cell = cell;
-        aliveTurn = itemType.getLifeTime();
+        turnsToDie = itemType.getLifeTime();
     }
 
     public void nextTurn() {
-        aliveTurn--;
-        if(aliveTurn == 0) {
+        turnsToDie--;
+        if(turnsToDie == 0) {
             cell.getEntities().remove(this);
         }
     }
@@ -24,8 +24,8 @@ public class Item extends Entity implements Storageble {
         return itemType;
     }
 
-    public int getAliveTurn() {
-        return aliveTurn;
+    public int getTurnsToDie() {
+        return turnsToDie;
     }
 
     public int getVolume() {

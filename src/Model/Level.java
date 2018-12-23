@@ -8,7 +8,6 @@ public class Level {
     private int goalMoney, levelNumber;
     private HashMap<ItemType, Integer> goals;
     private Map map;
-
     public Level(HashMap<ItemType, Integer> goals, int levelNumber, int goalMoney) {
         this.goalMoney = goalMoney;
         this.levelNumber = levelNumber;
