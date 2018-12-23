@@ -127,6 +127,12 @@ public class Cell {
         return wildAnimals;
     }
 
+    public void decreaseHealth() {
+        ArrayList<WildAnimal> wildAnimals = getWildAnimals();
+        for(WildAnimal wildAnimal : wildAnimals)
+            wildAnimal.decreaseHealth();
+    }
+
     public void cage() {
         ArrayList<WildAnimal> wildAnimals = getWildAnimals();
         int sum = 0;
