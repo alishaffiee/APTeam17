@@ -34,6 +34,11 @@ public class WildAnimal extends Animal implements Storageble {
         }
     }
 
+    public void cage () {
+        cell.getEntities().remove(this);
+        cell.getEntities().add(new Item(itemType, cell));
+    }
+
     @Override
     public Cell nextMove() {
         if (map.getNearestAnimal(super.cell) != null) {
