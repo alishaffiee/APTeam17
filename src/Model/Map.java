@@ -160,4 +160,16 @@ public class Map {
     public void addMoney(int money) {
         this.money += money;
     }
+
+    public Well getWell() {
+        return well;
+    }
+
+    public Workshop getWorkshopByName(String name) {
+        for(Workshop workshop : workshops) {
+            if (workshop.getName().equals(name))
+                return workshop;
+        }
+        return null;
+    }
 }

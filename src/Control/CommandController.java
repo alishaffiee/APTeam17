@@ -1,5 +1,9 @@
 package Control;
 
+import Model.Cell;
+import Model.Grass;
+import Model.Workshop;
+
 public class CommandController {
     public static CommandController commandController = new CommandController(Game.game);
     private Game game;
@@ -13,23 +17,65 @@ public class CommandController {
     }
 
     public void pickup(int x, int y) {
-
+        Cell cell = game.getCurrnetLevel().getMap().getCell(x, y);
+        try {
+            cell.pickup();
+            System.out.println("Pickup was successful.");
+        } catch (Exception e) {
+            System.out.println("Not enough storage.");
+        }
     }
 
     public void cage(int x, int y) {
-
+        Cell cell = game.getCurrnetLevel().getMap().getCell(x, y);
+        try {
+            cell.cage();
+            System.out.println("Cage was successful.");
+        } catch (Exception e) {
+            System.out.println("Not enough storage.");
+        }
     }
 
     public void plant(int x, int y) {
-
+        if(game.getCurrnetLevel().getMap().getWell().getWaterValue() == 0) {
+            System.out.println("not enough water.");
+            return;
+        }
+        for(int dx = -3; dx < 4; dx++) {
+            for(int dy = -3; dy < 4; dy++) {
+                Cell cell = game.getCurrnetLevel().getMap().getCell(x + dx, y + dy);
+                if(cell == null)
+                    continue;
+                if(cell.hasGrass())
+                    cell.getEntities().remove(cell.getGrass());
+                cell.addEntity(new Grass(cell));
+            }
+        }
+        game.getCurrnetLevel().getMap().getWell().decreaseWater();
+        System.out.println("plant was successful.");
     }
 
     public void well() {
-
+        try {
+            game.getCurrnetLevel().getMap().fillWell();
+            System.out.println("filling well was successful.");
+        } catch (Exception e) {
+            System.out.println("Not enough money");
+        }
     }
 
     public void startWorkshop(String name) {
-
+        Workshop workshop = game.getCurrnetLevel().getMap().getWorkshopByName(name);
+        if(workshop == null) {
+            System.out.println("Workshop not found.");
+            return;
+        }
+        try {
+            workshop.start();
+            System.out.println("Stating workshop was successful.");
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void upgrade(String name) {
@@ -57,6 +103,7 @@ public class CommandController {
     }
 
     public void nextTurn(int count) {
-
+        for(int i = 0; i < count; i++)
+            game.getCurrnetLevel().getMap().nextTurn();
     }
 }

@@ -9,8 +9,9 @@ public class Workshop {
     private int upgradeCost, turnsToProduct, productTime;
     private Map map;
     private boolean working;
+    private String name;
 
-    public void Workshop(int locataion, ArrayList<ItemType> inputs, ItemType product, int upgradeCost, int productTime, Map map) {
+    public void Workshop(int locataion, ArrayList<ItemType> inputs, ItemType product, int upgradeCost, int productTime, Map map, String name) {
         this.locataion = locataion;
         this.inputs = inputs;
         this.product = product;
@@ -18,6 +19,7 @@ public class Workshop {
         this.map = map;
         this.level = 0;
         this.productTime = productTime;
+        this.name = name;
         working = false;
     }
 
@@ -76,5 +78,9 @@ public class Workshop {
             working = false;
             map.getWarehouse().add(product);
         }
+    }
+
+    public String getName() {
+        return name;
     }
 }
