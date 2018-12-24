@@ -1,8 +1,10 @@
 package Control;
 
+import Interfaces.Upgradable;
 import Model.Animal.*;
 import Model.Cell;
 import Model.Grass;
+import Model.Warehouse;
 import Model.Workshop;
 import Values.Values;
 
@@ -119,7 +121,37 @@ public class CommandController {
     }
 
     public void upgrade(String name) {
-        
+        Upgradable upgradable = null;
+        switch (name) {
+            case "warehouse" : {
+                upgradable = game.getCurrnetLevel().getMap().getWarehouse();
+                break;
+            }
+            case "well" : {
+                upgradable = game.getCurrnetLevel().getMap().getWell();
+                break;
+            }
+            case "truck" : {
+                upgradable = game.getCurrnetLevel().getMap().getTruck();
+                break;
+            }
+            case "helicopter" : {
+                upgradable = game.getCurrnetLevel().getMap().getHelicopter();
+                break;
+            }
+        }
+        if(game.getCurrnetLevel().getMap().getMoney() < upgradable.getUpgradeCost()) {
+            System.out.println("Not enough money.");
+            return;
+        }
+        game.getCurrnetLevel().getMap().addMoney(-upgradable.getUpgradeCost());
+        try{
+            upgradable.upgrade();
+            System.out.println("Upgrading was successful.");
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void load(String path) {

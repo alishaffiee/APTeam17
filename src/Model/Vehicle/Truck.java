@@ -1,12 +1,13 @@
 package Model.Vehicle;
 
+import Interfaces.Upgradable;
 import Model.ItemType;
 import Model.Map;
 import Values.Values;
 
 import java.util.ArrayList;
 
-public class Truck extends Vehicle{
+public class Truck extends Vehicle implements Upgradable {
     private int price;
 
     public Truck(Map map) {
@@ -25,7 +26,7 @@ public class Truck extends Vehicle{
         price = 0;
         for(ItemType itemType : itemTypes)
             price += itemType.getBuyCost();
-        timeToComeBack = Values.TRUCK_BACK_TIME;
+        timeToComeBack = travelTime();
     }
 
     @Override
@@ -36,5 +37,10 @@ public class Truck extends Vehicle{
         if(timeToComeBack == 0) {
             map.addMoney(price);
         }
+    }
+
+    @Override
+    public int travelTime() {
+        return 20 - 5 * level;
     }
 }

@@ -1,22 +1,34 @@
 package Model;
 
+import Interfaces.Upgradable;
 import Values.Values;
 
-public class Well {
-    private int waterValue;
-    final static int FILL_COST = Values.WELL_FILL_COST, CAPACITY = Values.WELL_CAPACITY;
+public class Well implements Upgradable {
+    private int waterValue, level;
     private Map map;
 
     public Well(Map map) {
         this.map = map;
     }
 
-    public void Well() {
-        waterValue = CAPACITY;
+    public int getCapacity() {
+        if(level == 0) return 5;
+        if(level == 1) return 7;
+        if(level == 2) return 10;
+        if(level == 3) return 100;
+        return -1;
+    }
+
+    public int getFillCost() {
+        if(level == 0) return 19;
+        if(level == 1) return 17;
+        if(level == 2) return 15;
+        if(level == 3) return 7;
+        return -1;
     }
 
     public void fill() {
-        waterValue = CAPACITY;
+        waterValue = getCapacity();
     }
 
     public int getWaterValue() {
@@ -25,5 +37,15 @@ public class Well {
 
     public void decreaseWater() {
         waterValue--;
+    }
+
+    public void upgrade() {
+        if(level == 3)
+            throw new RuntimeException("Already at max level.");
+        level++;
+    }
+
+    public int getUpgradeCost() {
+        return (level + 1) * 100;
     }
 }

@@ -3,11 +3,12 @@ package Model.Vehicle;
 import Model.Map;
 
 abstract public class Vehicle {
-    protected int capacity;
+    protected int capacity, level;
     protected int timeToComeBack;
     protected Map map;
 
     public Vehicle(Map map) {
+        level = 0;
         this.map = map;
     }
 
@@ -26,5 +27,17 @@ abstract public class Vehicle {
     public void nextTurn() {
         if(timeToComeBack > 0)
             timeToComeBack--;
+    }
+
+    public abstract int travelTime();
+
+    public void upgrade() {
+        if(level == 3)
+            throw new RuntimeException("Already at max level.");
+        level++;
+    }
+
+    public int getUpgradeCost() {
+        return (level + 1) * 120;
     }
 }

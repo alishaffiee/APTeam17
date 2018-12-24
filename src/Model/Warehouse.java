@@ -1,20 +1,24 @@
 package Model;
 
-import src.Interfaces.Storageble;
+import Interfaces.Upgradable;
 
 import java.util.ArrayList;
 
-public class Warehouse {
+public class Warehouse implements Upgradable {
     private ArrayList<ItemType> itemTypes;
-    private int capacity;
+    private int level;
 
-    public Warehouse(int capacity) {
+    public Warehouse() {
         itemTypes = new ArrayList<>();
-        this.capacity = capacity;
+        level = 0;
     }
 
     public int getCapacity() {
-        return capacity;
+        if(level == 0) return 50;
+        if(level == 1) return 150;
+        if(level == 2) return 300;
+        if(level == 3) return 600;
+        return -1;
     }
 
     public ArrayList<ItemType> getItemTypes() {
@@ -22,7 +26,7 @@ public class Warehouse {
     }
 
     public int getFreeCapacity() {
-        int ans = capacity;
+        int ans = getCapacity();
         for(ItemType itemType : itemTypes) {
             ans -= itemType.getVolume();
         }
@@ -42,5 +46,15 @@ public class Warehouse {
                 return;
             }
         }
+    }
+
+    public void upgrade() {
+        if(level == 3)
+            throw new RuntimeException("Already at max level.");
+        level++;
+    }
+
+    public int getUpgradeCost() {
+        return (level + 1) * 100;
     }
 }

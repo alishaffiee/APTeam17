@@ -1,6 +1,8 @@
 package Model;
 
 import Model.Animal.Animal;
+import Model.Vehicle.Helicopter;
+import Model.Vehicle.Truck;
 import Values.Values;
 
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ public class Map {
     private ArrayList<Cell> cells;
     private Warehouse warehouse;
     private Well well;
+    private Helicopter helicopter;
+    private Truck truck;
     private ArrayList<Workshop> workshops;
 
     public Map(int height, int width, int initialMoney) {
@@ -22,9 +26,11 @@ public class Map {
                 cells.add(new Cell(i, j, this));
             }
         }
-        warehouse = new Warehouse(Values.WAREHOUSE_CAPACITY);
+        warehouse = new Warehouse();
         well = new Well(this);
         workshops = new ArrayList<>();
+        helicopter = new Helicopter(this);
+        truck = new Truck(this);
     }
 
     public void addWorkshop(Workshop workshop) {
@@ -151,9 +157,9 @@ public class Map {
     }
 
     public void fillWell() {
-        if(Well.FILL_COST > money)
+        if(well.getFillCost() > money)
             throw new RuntimeException("Not enough money.");
-        money -= Well.FILL_COST;
+        money -= well.getFillCost();
         well.fill();
     }
 
@@ -171,5 +177,13 @@ public class Map {
                 return workshop;
         }
         return null;
+    }
+
+    public Helicopter getHelicopter() {
+        return helicopter;
+    }
+
+    public Truck getTruck() {
+        return truck;
     }
 }

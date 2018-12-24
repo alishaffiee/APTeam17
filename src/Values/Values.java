@@ -1,9 +1,7 @@
 package Values;
 
 public class Values {
-    public static int WELL_FILL_COST = 20,
-            WELL_CAPACITY = 20,
-            WAREHOUSE_CAPACITY = 50,
+    public static int
             MAP_HEIGHT = 20,
             MAP_WIDTH = 20,
             INITIAL_MONEY = 10,
@@ -19,7 +17,5 @@ public class Values {
             LION_HEALTH = 5,
             BEAR_HEALTH = 5,
             GRASS_LIFE_TIME = 30,
-            GRASS_VALUE = 10,
-            TRUCK_BACK_TIME = 20,
-            HELICOPTER_BACK_TIME = 20;
+            GRASS_VALUE = 10;
 }

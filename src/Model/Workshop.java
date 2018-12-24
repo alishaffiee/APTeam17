@@ -3,7 +3,7 @@ package Model;
 import java.util.ArrayList;
 
 public class Workshop {
-    private int locataion, level;
+    private int location, level, maxLevel, upgradeStep;
     private ArrayList<ItemType> inputs;
     private ItemType product;
     private int upgradeCost, turnsToProduct, productTime;
@@ -11,8 +11,8 @@ public class Workshop {
     private boolean working;
     private String name;
 
-    public void Workshop(int locataion, ArrayList<ItemType> inputs, ItemType product, int upgradeCost, int productTime, Map map, String name) {
-        this.locataion = locataion;
+    public Workshop(int location, ArrayList<ItemType> inputs, ItemType product, int upgradeCost, int productTime, Map map, String name, int maxLevel, int upgradeStep) {
+        this.location = location;
         this.inputs = inputs;
         this.product = product;
         this.upgradeCost = upgradeCost;
@@ -20,6 +20,8 @@ public class Workshop {
         this.level = 0;
         this.productTime = productTime;
         this.name = name;
+        this.upgradeStep = upgradeStep;
+        this.maxLevel = maxLevel;
         working = false;
     }
 
@@ -27,12 +29,15 @@ public class Workshop {
         return working;
     }
 
-    public int getLocataion() {
-        return locataion;
+    public int getLocation() {
+        return location;
     }
 
     public ArrayList<ItemType> getInputs() {
-        return inputs;
+        ArrayList<ItemType> ans = new ArrayList<>();
+        for(int i = 0; i < level + 1; i++)
+            ans.addAll(inputs);
+        return ans;
     }
 
     public ItemType getProduct() {
@@ -41,10 +46,6 @@ public class Workshop {
 
     public int getLevel() {
         return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 
     public int getUpgradeCost() {
@@ -82,5 +83,13 @@ public class Workshop {
 
     public String getName() {
         return name;
+    }
+
+    public void upgrade() {
+        if(level == maxLevel)
+            throw new RuntimeException("Workshop is already at max level");
+        level++;
+        upgradeCost += upgradeStep;
+        productTime--;
     }
 }
