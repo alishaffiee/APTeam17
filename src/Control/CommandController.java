@@ -20,29 +20,34 @@ public class CommandController {
         Animal animal;
         int cost;
         switch (name) {
-            case "Chicken" : {
+            case "Chicken": {
                 animal = new Chicken(game.getCurrnetLevel().getMap());
                 cost = Values.CHICKEN_COST;
                 break;
             }
-            case "Sheep" : {
+            case "Sheep": {
                 animal = new Sheep(game.getCurrnetLevel().getMap());
                 cost = Values.SHEEP_COST;
                 break;
             }
-            case "Turkey" : {
+            case "Turkey": {
                 animal = new Turkey(game.getCurrnetLevel().getMap());
                 cost = Values.TURKEY_COST;
                 break;
             }
-            case "Cow" : {
+            case "Cow": {
                 animal = new Cow(game.getCurrnetLevel().getMap());
                 cost = Values.COW_COST;
                 break;
             }
-            case "Cat" : {
+            case "Cat": {
                 animal = new Cat(game.getCurrnetLevel().getMap());
                 cost = Values.CAT_COST;
+                break;
+            }
+            case "Dog": {
+                animal = new Dog(game.getCurrnetLevel().getMap());
+                cost = Values.DOG_COST;
                 break;
             }
             default: {
@@ -50,12 +55,12 @@ public class CommandController {
                 return;
             }
         }
-        if(cost > game.getCurrnetLevel().getMap().getMoney()) {
+        if (cost > game.getCurrnetLevel().getMap().getMoney()) {
             System.out.println("Not enough money.");
             return;
         }
         game.getCurrnetLevel().getMap().addMoney(-cost);
-        game.getCurrnetLevel().getMap().getRandomCell().addEntity(animal);
+        animal.getCell().addEntity(animal);
     }
 
     public void pickup(int x, int y) {
@@ -79,16 +84,16 @@ public class CommandController {
     }
 
     public void plant(int x, int y) {
-        if(game.getCurrnetLevel().getMap().getWell().getWaterValue() == 0) {
+        if (game.getCurrnetLevel().getMap().getWell().getWaterValue() == 0) {
             System.out.println("not enough water.");
             return;
         }
-        for(int dx = -3; dx < 4; dx++) {
-            for(int dy = -3; dy < 4; dy++) {
+        for (int dx = -3; dx < 4; dx++) {
+            for (int dy = -3; dy < 4; dy++) {
                 Cell cell = game.getCurrnetLevel().getMap().getCell(x + dx, y + dy);
-                if(cell == null)
+                if (cell == null)
                     continue;
-                if(cell.hasGrass())
+                if (cell.hasGrass())
                     cell.getEntities().remove(cell.getGrass());
                 cell.addEntity(new Grass(cell));
             }
@@ -108,7 +113,7 @@ public class CommandController {
 
     public void startWorkshop(String name) {
         Workshop workshop = game.getCurrnetLevel().getMap().getWorkshopByName(name);
-        if(workshop == null) {
+        if (workshop == null) {
             System.out.println("Workshop not found.");
             return;
         }
@@ -123,29 +128,29 @@ public class CommandController {
     public void upgrade(String name) {
         Upgradable upgradable = null;
         switch (name) {
-            case "warehouse" : {
+            case "warehouse": {
                 upgradable = game.getCurrnetLevel().getMap().getWarehouse();
                 break;
             }
-            case "well" : {
+            case "well": {
                 upgradable = game.getCurrnetLevel().getMap().getWell();
                 break;
             }
-            case "truck" : {
+            case "truck": {
                 upgradable = game.getCurrnetLevel().getMap().getTruck();
                 break;
             }
-            case "helicopter" : {
+            case "helicopter": {
                 upgradable = game.getCurrnetLevel().getMap().getHelicopter();
                 break;
             }
         }
-        if(game.getCurrnetLevel().getMap().getMoney() < upgradable.getUpgradeCost()) {
+        if (game.getCurrnetLevel().getMap().getMoney() < upgradable.getUpgradeCost()) {
             System.out.println("Not enough money.");
             return;
         }
         game.getCurrnetLevel().getMap().addMoney(-upgradable.getUpgradeCost());
-        try{
+        try {
             upgradable.upgrade();
             System.out.println("Upgrading was successful.");
         } catch (RuntimeException e) {
@@ -175,7 +180,7 @@ public class CommandController {
     }
 
     public void nextTurn(int count) {
-        for(int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
             game.getCurrnetLevel().getMap().nextTurn();
     }
 }

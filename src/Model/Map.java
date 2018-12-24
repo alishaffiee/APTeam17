@@ -21,8 +21,8 @@ public class Map {
         this.width = width;
         money = initialMoney;
         cells = new ArrayList<>();
-        for(int i = 0; i < height; i++) {
-            for(int j = 0; j < width; j++) {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 cells.add(new Cell(i, j, this));
             }
         }
@@ -38,26 +38,26 @@ public class Map {
     }
 
     public void nextTurn() {
-        for(Cell cell : cells) {
+        for (Cell cell : cells) {
             cell.nextTurn();
         }
 
         ArrayList<Animal> allAnimals = new ArrayList<>();
 
-        for(Cell cell : cells) {
+        for (Cell cell : cells) {
             ArrayList<Animal> animals = cell.getAnimals();
-            for(Animal animal : animals) {
+            for (Animal animal : animals) {
                 animal.setCell(animal.nextMove());
                 allAnimals.add(animal);
             }
             cell.deleteAnimals();
         }
 
-        for(Animal animal : allAnimals) {
+        for (Animal animal : allAnimals) {
             animal.getCell().addEntity(animal);
         }
 
-        for(Workshop workshop : workshops) {
+        for (Workshop workshop : workshops) {
             workshop.nextTurn();
         }
     }
@@ -68,7 +68,7 @@ public class Map {
 
     int count(ItemType itemType) {
         int ans = 0;
-        for(Cell cell : cells)
+        for (Cell cell : cells)
             ans += cell.count(itemType);
         return ans;
     }
@@ -80,10 +80,10 @@ public class Map {
     }
 
     public Cell getNearestGrass(Cell cell) {
-        int mn = (int)2e9;
+        int mn = (int) 2e9;
         Cell ans = null;
-        for(Cell cell1 : cells) {
-            if(cell1.hasGrass() && mn < getDistance(cell, cell)) {
+        for (Cell cell1 : cells) {
+            if (cell1.hasGrass() && mn < getDistance(cell, cell1)) {
                 mn = getDistance(cell, cell1);
                 ans = cell1;
             }
@@ -92,10 +92,10 @@ public class Map {
     }
 
     public Cell getNearestAnimal(Cell cell) {
-        int mn = (int)2e9;
+        int mn = (int) 2e9;
         Cell ans = null;
-        for(Cell cell1 : cells) {
-            if(cell1.getPets().size() > 0 && mn < getDistance(cell, cell)) {
+        for (Cell cell1 : cells) {
+            if (cell1.getPets().size() > 0 && mn < getDistance(cell, cell1)) {
                 mn = getDistance(cell, cell1);
                 ans = cell1;
             }
@@ -104,10 +104,22 @@ public class Map {
     }
 
     public Cell getNearestItem(Cell cell) {
-        int mn = (int)2e9;
+        int mn = (int) 2e9;
         Cell ans = null;
-        for(Cell cell1 : cells) {
-            if(cell1.getItems().size() > 0 && mn < getDistance(cell, cell)) {
+        for (Cell cell1 : cells) {
+            if (cell1.getItems().size() > 0 && mn < getDistance(cell, cell1)) {
+                mn = getDistance(cell, cell1);
+                ans = cell1;
+            }
+        }
+        return ans;
+    }
+
+    public Cell getNearestWildAnimal(Cell cell) {
+        int mn = (int) 2e9;
+        Cell ans = null;
+        for (Cell cell1 : cells) {
+            if (cell1.getWildAnimals().size() > 0 && mn < getDistance(cell, cell1)) {
                 mn = getDistance(cell, cell1);
                 ans = cell1;
             }
@@ -124,8 +136,8 @@ public class Map {
     }
 
     public Cell getCell(int x, int y) {
-        for(Cell cell : cells) {
-            if(cell.getPositionY() == x && cell.getPositionY() == y)
+        for (Cell cell : cells) {
+            if (cell.getPositionY() == x && cell.getPositionY() == y)
                 return cell;
         }
         return null;
@@ -140,16 +152,16 @@ public class Map {
     }
 
     public void addGrass(int x, int y) {
-        if(well.getWaterValue() == 0)
+        if (well.getWaterValue() == 0)
             throw new RuntimeException("Not enough water.");
         well.decreaseWater();
-        for(int dx = -1; dx < 2; dx++) {
-            for(int dy = -1; dy < 2; dy++) {
+        for (int dx = -1; dx < 2; dx++) {
+            for (int dy = -1; dy < 2; dy++) {
                 int p = x + dx, q = y + dy;
                 Cell cell = getCell(p, q);
-                if(cell == null)
+                if (cell == null)
                     continue;
-                if(cell.hasGrass())
+                if (cell.hasGrass())
                     cell.getEntities().remove(cell.getGrass());
                 cell.getEntities().add(new Grass(cell));
             }
@@ -157,7 +169,7 @@ public class Map {
     }
 
     public void fillWell() {
-        if(well.getFillCost() > money)
+        if (well.getFillCost() > money)
             throw new RuntimeException("Not enough money.");
         money -= well.getFillCost();
         well.fill();
@@ -172,7 +184,7 @@ public class Map {
     }
 
     public Workshop getWorkshopByName(String name) {
-        for(Workshop workshop : workshops) {
+        for (Workshop workshop : workshops) {
             if (workshop.getName().equals(name))
                 return workshop;
         }

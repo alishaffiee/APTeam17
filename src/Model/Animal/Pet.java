@@ -2,45 +2,50 @@ package Model.Animal;
 
 import Model.*;
 
-public class Pet extends Animal{
+public class Pet extends Animal {
     private ItemType prouduction;
-    private int turnsToHungry, turnsToProduct, productTime;
+    private int turnsToDie, turnsToProduct, productTime, health, speed, hungrySpeed;
 
-    public Pet(Map map, ItemType prouduction, int productTime) {
+    public Pet(Map map, ItemType prouduction, int productTime, int health, int speed, int hungrySpeed) {
         super(map);
         this.prouduction = prouduction;
         this.productTime = productTime;
+        this.health = health;
+        this.speed = speed;
+        this.hungrySpeed = hungrySpeed;
+    }
+
+    public boolean isHungry() {
+        return turnsToDie < health / 5;
+    }
+
+    @Override
+    public int getSpeed() {
+        return isHungry() ? hungrySpeed : speed;
     }
 
     public Cell nextMove() {
-        if (turnsToHungry < map.getDistance(map.getNearestGrass(cell), cell) + 2 && map.getNearestGrass(super.cell) != null) {
+        if (isHungry() && map.getNearestGrass(cell) != null) {
             if (super.cell.hasGrass())
                 return super.cell;
-            Cell cell = map.getNearestGrass(super.cell);
-            int dx = cell.getPositionX() - super.cell.getPositionX();
-            int dy = cell.getPositionY() - super.cell.getPositionY();
-            if (Math.abs(dx) < Math.abs(dy)) {
-                return map.getCell(super.cell.getPositionX(), super.cell.getPositionY() + sign(dy));
-            } else {
-                return map.getCell(super.cell.getPositionX() + sign(dx), super.cell.getPositionY());
-            }
+            return move(cell, map.getNearestGrass(cell), getSpeed());
         }
         return randomMove(cell);
     }
 
     public void nextTurn() {
-        turnsToHungry--;
+        turnsToDie--;
         turnsToProduct--;
-        if(turnsToProduct == 0) {
+        if (turnsToProduct == 0) {
             cell.addEntity(new Item(prouduction, cell));
             turnsToProduct = productTime;
         }
-        if(cell.hasGrass() && turnsToHungry < 4) {
+        if (cell.hasGrass() && isHungry()) {
             Grass grass = cell.getGrass();
             grass.eat();
-            turnsToHungry += 5;
+            turnsToDie += 15;
         }
-        if(turnsToHungry == -1) {
+        if (turnsToDie == -1) {
             cell.getEntities().remove(this);
         }
     }

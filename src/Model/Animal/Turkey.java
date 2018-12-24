@@ -6,6 +6,7 @@ import Values.Values;
 
 public class Turkey extends Pet {
     public Turkey(Map map) {
-        super(map, ItemType.getItemType("Plume"), Values.TURKEY_PRODUCT_TIME);
+        super(map, ItemType.getItemType("Plume"),
+                Values.TURKEY_PRODUCT_TIME, Values.TURKEY_HEALTH, Values.TURKEY_SPEED, Values.TURKEY_SPEED * 2);
     }
 }
