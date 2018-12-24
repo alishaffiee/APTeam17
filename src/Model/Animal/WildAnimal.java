@@ -5,6 +5,8 @@ import Model.Item;
 import Model.ItemType;
 import Model.Map;
 
+import java.util.Random;
+
 public class WildAnimal extends Animal {
     private int health, speed;
     private ItemType itemType;
@@ -39,6 +41,12 @@ public class WildAnimal extends Animal {
 
     @Override
     public Cell nextMove() {
+        Random random = new Random();
+        if (cell.getPets().size() > 0 && random.nextInt(10) < 2) {
+            Pet pet = cell.getPets().get(0);
+            cell.getEntities().remove(pet);
+            return cell;
+        }
         if (map.getNearestAnimal(cell) != null) {
             return move(cell, map.getNearestItem(cell), getSpeed());
         }

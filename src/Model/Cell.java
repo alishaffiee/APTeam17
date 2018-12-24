@@ -1,8 +1,6 @@
 package Model;
 
-import Model.Animal.Animal;
-import Model.Animal.Pet;
-import Model.Animal.WildAnimal;
+import Model.Animal.*;
 
 import java.util.ArrayList;
 
@@ -61,6 +59,26 @@ public class Cell {
             }
         }
         return pets;
+    }
+
+    public ArrayList<Dog> getDogs() {
+        ArrayList<Dog> dogs = new ArrayList<>();
+        for(Entity entity : entities) {
+            if(entity instanceof Dog) {
+                dogs.add((Dog)entity);
+            }
+        }
+        return dogs;
+    }
+
+    public ArrayList<Cat> getCats() {
+        ArrayList<Cat> cats = new ArrayList<>();
+        for(Entity entity : entities) {
+            if(entity instanceof Cat) {
+                cats.add((Cat)entity);
+            }
+        }
+        return cats;
     }
 
     public ArrayList<Animal> getAnimals() {

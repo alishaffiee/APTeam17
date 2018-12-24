@@ -3,7 +3,6 @@ package Model;
 import Model.Animal.Animal;
 import Model.Vehicle.Helicopter;
 import Model.Vehicle.Truck;
-import Values.Values;
 
 import java.util.ArrayList;
 
@@ -37,29 +36,41 @@ public class Map {
         workshops.add(workshop);
     }
 
+    private void calc(ArrayList<Animal> animals) {
+        for (Animal animal : animals) {
+            animal.setCell(animal.nextMove());
+            animal.getCell().addEntity(animal);
+        }
+    }
+
     public void nextTurn() {
         for (Cell cell : cells) {
             cell.nextTurn();
         }
 
-        ArrayList<Animal> allAnimals = new ArrayList<>();
+        ArrayList<Animal> wildAnimals = new ArrayList<>();
+        ArrayList<Animal> pets = new ArrayList<>();
+        ArrayList<Animal> dogs = new ArrayList<>();
+        ArrayList<Animal> cats = new ArrayList<>();
 
         for (Cell cell : cells) {
-            ArrayList<Animal> animals = cell.getAnimals();
-            for (Animal animal : animals) {
-                animal.setCell(animal.nextMove());
-                allAnimals.add(animal);
-            }
+            wildAnimals.addAll(cell.getWildAnimals());
+            pets.addAll(cell.getPets());
+            cats.addAll(cell.getCats());
+            dogs.addAll(cell.getDogs());
             cell.deleteAnimals();
         }
 
-        for (Animal animal : allAnimals) {
-            animal.getCell().addEntity(animal);
-        }
+        calc(pets);
+        calc(cats);
+        calc(wildAnimals);
+        calc(dogs);
 
         for (Workshop workshop : workshops) {
             workshop.nextTurn();
         }
+        truck.nextTurn();
+        helicopter.nextTurn();
     }
 
     public Warehouse getWarehouse() {
