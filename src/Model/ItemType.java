@@ -13,6 +13,7 @@ public class ItemType {
         this.buyCost = buyCost;
         this.sellCost = sellCost;
         this.lifeTime = lifeTime;
+        itemTypes = new ArrayList<>();
     }
 
     public int getVolume() {

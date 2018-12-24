@@ -1,8 +1,10 @@
 package Control;
 
+import Model.Animal.*;
 import Model.Cell;
 import Model.Grass;
 import Model.Workshop;
+import Values.Values;
 
 public class CommandController {
     public static CommandController commandController = new CommandController(Game.game);
@@ -13,7 +15,45 @@ public class CommandController {
     }
 
     public void buyAnimal(String name) {
-
+        Animal animal;
+        int cost;
+        switch (name) {
+            case "Chicken" : {
+                animal = new Chicken(game.getCurrnetLevel().getMap());
+                cost = Values.CHICKEN_COST;
+                break;
+            }
+            case "Sheep" : {
+                animal = new Sheep(game.getCurrnetLevel().getMap());
+                cost = Values.SHEEP_COST;
+                break;
+            }
+            case "Turkey" : {
+                animal = new Turkey(game.getCurrnetLevel().getMap());
+                cost = Values.TURKEY_COST;
+                break;
+            }
+            case "Cow" : {
+                animal = new Cow(game.getCurrnetLevel().getMap());
+                cost = Values.COW_COST;
+                break;
+            }
+            case "Cat" : {
+                animal = new Cat(game.getCurrnetLevel().getMap());
+                cost = Values.CAT_COST;
+                break;
+            }
+            default: {
+                System.out.println("Animal not found.");
+                return;
+            }
+        }
+        if(cost > game.getCurrnetLevel().getMap().getMoney()) {
+            System.out.println("Not enough money.");
+            return;
+        }
+        game.getCurrnetLevel().getMap().addMoney(-cost);
+        game.getCurrnetLevel().getMap().getRandomCell().addEntity(animal);
     }
 
     public void pickup(int x, int y) {
@@ -79,7 +119,7 @@ public class CommandController {
     }
 
     public void upgrade(String name) {
-
+        
     }
 
     public void load(String path) {

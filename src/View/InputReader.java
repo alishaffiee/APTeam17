@@ -65,6 +65,9 @@ public class InputReader {
                     commandController.nextTurn(Integer.valueOf(parts[1]));
                     break;
                 }
+                default: {
+                    System.out.println("Invalid command.");
+                }
             }
         }
     }

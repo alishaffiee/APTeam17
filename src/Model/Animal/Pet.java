@@ -2,15 +2,13 @@ package Model.Animal;
 
 import Model.*;
 
-import java.util.Random;
-
 public class Pet extends Animal{
-    private ItemType prouduciton;
+    private ItemType prouduction;
     private int turnsToHungry, turnsToProduct, productTime;
 
-    public Pet(Map map, ItemType prouduciton, int productTime) {
+    public Pet(Map map, ItemType prouduction, int productTime) {
         super(map);
-        this.prouduciton = prouduciton;
+        this.prouduction = prouduction;
         this.productTime = productTime;
     }
 
@@ -34,7 +32,7 @@ public class Pet extends Animal{
         turnsToHungry--;
         turnsToProduct--;
         if(turnsToProduct == 0) {
-            cell.addEntity(new Item(prouduciton, cell));
+            cell.addEntity(new Item(prouduction, cell));
             turnsToProduct = productTime;
         }
         if(cell.hasGrass() && turnsToHungry < 4) {
