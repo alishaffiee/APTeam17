@@ -4,9 +4,18 @@ import Interfaces.Upgradable;
 import Model.Animal.*;
 import Model.Cell;
 import Model.Grass;
-import Model.Warehouse;
+import Model.ItemType;
 import Model.Workshop;
 import Values.Values;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CommandController {
     public static CommandController commandController = new CommandController(Game.game);
@@ -144,6 +153,13 @@ public class CommandController {
                 upgradable = game.getCurrnetLevel().getMap().getHelicopter();
                 break;
             }
+            default: {
+                Workshop workshop = Workshop.getWorkshopByName(name);
+                if(workshop == null) {
+                    System.out.println("invalid argument.");
+                    return;
+                }
+            }
         }
         if (game.getCurrnetLevel().getMap().getMoney() < upgradable.getUpgradeCost()) {
             System.out.println("Not enough money.");
@@ -159,8 +175,41 @@ public class CommandController {
 
     }
 
-    public void load(String path) {
+    String read(String path) {
+        String ans = "";
+        try {
+            FileReader inputStream = new FileReader(path);
+            Scanner scanner = new Scanner(inputStream);
+            while (scanner.hasNext()) {
+                ans = ans + scanner.nextLine();
+            }
+        } catch (IOException e) {
+            System.out.println("File not found.");
+        }
+        return ans;
+    }
 
+    public void loadWorkshop(String name) {
+        String json = read(".\\Data\\" + name + ".json");
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+
+        JsonArray inputs = jsonObject.get("inputs").getAsJsonArray();
+        ArrayList<ItemType> itemTypes = new ArrayList<>();
+        for(JsonElement jsonElement : inputs) {
+            itemTypes.add(ItemType.getItemType(jsonElement.getAsString()));
+        }
+
+        ItemType output = ItemType.getItemType(jsonObject.get("output").getAsString());
+
+        int product_time = jsonObject.get("production_time").getAsInt();
+        int time_decrease_step = jsonObject.get("time_decrease_step").getAsInt();
+        int upgrade_cost = jsonObject.get("upgrade_cost").getAsInt();
+        int cost_increase_step = jsonObject.get("cost_increase_step").getAsInt();
+
+        Workshop workshop = new Workshop(null, itemTypes, output,
+                upgrade_cost, product_time, name, cost_increase_step, time_decrease_step);
+
+        Workshop.addWorkshop(workshop);
     }
 
     public void run(String mapName) {

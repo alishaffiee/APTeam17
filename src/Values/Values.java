@@ -5,6 +5,7 @@ public class Values {
             MAP_HEIGHT = 20,
             MAP_WIDTH = 20,
             INITIAL_MONEY = 10,
+            WORK_SHOP_MAX_LEVEL = 4,
             CHICKEN_PRODUCT_TIME = 20,
             COW_PRODUCT_TIME = 20,
             SHEEP_PRODUCT_TIME = 20,

@@ -42,8 +42,8 @@ public class InputReader {
                     commandController.upgrade(parts[1]);
                     break;
                 }
-                case "load_custom" : {
-                    commandController.load(parts[1]);
+                case "load_workshop" : {
+                    commandController.loadWorkshop(parts[1]);
                     break;
                 }
                 case "run" : {

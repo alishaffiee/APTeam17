@@ -1,8 +1,6 @@
 package Model;
 
-import src.Interfaces.Storageble;
-
-public class Item extends Entity implements Storageble {
+public class Item extends Entity {
     private ItemType itemType;
     private int turnsToDie;
     private Cell cell;
