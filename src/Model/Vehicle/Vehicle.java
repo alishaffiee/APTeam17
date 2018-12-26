@@ -35,6 +35,7 @@ abstract public class Vehicle {
         if(level == 3)
             throw new RuntimeException("Already at max level.");
         level++;
+        capacity += 20;
     }
 
     public int getUpgradeCost() {

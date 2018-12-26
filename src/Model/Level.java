@@ -33,4 +33,8 @@ public class Level {
     public Map getMap() {
         return map;
     }
+
+    public HashMap<ItemType, Integer> getGoals() {
+        return goals;
+    }
 }

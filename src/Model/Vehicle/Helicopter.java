@@ -1,5 +1,6 @@
 package Model.Vehicle;
 
+import Interfaces.Printable;
 import Interfaces.Upgradable;
 import Model.Item;
 import Model.ItemType;
@@ -8,7 +9,7 @@ import Values.Values;
 
 import java.util.ArrayList;
 
-public class Helicopter extends Vehicle implements Upgradable {
+public class Helicopter extends Vehicle implements Upgradable, Printable {
     ArrayList<ItemType> itemTypes;
 
     public Helicopter(Map map) {
@@ -36,5 +37,13 @@ public class Helicopter extends Vehicle implements Upgradable {
     @Override
     public int travelTime() {
         return 12 - 3 * level;
+    }
+
+    public void print() {
+        System.out.println("Is free = " + isFree());
+        System.out.println("level = " + level);
+        if(!isFree()) {
+            System.out.println("Time to come back = " + timeToComeBack);
+        }
     }
 }

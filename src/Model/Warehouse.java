@@ -1,10 +1,11 @@
 package Model;
 
+import Interfaces.Printable;
 import Interfaces.Upgradable;
 
 import java.util.ArrayList;
 
-public class Warehouse implements Upgradable {
+public class Warehouse implements Upgradable, Printable {
     private ArrayList<ItemType> itemTypes;
     private int level;
 
@@ -56,5 +57,14 @@ public class Warehouse implements Upgradable {
 
     public int getUpgradeCost() {
         return (level + 1) * 100;
+    }
+
+    public void print() {
+        System.out.println("level = " + level);
+        System.out.println("Capacity = " + getCapacity());
+        System.out.println("Items : ");
+        for(ItemType itemType : itemTypes) {
+            System.out.println(itemType.getName());
+        }
     }
 }

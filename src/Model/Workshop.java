@@ -1,11 +1,12 @@
 package Model;
 
+import Interfaces.Printable;
 import Interfaces.Upgradable;
 import Values.Values;
 
 import java.util.ArrayList;
 
-public class Workshop implements Upgradable {
+public class Workshop implements Upgradable, Printable {
     private static ArrayList<Workshop> workshops = new ArrayList<>();
     private int level, upgradeStep, timeStep;
     private ArrayList<ItemType> inputs;
@@ -110,5 +111,17 @@ public class Workshop implements Upgradable {
         if (working)
             throw new RuntimeException("Workshop is busy now");
         level++;
+    }
+
+    public void print() {
+        System.out.println("Inputs = ");
+        for(ItemType itemType : inputs) {
+            System.out.print(itemType.getName() + " ");
+        }
+        System.out.println();
+        System.out.println("Output = " + product.getName());
+        System.out.println("Is working = " + isWorking());
+        if(isWorking())
+            System.out.println("Turns to product = " + turnsToProduct);
     }
 }

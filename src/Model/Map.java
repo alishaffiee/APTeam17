@@ -1,13 +1,14 @@
 package Model;
 
+import Interfaces.Printable;
 import Model.Animal.Animal;
 import Model.Vehicle.Helicopter;
 import Model.Vehicle.Truck;
 
 import java.util.ArrayList;
 
-public class Map {
-    private int height, width, money;
+public class Map implements Printable {
+    private int height, width, money, time;
     private ArrayList<Cell> cells;
     private Warehouse warehouse;
     private Well well;
@@ -30,6 +31,7 @@ public class Map {
         workshops = new ArrayList<>();
         helicopter = new Helicopter(this);
         truck = new Truck(this);
+        time = 0;
     }
 
     public void addWorkshop(Workshop workshop) {
@@ -44,6 +46,7 @@ public class Map {
     }
 
     public void nextTurn() {
+        time++;
         for (Cell cell : cells) {
             cell.nextTurn();
         }
@@ -208,5 +211,17 @@ public class Map {
 
     public Truck getTruck() {
         return truck;
+    }
+
+    public void print() {
+        for(Cell cell : cells) {
+            System.out.println("cell " + cell.getPositionX() + ", " + cell.getPositionY() + " :");
+            System.out.println("Has grass : " + cell.hasGrass());
+            System.out.println("number of items : " + cell.getEntities().size());
+        }
+    }
+
+    public int getTime() {
+        return time;
     }
 }

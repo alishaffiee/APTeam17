@@ -1,9 +1,10 @@
 package Model;
 
+import Interfaces.Printable;
 import Interfaces.Upgradable;
 import Values.Values;
 
-public class Well implements Upgradable {
+public class Well implements Upgradable, Printable {
     private int waterValue, level;
     private Map map;
 
@@ -47,5 +48,10 @@ public class Well implements Upgradable {
 
     public int getUpgradeCost() {
         return (level + 1) * 100;
+    }
+
+    public void print() {
+        System.out.println("water value = " + waterValue);
+        System.out.println("level = " + level);
     }
 }

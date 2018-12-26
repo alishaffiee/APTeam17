@@ -1,5 +1,6 @@
 package Control;
 
+import Interfaces.Printable;
 import Interfaces.Upgradable;
 import Model.Animal.*;
 import Model.Cell;
@@ -26,6 +27,10 @@ public class CommandController {
     }
 
     public void buyAnimal(String name) {
+        if (game.getCurrnetLevel() == null) {
+            System.out.println("level not found.");
+            return;
+        }
         Animal animal;
         int cost;
         switch (name) {
@@ -73,6 +78,10 @@ public class CommandController {
     }
 
     public void pickup(int x, int y) {
+        if (game.getCurrnetLevel() == null) {
+            System.out.println("level not found.");
+            return;
+        }
         Cell cell = game.getCurrnetLevel().getMap().getCell(x, y);
         try {
             cell.pickup();
@@ -83,6 +92,10 @@ public class CommandController {
     }
 
     public void cage(int x, int y) {
+        if (game.getCurrnetLevel() == null) {
+            System.out.println("level not found.");
+            return;
+        }
         Cell cell = game.getCurrnetLevel().getMap().getCell(x, y);
         try {
             cell.cage();
@@ -93,6 +106,10 @@ public class CommandController {
     }
 
     public void plant(int x, int y) {
+        if (game.getCurrnetLevel() == null) {
+            System.out.println("level not found.");
+            return;
+        }
         if (game.getCurrnetLevel().getMap().getWell().getWaterValue() == 0) {
             System.out.println("not enough water.");
             return;
@@ -112,6 +129,10 @@ public class CommandController {
     }
 
     public void well() {
+        if (game.getCurrnetLevel() == null) {
+            System.out.println("level not found.");
+            return;
+        }
         try {
             game.getCurrnetLevel().getMap().fillWell();
             System.out.println("filling well was successful.");
@@ -121,6 +142,10 @@ public class CommandController {
     }
 
     public void startWorkshop(String name) {
+        if (game.getCurrnetLevel() == null) {
+            System.out.println("level not found.");
+            return;
+        }
         Workshop workshop = game.getCurrnetLevel().getMap().getWorkshopByName(name);
         if (workshop == null) {
             System.out.println("Workshop not found.");
@@ -135,7 +160,11 @@ public class CommandController {
     }
 
     public void upgrade(String name) {
-        Upgradable upgradable = null;
+        if (game.getCurrnetLevel() == null) {
+            System.out.println("level not found.");
+            return;
+        }
+        Upgradable upgradable;
         switch (name) {
             case "warehouse": {
                 upgradable = game.getCurrnetLevel().getMap().getWarehouse();
@@ -154,13 +183,15 @@ public class CommandController {
                 break;
             }
             default: {
-                Workshop workshop = Workshop.getWorkshopByName(name);
-                if(workshop == null) {
-                    System.out.println("invalid argument.");
-                    return;
-                }
+                upgradable = Workshop.getWorkshopByName(name);
             }
         }
+
+        if (upgradable == null) {
+            System.out.println("invalid argument.");
+            return;
+        }
+
         if (game.getCurrnetLevel().getMap().getMoney() < upgradable.getUpgradeCost()) {
             System.out.println("Not enough money.");
             return;
@@ -195,7 +226,7 @@ public class CommandController {
 
         JsonArray inputs = jsonObject.get("inputs").getAsJsonArray();
         ArrayList<ItemType> itemTypes = new ArrayList<>();
-        for(JsonElement jsonElement : inputs) {
+        for (JsonElement jsonElement : inputs) {
             itemTypes.add(ItemType.getItemType(jsonElement.getAsString()));
         }
 
@@ -225,7 +256,52 @@ public class CommandController {
     }
 
     public void print(String name) {
-
+        if (game.getCurrnetLevel() == null) {
+            System.out.println("level not found.");
+            return;
+        }
+        if (name.equals("info")) {
+            System.out.println("Money = " + game.getCurrnetLevel().getMap().getMoney());
+            System.out.println("Time = " + game.getCurrnetLevel().getMap().getTime());
+            System.out.println("Goals : ");
+            for (ItemType itemType : game.getCurrnetLevel().getGoals().keySet()) {
+                System.out.println(itemType.getName() + " : " + game.getCurrnetLevel().getGoals().get(itemType));
+            }
+            System.out.println("Is compeleted : " + game.getCurrnetLevel().isCompeleted());
+            return;
+        }
+        Printable printable;
+        switch (name) {
+            case "map": {
+                printable = game.getCurrnetLevel().getMap();
+                break;
+            }
+            case "warehouse": {
+                printable = game.getCurrnetLevel().getMap().getWarehouse();
+                break;
+            }
+            case "well": {
+                printable = game.getCurrnetLevel().getMap().getWell();
+                break;
+            }
+            case "truck": {
+                printable = game.getCurrnetLevel().getMap().getTruck();
+                break;
+            }
+            case "helicopter": {
+                printable = game.getCurrnetLevel().getMap().getHelicopter();
+                break;
+            }
+            default: {
+                printable = game.getCurrnetLevel().getMap().getWorkshopByName(name);
+                break;
+            }
+        }
+        if(printable == null) {
+            System.out.println("Object not found.");
+            return;
+        }
+        printable.print();
     }
 
     public void nextTurn(int count) {

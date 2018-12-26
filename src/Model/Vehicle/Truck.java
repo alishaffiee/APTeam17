@@ -1,5 +1,6 @@
 package Model.Vehicle;
 
+import Interfaces.Printable;
 import Interfaces.Upgradable;
 import Model.ItemType;
 import Model.Map;
@@ -7,7 +8,7 @@ import Values.Values;
 
 import java.util.ArrayList;
 
-public class Truck extends Vehicle implements Upgradable {
+public class Truck extends Vehicle implements Upgradable, Printable {
     private int price;
 
     public Truck(Map map) {
@@ -42,5 +43,14 @@ public class Truck extends Vehicle implements Upgradable {
     @Override
     public int travelTime() {
         return 20 - 5 * level;
+    }
+
+    public void print() {
+        System.out.println("Is free = " + isFree());
+        System.out.println("level = " + level);
+        System.out.println("capacity = " + capacity);
+        if(!isFree()) {
+            System.out.println("Time to come back = " + timeToComeBack);
+        }
     }
 }
