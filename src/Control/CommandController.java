@@ -253,17 +253,22 @@ public class CommandController {
         int levelNumber = Integer.valueOf(mapName.substring(5));
         JsonArray jsonGoals = jsonObject.get("goals").getAsJsonArray();
         HashMap<ItemType, Integer> goals = new HashMap<>();
+        HashMap<String, Integer> goalAnimals = new HashMap<>();
 
         for (JsonElement element : jsonGoals) {
-            ItemType item = ItemType.getItemType(element.getAsJsonObject().get("item").getAsString());
+            String name = element.getAsJsonObject().get("item").getAsString();
+            ItemType item = ItemType.getItemType(name);
             int count = element.getAsJsonObject().get("count").getAsInt();
-            goals.put(item, count);
+            if (item != null)
+                goals.put(item, count);
+            else
+                goalAnimals.put(name, count);
         }
 
         int initialMoney = jsonObject.get("initial_money").getAsInt();
         int goalMoney = jsonObject.get("goal_money").getAsInt();
 
-        Level level = new Level(goals, levelNumber, goalMoney, initialMoney);
+        Level level = new Level(goals, goalAnimals, levelNumber, goalMoney, initialMoney);
 
         game.addLevel(level);
         game.startLevel(level);
@@ -350,5 +355,10 @@ public class CommandController {
         }
         for (int i = 0; i < count; i++)
             game.getCurrentLevel().nextTurn();
+
+        if (game.getCurrentLevel().isCompleted()) {
+            System.out.println("Level completed!");
+            game.startLevel(null);
+        }
     }
 }

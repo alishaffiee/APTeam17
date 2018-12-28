@@ -7,7 +7,7 @@ import Values.Values;
 public class Dog extends Animal {
 
     public Dog(Map map) {
-        super(map);
+        super(map, "Dog");
     }
 
     public int getSpeed() {

@@ -3,7 +3,6 @@ package Model;
 import Model.Animal.Bear;
 import Model.Animal.Lion;
 import Values.Values;
-import com.sun.xml.internal.bind.v2.model.impl.BuiltinLeafInfoImpl;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -11,22 +10,31 @@ import java.util.Random;
 public class Level {
     private int goalMoney, levelNumber;
     private HashMap<ItemType, Integer> goals;
+    private HashMap<String, Integer> goalAnimals;
     private Map map;
 
-    public Level(HashMap<ItemType, Integer> goals, int levelNumber, int goalMoney, int initialMoney) {
+    public Level(HashMap<ItemType, Integer> goals, HashMap<String, Integer> goalAnimals, int levelNumber, int goalMoney, int initialMoney) {
         this.goalMoney = goalMoney;
         this.levelNumber = levelNumber;
+        this.goalAnimals = goalAnimals;
         this.goals = goals;
         map = new Map(Values.MAP_HEIGHT, Values.MAP_WIDTH, initialMoney);
     }
 
     public boolean isCompleted() {
-        if(map.getMoney() < goalMoney)
+        if (map.getMoney() < goalMoney)
             return false;
-        for(ItemType itemType : goals.keySet()) {
-            if(map.count(itemType) < goals.get(itemType))
+
+        for (ItemType itemType : goals.keySet()) {
+            if (map.count(itemType) < goals.get(itemType))
                 return false;
         }
+
+        for (String name : goalAnimals.keySet()) {
+            if(map.countAnimal(name) < goalAnimals.get(name))
+                return false;
+        }
+
         return true;
     }
 

@@ -8,7 +8,7 @@ public class Cat extends Animal {
     private static int level = 1;
 
     public Cat(Map map) {
-        super(map);
+        super(map, "Cat");
     }
 
     public void nextTurn() {

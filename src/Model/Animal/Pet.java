@@ -3,12 +3,12 @@ package Model.Animal;
 import Model.*;
 
 public class Pet extends Animal {
-    private ItemType prouduction;
+    private ItemType production;
     private int turnsToDie, turnsToProduct, productTime, health, speed, hungrySpeed;
 
-    public Pet(Map map, ItemType prouduction, int productTime, int health, int speed, int hungrySpeed) {
-        super(map);
-        this.prouduction = prouduction;
+    public Pet(Map map, String name, ItemType production, int productTime, int health, int speed, int hungrySpeed) {
+        super(map, name);
+        this.production = production;
         this.productTime = productTime;
         this.health = health;
         this.speed = speed;
@@ -37,7 +37,7 @@ public class Pet extends Animal {
         turnsToDie--;
         turnsToProduct--;
         if (turnsToProduct == 0) {
-            cell.addEntity(new Item(prouduction, cell));
+            cell.addEntity(new Item(production, cell));
             turnsToProduct = productTime;
         }
         if (cell.hasGrass() && isHungry()) {

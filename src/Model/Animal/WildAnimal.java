@@ -11,8 +11,8 @@ public class WildAnimal extends Animal {
     private int health, speed;
     private ItemType itemType;
 
-    public WildAnimal(Map map, int health, ItemType itemType, int speed) {
-        super(map);
+    public WildAnimal(Map map, String name, int health, ItemType itemType, int speed) {
+        super(map, name);
         this.health = health;
         this.itemType = itemType;
         this.speed = speed;

@@ -81,10 +81,7 @@ public class Map implements Printable {
     }
 
     int count(ItemType itemType) {
-        int ans = 0;
-        for (Cell cell : cells)
-            ans += cell.count(itemType);
-        return ans;
+        return warehouse.count(itemType);
     }
 
     public int getDistance(Cell a, Cell b) {
@@ -223,5 +220,13 @@ public class Map implements Printable {
 
     public int getTime() {
         return time;
+    }
+
+    public int countAnimal(String name) {
+        int count = 0;
+        for(Cell cell : cells) {
+            count += cell.countAnimal(name);
+        }
+        return count;
     }
 }

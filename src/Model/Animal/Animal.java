@@ -9,9 +9,11 @@ import java.util.Random;
 abstract public class Animal extends Entity {
     protected Map map;
     protected Cell cell;
+    protected String name;
 
-    public Animal(Map map) {
+    public Animal(Map map, String name) {
         this.map = map;
+        this.name = name;
         this.cell = map.getRandomCell();
     }
 
@@ -46,5 +48,9 @@ abstract public class Animal extends Entity {
         int x = start.getPositionX() + (int) Math.min(1.0, speed / distance) * dx;
         int y = start.getPositionY() + (int) Math.min(1.0, speed / distance) * dy;
         return map.getCell(x, y);
+    }
+
+    public String getName() {
+        return name;
     }
 }

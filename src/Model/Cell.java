@@ -25,8 +25,8 @@ public class Cell {
     }
 
     public Grass getGrass() {
-        for(Entity entity : entities) {
-            if(entity instanceof Grass) {
+        for (Entity entity : entities) {
+            if (entity instanceof Grass) {
                 return (Grass) entity;
             }
         }
@@ -46,16 +46,16 @@ public class Cell {
     }
 
     public void nextTurn() {
-        for(Entity entity : entities) {
+        for (Entity entity : entities) {
             entity.nextTurn();
         }
     }
 
     public ArrayList<Pet> getPets() {
         ArrayList<Pet> pets = new ArrayList<>();
-        for(Entity entity : entities) {
-            if(entity instanceof Pet) {
-                pets.add((Pet)entity);
+        for (Entity entity : entities) {
+            if (entity instanceof Pet) {
+                pets.add((Pet) entity);
             }
         }
         return pets;
@@ -63,9 +63,9 @@ public class Cell {
 
     public ArrayList<Dog> getDogs() {
         ArrayList<Dog> dogs = new ArrayList<>();
-        for(Entity entity : entities) {
-            if(entity instanceof Dog) {
-                dogs.add((Dog)entity);
+        for (Entity entity : entities) {
+            if (entity instanceof Dog) {
+                dogs.add((Dog) entity);
             }
         }
         return dogs;
@@ -73,9 +73,9 @@ public class Cell {
 
     public ArrayList<Cat> getCats() {
         ArrayList<Cat> cats = new ArrayList<>();
-        for(Entity entity : entities) {
-            if(entity instanceof Cat) {
-                cats.add((Cat)entity);
+        for (Entity entity : entities) {
+            if (entity instanceof Cat) {
+                cats.add((Cat) entity);
             }
         }
         return cats;
@@ -83,8 +83,8 @@ public class Cell {
 
     public ArrayList<Animal> getAnimals() {
         ArrayList<Animal> animals = new ArrayList<>();
-        for(Entity entity : entities) {
-            if(entity instanceof Animal) {
+        for (Entity entity : entities) {
+            if (entity instanceof Animal) {
                 animals.add((Animal) entity);
             }
         }
@@ -92,9 +92,9 @@ public class Cell {
     }
 
     public ArrayList<Item> getItems() {
-        ArrayList<Item> items= new ArrayList<>();
-        for(Entity entity : entities) {
-            if(entity instanceof Item) {
+        ArrayList<Item> items = new ArrayList<>();
+        for (Entity entity : entities) {
+            if (entity instanceof Item) {
                 items.add((Item) entity);
             }
         }
@@ -102,8 +102,8 @@ public class Cell {
     }
 
     public void deleteAnimals() {
-        for(Entity entity : entities) {
-            if(entity instanceof Animal) {
+        for (Entity entity : entities) {
+            if (entity instanceof Animal) {
                 entities.remove(entity);
             }
         }
@@ -111,10 +111,10 @@ public class Cell {
 
     public int count(ItemType itemType) {
         int ans = 0;
-        for(Entity entity : entities) {
-            if(entity instanceof Item) {
+        for (Entity entity : entities) {
+            if (entity instanceof Item) {
                 Item item1 = (Item) entity;
-                if(item1.getItemType().equals(itemType))
+                if (item1.getItemType().equals(itemType))
                     ans++;
             }
         }
@@ -124,12 +124,12 @@ public class Cell {
     public void pickup() {
         ArrayList<Item> items = getItems();
         int sum = 0;
-        for(Item item : items) {
+        for (Item item : items) {
             sum += item.getVolume();
         }
-        if(sum > map.getWarehouse().getFreeCapacity())
+        if (sum > map.getWarehouse().getFreeCapacity())
             throw new RuntimeException("Not enough storage.");
-        for(Item item : items) {
+        for (Item item : items) {
             map.getWarehouse().add(item.getItemType());
             entities.remove(item);
         }
@@ -137,8 +137,8 @@ public class Cell {
 
     public ArrayList<WildAnimal> getWildAnimals() {
         ArrayList<WildAnimal> wildAnimals = new ArrayList<>();
-        for(Entity entity : entities) {
-            if(entity instanceof WildAnimal) {
+        for (Entity entity : entities) {
+            if (entity instanceof WildAnimal) {
                 wildAnimals.add((WildAnimal) entity);
             }
         }
@@ -147,21 +147,30 @@ public class Cell {
 
     public void decreaseHealth() {
         ArrayList<WildAnimal> wildAnimals = getWildAnimals();
-        for(WildAnimal wildAnimal : wildAnimals)
+        for (WildAnimal wildAnimal : wildAnimals)
             wildAnimal.decreaseHealth();
     }
 
     public void cage() {
         ArrayList<WildAnimal> wildAnimals = getWildAnimals();
         int sum = 0;
-        for(WildAnimal wildAnimal : wildAnimals) {
+        for (WildAnimal wildAnimal : wildAnimals) {
             sum += wildAnimal.getVolume();
         }
-        if(sum > map.getWarehouse().getFreeCapacity())
+        if (sum > map.getWarehouse().getFreeCapacity())
             throw new RuntimeException("Not enough storage.");
-        for(WildAnimal wildAnimal : wildAnimals) {
+        for (WildAnimal wildAnimal : wildAnimals) {
             map.getWarehouse().add(wildAnimal.getItemType());
             entities.remove(wildAnimal);
         }
+    }
+
+    public int countAnimal(String name) {
+        int count = 0;
+        for (Animal animal : getAnimals()) {
+            if (animal.getName().equals(name))
+                count++;
+        }
+        return count;
     }
 }
