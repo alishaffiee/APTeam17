@@ -4,10 +4,11 @@ import Model.Animal.Bear;
 import Model.Animal.Lion;
 import Values.Values;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Level {
+public class Level implements Serializable {
     private int goalMoney, levelNumber;
     private HashMap<ItemType, Integer> goals;
     private HashMap<String, Integer> goalAnimals;

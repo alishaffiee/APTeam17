@@ -2,7 +2,9 @@ package Model.Vehicle;
 
 import Model.Map;
 
-abstract public class Vehicle {
+import java.io.Serializable;
+
+abstract public class Vehicle implements Serializable {
     protected int capacity, level;
     protected int timeToComeBack;
     protected Map map;

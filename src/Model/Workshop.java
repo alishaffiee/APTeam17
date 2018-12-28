@@ -4,9 +4,10 @@ import Interfaces.Printable;
 import Interfaces.Upgradable;
 import Values.Values;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Workshop implements Upgradable, Printable {
+public class Workshop implements Upgradable, Printable, Serializable {
     private static ArrayList<Workshop> workshops = new ArrayList<>();
     private int level, upgradeStep, timeStep;
     private ArrayList<ItemType> inputs;

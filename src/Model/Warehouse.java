@@ -3,9 +3,10 @@ package Model;
 import Interfaces.Printable;
 import Interfaces.Upgradable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Warehouse implements Upgradable, Printable {
+public class Warehouse implements Upgradable, Printable, Serializable {
     private ArrayList<ItemType> itemTypes, allItems;
     private int level;
 

@@ -4,9 +4,10 @@ import Model.Cell;
 import Model.Entity;
 import Model.Map;
 
+import java.io.Serializable;
 import java.util.Random;
 
-abstract public class Animal extends Entity {
+abstract public class Animal extends Entity implements Serializable {
     protected Map map;
     protected Cell cell;
     protected String name;

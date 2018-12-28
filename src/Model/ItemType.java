@@ -1,8 +1,9 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ItemType {
+public class ItemType implements Serializable {
     private static ArrayList<ItemType> itemTypes = new ArrayList<>();
     private String name;
     private int volume, buyCost, sellCost, lifeTime;

@@ -4,7 +4,9 @@ import Interfaces.Printable;
 import Interfaces.Upgradable;
 import Values.Values;
 
-public class Well implements Upgradable, Printable {
+import java.io.Serializable;
+
+public class Well implements Upgradable, Printable, Serializable {
     private int waterValue, level;
     private Map map;
 

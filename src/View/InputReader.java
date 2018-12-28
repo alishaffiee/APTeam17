@@ -60,6 +60,7 @@ public class InputReader {
                 }
                 case "load_game" : {
                     commandController.loadGame(parts[1]);
+                    break;
                 }
                 case "print" : {
                     commandController.print(parts[1]);

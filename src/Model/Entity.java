@@ -1,5 +1,7 @@
 package Model;
 
-abstract public class Entity {
+import java.io.Serializable;
+
+abstract public class Entity implements Serializable {
     public abstract void nextTurn();
 }

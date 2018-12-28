@@ -10,10 +10,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -116,13 +113,11 @@ public class CommandController {
             System.out.println("not enough water.");
             return;
         }
-        System.out.println(x);
         for (int dx = -3; dx < 4; dx++) {
             for (int dy = -3; dy < 4; dy++) {
                 Cell cell = game.getCurrentLevel().getMap().getCell(x + dx, y + dy);
                 if (cell == null)
                     continue;
-                System.out.println((x + dx) + " " + (y + dy));
                 if (cell.hasGrass())
                     cell.getEntities().remove(cell.getGrass());
                 cell.addEntity(new Grass(cell));
@@ -300,16 +295,29 @@ public class CommandController {
 
     }
 
-    public void saveGame(String path) {
+    public void saveGame(String name) {
         try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(path));
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(".\\Data\\" + name + ".out"));
+            objectOutputStream.writeObject(game.getCurrentLevel());
+            objectOutputStream.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("there is an error in saving game.");
+            return;
         }
+        System.out.println("saving game was successful.");
     }
 
-    public void loadGame(String path) {
-
+    public void loadGame(String name) {
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(".\\Data\\" + name + ".out"));
+            Level level = (Level) objectInputStream.readObject();
+            game.startLevel(level);
+            objectInputStream.close();
+        } catch (Exception e) {
+            System.out.println("there is an error in loading game.");
+            return;
+        }
+        System.out.println("loading game was successful.");
     }
 
     public void print(String name) {

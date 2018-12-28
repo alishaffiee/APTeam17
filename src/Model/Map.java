@@ -5,9 +5,10 @@ import Model.Animal.Animal;
 import Model.Vehicle.Helicopter;
 import Model.Vehicle.Truck;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Map implements Printable {
+public class Map implements Printable, Serializable {
     private int height, width, money, time;
     private ArrayList<Cell> cells;
     private Warehouse warehouse;
