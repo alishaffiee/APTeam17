@@ -40,6 +40,10 @@ public class Well implements Upgradable, Printable {
         waterValue--;
     }
 
+    public boolean canUpgrade() {
+        return level < 3;
+    }
+
     public void upgrade() {
         if(level == 3)
             throw new RuntimeException("Already at max level.");

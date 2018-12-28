@@ -190,6 +190,11 @@ public class CommandController {
             return;
         }
 
+        if (!upgradable.canUpgrade()) {
+            System.out.println("You cannot upgrade this object.");
+            return;
+        }
+
         if (game.getCurrentLevel().getMap().getMoney() < upgradable.getUpgradeCost()) {
             System.out.println("Not enough money.");
             return;

@@ -126,6 +126,10 @@ public class Workshop implements Upgradable, Printable {
         level++;
     }
 
+    public boolean canUpgrade() {
+        return level < Values.WORK_SHOP_MAX_LEVEL && !working;
+    }
+
     public void print() {
         System.out.println("Inputs = ");
         for(ItemType itemType : inputs) {

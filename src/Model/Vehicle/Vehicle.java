@@ -38,6 +38,10 @@ abstract public class Vehicle {
         capacity += 20;
     }
 
+    public boolean canUpgrade() {
+        return level < 3 && isFree();
+    }
+
     public int getUpgradeCost() {
         return (level + 1) * 120;
     }
