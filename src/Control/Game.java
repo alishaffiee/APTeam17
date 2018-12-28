@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Game {
     public static Game game = new Game();
     private ArrayList<Level> levels;
-    private Level currnetLevel;
+    private Level currentLevel;
 
     private Game() {
         for(String name : ItemsCosts.names) {
@@ -20,7 +20,8 @@ public class Game {
     }
 
     void addLevel(Level level) {
-        levels.add(level);
+        if(getLevel(level.getLevelNumber()) == null)
+            levels.add(level);
     }
 
     public Level getLevel(int id) {
@@ -32,10 +33,10 @@ public class Game {
     }
 
     public void startLevel(Level level) {
-        currnetLevel = level;
+        currentLevel = level;
     }
 
-    public Level getCurrnetLevel() {
-        return currnetLevel;
+    public Level getCurrentLevel() {
+        return currentLevel;
     }
 }

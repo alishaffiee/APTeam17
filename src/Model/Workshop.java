@@ -29,6 +29,19 @@ public class Workshop implements Upgradable, Printable {
         working = false;
     }
 
+    public Workshop(Workshop workshop, Map map) {
+        this.inputs = workshop.inputs;
+        this.product = workshop.product;
+        this.upgradeCost = workshop.upgradeCost;
+        this.map = map;
+        this.level = 0;
+        this.productTime = workshop.productTime;
+        this.name = workshop.name;
+        this.upgradeStep = workshop.upgradeStep;
+        this.timeStep = workshop.timeStep;
+        working = false;
+    }
+
     public static void addWorkshop(Workshop workshop) {
         if (getWorkshopByName(workshop.name) == null)
             workshops.add(workshop);

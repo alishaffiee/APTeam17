@@ -46,6 +46,10 @@ public class InputReader {
                     commandController.loadWorkshop(parts[1]);
                     break;
                 }
+                case "add_workshop" : {
+                    commandController.addWorkshop(parts[1]);
+                    break;
+                }
                 case "run" : {
                     commandController.run(parts[1]);
                     break;
