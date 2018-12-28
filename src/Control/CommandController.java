@@ -221,7 +221,7 @@ public class CommandController {
     }
 
     public void loadWorkshop(String name) {
-        String json = read(".\\Data\\" + name + ".json");
+        String json = read(".\\Data\\Workshops\\" + name + ".json");
         JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
 
         JsonArray inputs = jsonObject.get("inputs").getAsJsonArray();
