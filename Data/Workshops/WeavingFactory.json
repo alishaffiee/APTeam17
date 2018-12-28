@@ -1,0 +1,11 @@
+{
+  "name" : "WeavingFactory",
+  "inputs" : [
+    "DriedEggs", "Egg"
+  ],
+  "output" : "SourCream",
+  "production_time" : 15,
+  "time_decrease_step" : 1,
+  "upgrade_cost" : 2000,
+  "cost_increase_step": 500
+}

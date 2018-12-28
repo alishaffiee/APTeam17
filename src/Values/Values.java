@@ -2,8 +2,8 @@ package Values;
 
 public class Values {
     public static int
-            MAP_HEIGHT = 80,
-            MAP_WIDTH = 80,
+            MAP_HEIGHT = 120,
+            MAP_WIDTH = 120,
             WORK_SHOP_MAX_LEVEL = 4,
             CHICKEN_PRODUCT_TIME = 20,
             COW_PRODUCT_TIME = 20,

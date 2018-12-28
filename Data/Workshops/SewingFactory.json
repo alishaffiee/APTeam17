@@ -1,0 +1,11 @@
+{
+  "name" : "SewingFactory",
+  "inputs" : [
+    "DriedEggs", "Egg"
+  ],
+  "output" : "Curd",
+  "production_time" : 15,
+  "time_decrease_step" : 1,
+  "upgrade_cost" : 2500,
+  "cost_increase_step": 500
+}
