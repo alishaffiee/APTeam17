@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Game {
     public static Game game = new Game();
-    private ArrayList<Level> levels;
+    private ArrayList<Level> levels = new ArrayList<>();
     private Level currentLevel;
 
     private Game() {

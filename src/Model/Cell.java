@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Cell {
     private int positionX, positionY;
-    private ArrayList<Entity> entities;
+    private ArrayList<Entity> entities, deletes, adds;
     private Map map;
 
     public Cell(int positionX, int positionY, Map map) {
@@ -45,10 +45,27 @@ public class Cell {
         entities.add(entity);
     }
 
+    public void delete(Entity entity) {
+        deletes.add(entity);
+    }
+
+    public void add(Entity entity) {
+        adds.add(entity);
+    }
+
     public void nextTurn() {
+        adds = new ArrayList<>();
+        deletes = new ArrayList<>();
         for (Entity entity : entities) {
             entity.nextTurn();
         }
+        ArrayList<Entity> entities1 = new ArrayList<>();
+        for(Entity entity : entities) {
+            if(!deletes.contains(entity))
+                entities1.add(entity);
+        }
+        entities = entities1;
+        entities.addAll(adds);
     }
 
     public ArrayList<Pet> getPets() {
@@ -102,11 +119,13 @@ public class Cell {
     }
 
     public void deleteAnimals() {
+        ArrayList<Entity> entities1 = new ArrayList<>();
         for (Entity entity : entities) {
-            if (entity instanceof Animal) {
-                entities.remove(entity);
+            if (!(entity instanceof Animal)) {
+                entities1.add(entity);
             }
         }
+        entities = entities1;
     }
 
     public int count(ItemType itemType) {
@@ -127,8 +146,9 @@ public class Cell {
         for (Item item : items) {
             sum += item.getVolume();
         }
-        if (sum > map.getWarehouse().getFreeCapacity())
+        if (sum > map.getWarehouse().getFreeCapacity()) {
             throw new RuntimeException("Not enough storage.");
+        }
         for (Item item : items) {
             map.getWarehouse().add(item.getItemType());
             entities.remove(item);

@@ -52,14 +52,18 @@ public class Level {
 
     public void nextTurn() {
         Random random = new Random();
-        while (random.nextInt(30) < 2) {
+        while (random.nextInt(100) < 2) {
             Bear bear = new Bear(map);
             bear.getCell().addEntity(bear);
         }
-        while (random.nextInt(30) < 2) {
+        while (random.nextInt(100) < 2) {
             Lion lion = new Lion(map);
             lion.getCell().addEntity(lion);
         }
         map.nextTurn();
+    }
+
+    public HashMap<String, Integer> getGoalAnimals() {
+        return goalAnimals;
     }
 }

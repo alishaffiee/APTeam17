@@ -13,6 +13,8 @@ public class Pet extends Animal {
         this.health = health;
         this.speed = speed;
         this.hungrySpeed = hungrySpeed;
+        turnsToDie = health;
+        turnsToProduct = productTime;
     }
 
     public boolean isHungry() {
@@ -37,7 +39,7 @@ public class Pet extends Animal {
         turnsToDie--;
         turnsToProduct--;
         if (turnsToProduct == 0) {
-            cell.addEntity(new Item(production, cell));
+            cell.add(new Item(production, cell));
             turnsToProduct = productTime;
         }
         if (cell.hasGrass() && isHungry()) {
@@ -46,7 +48,7 @@ public class Pet extends Animal {
             turnsToDie += 15;
         }
         if (turnsToDie == -1) {
-            cell.getEntities().remove(this);
+            cell.delete(this);
         }
     }
 }

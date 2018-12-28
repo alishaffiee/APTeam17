@@ -3,7 +3,7 @@ package Model;
 import java.util.ArrayList;
 
 public class ItemType {
-    private static ArrayList<ItemType> itemTypes;
+    private static ArrayList<ItemType> itemTypes = new ArrayList<>();
     private String name;
     private int volume, buyCost, sellCost, lifeTime;
 
@@ -13,7 +13,6 @@ public class ItemType {
         this.buyCost = buyCost;
         this.sellCost = sellCost;
         this.lifeTime = lifeTime;
-        itemTypes = new ArrayList<>();
     }
 
     public int getVolume() {

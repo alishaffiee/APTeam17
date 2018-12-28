@@ -10,6 +10,7 @@ public class Well implements Upgradable, Printable {
 
     public Well(Map map) {
         this.map = map;
+        waterValue = getCapacity();
     }
 
     public int getCapacity() {
@@ -55,6 +56,7 @@ public class Well implements Upgradable, Printable {
     }
 
     public void print() {
+        System.out.println("capacity = " + getCapacity());
         System.out.println("water value = " + waterValue);
         System.out.println("level = " + level);
     }

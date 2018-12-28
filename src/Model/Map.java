@@ -148,7 +148,7 @@ public class Map implements Printable {
 
     public Cell getCell(int x, int y) {
         for (Cell cell : cells) {
-            if (cell.getPositionY() == x && cell.getPositionY() == y)
+            if (cell.getPositionX() == x && cell.getPositionY() == y)
                 return cell;
         }
         return null;
@@ -210,11 +210,63 @@ public class Map implements Printable {
         return truck;
     }
 
+    private ArrayList<Animal> getAnimals() {
+        ArrayList<Animal> animals = new ArrayList<>();
+        for (Cell cell : cells) {
+            animals.addAll(cell.getAnimals());
+        }
+        return animals;
+    }
+
+    private ArrayList<Item> getItems() {
+        ArrayList<Item> items = new ArrayList<>();
+        for (Cell cell : cells) {
+            items.addAll(cell.getItems());
+        }
+        return items;
+    }
+
+    private ArrayList<Cell> getGrassCells() {
+        ArrayList<Cell> grassCells = new ArrayList<>();
+        for (Cell cell : cells) {
+            if (cell.hasGrass())
+                grassCells.add(cell);
+        }
+        return grassCells;
+    }
+
     public void print() {
-        for(Cell cell : cells) {
-            System.out.println("cell " + cell.getPositionX() + ", " + cell.getPositionY() + " :");
-            System.out.println("Has grass : " + cell.hasGrass());
-            System.out.println("number of items : " + cell.getEntities().size());
+        ArrayList<Cell> grassCells = getGrassCells();
+        ArrayList<Animal> animals = getAnimals();
+        ArrayList<Item> items = getItems();
+        if(grassCells.size() == 0) {
+            System.out.println("There isn't any grass in the map.");
+        }
+        else {
+            System.out.println("Grass cells : ");
+            for(Cell cell : grassCells) {
+                System.out.println(" + " + cell.getPositionX() + ", " + cell.getPositionY());
+            }
+        }
+
+        if(animals.size() == 0) {
+            System.out.println("There isn't any animal in the map.");
+        }
+        else {
+            System.out.println("Animals : ");
+            for(Animal animal : animals) {
+                System.out.println(" + " + animal.getName() + " in position " + animal.getCell().getPositionX() + ", "  + animal.getCell().getPositionY());
+            }
+        }
+
+        if(items.size() == 0) {
+            System.out.println("There isn't any item in the map.");
+        }
+        else {
+            System.out.println("Items : ");
+            for(Item item : items) {
+                System.out.println(" + " + item.getItemType().getName() + " in position " + item.getCell().getPositionX() + ", "  + item.getCell().getPositionY());
+            }
         }
     }
 
@@ -224,7 +276,7 @@ public class Map implements Printable {
 
     public int countAnimal(String name) {
         int count = 0;
-        for(Cell cell : cells) {
+        for (Cell cell : cells) {
             count += cell.countAnimal(name);
         }
         return count;

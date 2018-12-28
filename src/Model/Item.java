@@ -14,7 +14,7 @@ public class Item extends Entity {
     public void nextTurn() {
         turnsToDie--;
         if(turnsToDie == 0) {
-            cell.getEntities().remove(this);
+            cell.delete(this);
         }
     }
 
@@ -28,5 +28,9 @@ public class Item extends Entity {
 
     public int getVolume() {
         return itemType.getVolume();
+    }
+
+    public Cell getCell() {
+        return cell;
     }
 }

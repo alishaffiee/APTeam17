@@ -34,8 +34,8 @@ public class WildAnimal extends Animal {
     public void decreaseHealth() {
         health--;
         if (health == 0) {
-            cell.getEntities().add(new Item(itemType, cell));
-            cell.getEntities().remove(this);
+            cell.add(new Item(itemType, cell));
+            cell.delete(this);
         }
     }
 
@@ -44,7 +44,7 @@ public class WildAnimal extends Animal {
         Random random = new Random();
         if (cell.getPets().size() > 0 && random.nextInt(10) < 2) {
             Pet pet = cell.getPets().get(0);
-            cell.getEntities().remove(pet);
+            cell.delete(pet);
             return cell;
         }
         if (map.getNearestAnimal(cell) != null) {

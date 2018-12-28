@@ -10,8 +10,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -73,6 +75,8 @@ public class CommandController {
         }
         game.getCurrentLevel().getMap().addMoney(-cost);
         animal.getCell().addEntity(animal);
+
+        System.out.println("Buying animal was successful.");
     }
 
     public void pickup(int x, int y) {
@@ -112,11 +116,13 @@ public class CommandController {
             System.out.println("not enough water.");
             return;
         }
+        System.out.println(x);
         for (int dx = -3; dx < 4; dx++) {
             for (int dy = -3; dy < 4; dy++) {
                 Cell cell = game.getCurrentLevel().getMap().getCell(x + dx, y + dy);
                 if (cell == null)
                     continue;
+                System.out.println((x + dx) + " " + (y + dy));
                 if (cell.hasGrass())
                     cell.getEntities().remove(cell.getGrass());
                 cell.addEntity(new Grass(cell));
@@ -217,6 +223,7 @@ public class CommandController {
             while (scanner.hasNext()) {
                 ans = ans + scanner.nextLine();
             }
+            inputStream.close();
         } catch (IOException e) {
             System.out.println("File not found.");
         }
@@ -272,6 +279,8 @@ public class CommandController {
 
         game.addLevel(level);
         game.startLevel(level);
+
+        System.out.println("Level successfully started.");
     }
 
     public void addWorkshop(String name) {
@@ -292,7 +301,11 @@ public class CommandController {
     }
 
     public void saveGame(String path) {
-
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(path));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void loadGame(String path) {
@@ -309,7 +322,10 @@ public class CommandController {
             System.out.println("Time = " + game.getCurrentLevel().getMap().getTime());
             System.out.println("Goals : ");
             for (ItemType itemType : game.getCurrentLevel().getGoals().keySet()) {
-                System.out.println(itemType.getName() + " : " + game.getCurrentLevel().getGoals().get(itemType));
+                System.out.println(" + " + itemType.getName() + " : " + game.getCurrentLevel().getGoals().get(itemType));
+            }
+            for(String animalName : game.getCurrentLevel().getGoalAnimals().keySet()) {
+                System.out.println(" + " + animalName + " : " + game.getCurrentLevel().getGoalAnimals().get(animalName));
             }
             System.out.println("Is compeleted : " + game.getCurrentLevel().isCompleted());
             return;
@@ -360,5 +376,7 @@ public class CommandController {
             System.out.println("Level completed!");
             game.startLevel(null);
         }
+
+        System.out.println("passing time was successful.");
     }
 }

@@ -36,7 +36,7 @@ public class Warehouse implements Upgradable, Printable {
     }
 
     public void add(ItemType itemType) {
-        if (itemType.getVolume() < getFreeCapacity())
+        if (itemType.getVolume() > getFreeCapacity())
             throw new RuntimeException("Not enough storage");
         itemTypes.add(itemType);
         allItems.add(itemType);
@@ -68,15 +68,20 @@ public class Warehouse implements Upgradable, Printable {
     public void print() {
         System.out.println("level = " + level);
         System.out.println("Capacity = " + getCapacity());
+        System.out.println("Free capacity = " + getFreeCapacity());
+        if(itemTypes.size() == 0) {
+            System.out.println("Warehouse is empty.");
+            return;
+        }
         System.out.println("Items : ");
         for (ItemType itemType : itemTypes) {
-            System.out.println(itemType.getName());
+            System.out.println(" + " + itemType.getName());
         }
     }
 
     public int count(ItemType itemType) {
         int ans = 0;
-        for (ItemType itemType1 : itemTypes) {
+        for (ItemType itemType1 : allItems) {
             if (itemType.equals(itemType1))
                 ans++;
         }

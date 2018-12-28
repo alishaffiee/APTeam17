@@ -13,7 +13,7 @@ public class Grass extends Entity{
     }
 
     private void kill() {
-        cell.getItems().remove(this);
+        cell.delete(this);
     }
 
     public void nextTurn() {
