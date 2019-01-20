@@ -387,4 +387,8 @@ public class CommandController {
 
         System.out.println("passing time was successful.");
     }
+
+    public Game getGame() {
+        return game;
+    }
 }
