@@ -27,6 +27,7 @@ public class Map implements Printable, Serializable {
                 cells.add(new Cell(i, j, this));
             }
         }
+        System.out.println(cells.size());
         warehouse = new Warehouse();
         well = new Well(this);
         workshops = new ArrayList<>();
@@ -140,7 +141,9 @@ public class Map implements Printable, Serializable {
     }
 
     public Cell getRandomCell() {
-        return cells.get((int) (Math.random() * cells.size()));
+        int id = (int) (Math.random() * cells.size());
+        System.out.println(id);
+        return cells.get(id);
     }
 
     public int getMoney() {

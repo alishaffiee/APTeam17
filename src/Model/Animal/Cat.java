@@ -11,7 +11,7 @@ public class Cat extends Animal {
     public Cat(Map map) {
         super(map, "Cat");
         moveAnimal = new MoveAnimal("Cat", 0, 0, 0, 1, 24, 6, 4);
-
+        start();
     }
 
     public void nextTurn() {

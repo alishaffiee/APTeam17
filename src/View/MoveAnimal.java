@@ -54,7 +54,9 @@ public class MoveAnimal {
                 }
             }.start();
         }
-        //   update();
+    }
+
+    public void start() {
         root.getChildren().add(imageView[direction]);
     }
 
