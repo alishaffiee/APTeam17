@@ -3,12 +3,15 @@ package Model.Animal;
 import Model.Cell;
 import Model.Map;
 import Values.Values;
+import View.MoveAnimal;
 
 public class Cat extends Animal {
     private static int level = 1;
 
     public Cat(Map map) {
         super(map, "Cat");
+        moveAnimal = new MoveAnimal("Cat", 0, 0, 0, 1, 24, 6, 4);
+
     }
 
     public void nextTurn() {

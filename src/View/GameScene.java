@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class GameScene {
     public static GameScene gameScene = new GameScene();
-    private Group root;
+    public static Group root;
     private Stage primaryStage;
     private Scene scene;
 
@@ -83,8 +83,8 @@ public class GameScene {
         }.start();
 
 
-        MoveAnimal moveAnimal = new MoveAnimal(root, "Cat", 100, 100, 1,
-                2, 24, 6, 4);
+
+        MoveAnimal moveAnimal = new MoveAnimal("Sheep", 0, 0, 0, 1, 25, 5, 4);
 
         new AnimationTimer(){
             long prv = -1;

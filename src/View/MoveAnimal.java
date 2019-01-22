@@ -1,5 +1,6 @@
 package View;
 
+import Control.Game;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
@@ -15,13 +16,13 @@ public class MoveAnimal {
     private int dy[] = {0, -1, 0, +1};
     private Group root;
 
-    public MoveAnimal(Group root, String name, int positionX, int positionY, int direction,
+    public MoveAnimal(String name, int positionX, int positionY, int direction,
                       int step, int count, int vColumns, int hColumns) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.direction = direction;
         this.step = step;
-        this.root = root;
+        root = GameScene.root;
 
         imageView[0] = GameScene.getImage("./Graphic/Animals/" + name + "/left.png");
         imageView[1] = GameScene.getImage("./Graphic/Animals/" + name + "/up.png");
@@ -31,6 +32,7 @@ public class MoveAnimal {
         for (int i = 0; i < 4; i++) {
             int columns = (i % 2 == 1 ? vColumns : hColumns);
             int rows = count / columns;
+            System.out.println(imageView[i]==null);
             int height = (int) imageView[i].getImage().getHeight() / rows;
             int width = (int) imageView[i].getImage().getWidth() / columns;
             System.out.println(height);
@@ -75,5 +77,13 @@ public class MoveAnimal {
         positionX += step * dx[direction];
         positionY += step * dy[direction];
         update();
+    }
+
+    public void setPositionX(int positionX) {
+        this.positionX = positionX;
+    }
+
+    public void setPositionY(int positionY) {
+        this.positionY = positionY;
     }
 }
