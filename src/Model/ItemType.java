@@ -29,8 +29,8 @@ public class ItemType implements Serializable {
     }
 
     public static void addItemType(ItemType itemType) {
-        for(ItemType itemType1 : itemTypes) {
-            if(itemType.equals(itemType1)) {
+        for (ItemType itemType1 : itemTypes) {
+            if (itemType.equals(itemType1)) {
                 return;
             }
         }
@@ -38,8 +38,8 @@ public class ItemType implements Serializable {
     }
 
     public static ItemType getItemType(String name) {
-        for(ItemType itemType : itemTypes) {
-            if(itemType.getName().equals(name))
+        for (ItemType itemType : itemTypes) {
+            if (itemType.getName().equals(name))
                 return itemType;
         }
         return null;

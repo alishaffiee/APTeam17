@@ -240,33 +240,30 @@ public class Map implements Printable, Serializable {
         ArrayList<Cell> grassCells = getGrassCells();
         ArrayList<Animal> animals = getAnimals();
         ArrayList<Item> items = getItems();
-        if(grassCells.size() == 0) {
+        if (grassCells.size() == 0) {
             System.out.println("There isn't any grass in the map.");
-        }
-        else {
+        } else {
             System.out.println("Grass cells : ");
-            for(Cell cell : grassCells) {
+            for (Cell cell : grassCells) {
                 System.out.println(" + " + cell.getPositionX() + ", " + cell.getPositionY());
             }
         }
 
-        if(animals.size() == 0) {
+        if (animals.size() == 0) {
             System.out.println("There isn't any animal in the map.");
-        }
-        else {
+        } else {
             System.out.println("Animals : ");
-            for(Animal animal : animals) {
-                System.out.println(" + " + animal.getName() + " in position " + animal.getCell().getPositionX() + ", "  + animal.getCell().getPositionY());
+            for (Animal animal : animals) {
+                System.out.println(" + " + animal.getName() + " in position " + animal.getCell().getPositionX() + ", " + animal.getCell().getPositionY());
             }
         }
 
-        if(items.size() == 0) {
+        if (items.size() == 0) {
             System.out.println("There isn't any item in the map.");
-        }
-        else {
+        } else {
             System.out.println("Items : ");
-            for(Item item : items) {
-                System.out.println(" + " + item.getItemType().getName() + " in position " + item.getCell().getPositionX() + ", "  + item.getCell().getPositionY());
+            for (Item item : items) {
+                System.out.println(" + " + item.getItemType().getName() + " in position " + item.getCell().getPositionX() + ", " + item.getCell().getPositionY());
             }
         }
     }

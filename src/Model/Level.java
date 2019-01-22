@@ -32,7 +32,7 @@ public class Level implements Serializable {
         }
 
         for (String name : goalAnimals.keySet()) {
-            if(map.countAnimal(name) < goalAnimals.get(name))
+            if (map.countAnimal(name) < goalAnimals.get(name))
                 return false;
         }
 

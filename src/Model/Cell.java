@@ -61,8 +61,8 @@ public class Cell implements Serializable {
             entity.nextTurn();
         }
         ArrayList<Entity> entities1 = new ArrayList<>();
-        for(Entity entity : entities) {
-            if(!deletes.contains(entity))
+        for (Entity entity : entities) {
+            if (!deletes.contains(entity))
                 entities1.add(entity);
         }
         entities = entities1;

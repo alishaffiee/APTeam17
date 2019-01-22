@@ -13,7 +13,7 @@ public class Item extends Entity {
 
     public void nextTurn() {
         turnsToDie--;
-        if(turnsToDie == 0) {
+        if (turnsToDie == 0) {
             cell.delete(this);
         }
     }

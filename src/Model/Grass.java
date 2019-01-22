@@ -2,7 +2,7 @@ package Model;
 
 import Values.Values;
 
-public class Grass extends Entity{
+public class Grass extends Entity {
     private int turnsToDie, value;
     private Cell cell;
 
@@ -18,14 +18,14 @@ public class Grass extends Entity{
 
     public void nextTurn() {
         turnsToDie--;
-        if(turnsToDie == 0) {
+        if (turnsToDie == 0) {
             kill();
         }
     }
 
     public void eat() {
         value--;
-        if(value == 0) {
+        if (value == 0) {
             kill();
         }
     }

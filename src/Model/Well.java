@@ -16,18 +16,18 @@ public class Well implements Upgradable, Printable, Serializable {
     }
 
     public int getCapacity() {
-        if(level == 0) return 5;
-        if(level == 1) return 7;
-        if(level == 2) return 10;
-        if(level == 3) return 100;
+        if (level == 0) return 5;
+        if (level == 1) return 7;
+        if (level == 2) return 10;
+        if (level == 3) return 100;
         return -1;
     }
 
     public int getFillCost() {
-        if(level == 0) return 19;
-        if(level == 1) return 17;
-        if(level == 2) return 15;
-        if(level == 3) return 7;
+        if (level == 0) return 19;
+        if (level == 1) return 17;
+        if (level == 2) return 15;
+        if (level == 3) return 7;
         return -1;
     }
 
@@ -48,7 +48,7 @@ public class Well implements Upgradable, Printable, Serializable {
     }
 
     public void upgrade() {
-        if(level == 3)
+        if (level == 3)
             throw new RuntimeException("Already at max level.");
         level++;
     }

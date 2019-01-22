@@ -45,7 +45,7 @@ public class GameScene {
     }
 
     private void addAnimalIcon(String name, int x, int y) {
-        ImageView image = getImage(".\\Graphic\\UI\\Icons\\Products\\" + name.toLowerCase() + ".png");
+        ImageView image = getImage("./Graphic/UI/Icons/Products/" + name.toLowerCase() + ".png");
         image.setX(x);
         image.setY(y);
         root.getChildren().add(image);
@@ -61,7 +61,7 @@ public class GameScene {
     }
 
     public void start() {
-        ImageView backImage = getImage(".\\Graphic\\back.png");
+        ImageView backImage = getImage("./Graphic/back.png");
         backImage.setX(0);
         backImage.setY(0);
         root.getChildren().add(backImage);

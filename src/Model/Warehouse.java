@@ -70,7 +70,7 @@ public class Warehouse implements Upgradable, Printable, Serializable {
         System.out.println("level = " + level);
         System.out.println("Capacity = " + getCapacity());
         System.out.println("Free capacity = " + getFreeCapacity());
-        if(itemTypes.size() == 0) {
+        if (itemTypes.size() == 0) {
             System.out.println("Warehouse is empty.");
             return;
         }

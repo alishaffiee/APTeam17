@@ -226,7 +226,7 @@ public class CommandController {
     }
 
     public void loadWorkshop(String name) {
-        String json = read(".\\Data\\Workshops\\" + name + ".json");
+        String json = read("./Data/Workshops/" + name + ".json");
         JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
 
         JsonArray inputs = jsonObject.get("inputs").getAsJsonArray();
@@ -249,7 +249,7 @@ public class CommandController {
     }
 
     public void run(String mapName) {
-        String json = read(".\\Data\\Levels\\" + mapName + ".json");
+        String json = read("./Data/Levels/" + mapName + ".json");
         JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
 
         int levelNumber = Integer.valueOf(mapName.substring(5));
@@ -297,7 +297,7 @@ public class CommandController {
 
     public void saveGame(String name) {
         try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(".\\Data\\" + name + ".out"));
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("./Data/" + name + ".out"));
             objectOutputStream.writeObject(game.getCurrentLevel());
             objectOutputStream.close();
         } catch (IOException e) {
@@ -309,7 +309,7 @@ public class CommandController {
 
     public void loadGame(String name) {
         try {
-            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(".\\Data\\" + name + ".out"));
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("./Data/" + name + ".out"));
             Level level = (Level) objectInputStream.readObject();
             game.startLevel(level);
             objectInputStream.close();
@@ -332,7 +332,7 @@ public class CommandController {
             for (ItemType itemType : game.getCurrentLevel().getGoals().keySet()) {
                 System.out.println(" + " + itemType.getName() + " : " + game.getCurrentLevel().getGoals().get(itemType));
             }
-            for(String animalName : game.getCurrentLevel().getGoalAnimals().keySet()) {
+            for (String animalName : game.getCurrentLevel().getGoalAnimals().keySet()) {
                 System.out.println(" + " + animalName + " : " + game.getCurrentLevel().getGoalAnimals().get(animalName));
             }
             System.out.println("Is compeleted : " + game.getCurrentLevel().isCompleted());

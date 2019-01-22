@@ -12,7 +12,7 @@ public class Game {
     private Level currentLevel;
 
     private Game() {
-        for(String name : ItemsCosts.names) {
+        for (String name : ItemsCosts.names) {
             ItemType.addItemType(
                     new ItemType(name, ItemsCosts.getDepotSize(name), ItemsCosts.getSaleCost(name), ItemsCosts.getBuyCost(name), 10)
             );
@@ -20,12 +20,12 @@ public class Game {
     }
 
     void addLevel(Level level) {
-        if(getLevel(level.getLevelNumber()) == null)
+        if (getLevel(level.getLevelNumber()) == null)
             levels.add(level);
     }
 
     public Level getLevel(int id) {
-        for(Level level : levels) {
+        for (Level level : levels) {
             if (level.getLevelNumber() == id)
                 return level;
         }
