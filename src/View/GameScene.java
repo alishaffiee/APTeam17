@@ -27,7 +27,7 @@ public class GameScene {
     private Stage primaryStage;
     private Scene scene;
 
-    private ImageView getImage(String path) {
+    protected static ImageView getImage(String path) {
         try {
             return new ImageView(new Image(new FileInputStream(path)));
         } catch (FileNotFoundException e) {
@@ -79,6 +79,24 @@ public class GameScene {
             @Override
             public void handle(long now) {
                 moneyLebal.setText("Money : " + CommandController.commandController.getGame().getCurrentLevel().getMap().getMoney());
+            }
+        }.start();
+
+
+        MoveAnimal moveAnimal = new MoveAnimal(root, "Cat", 100, 100, 1,
+                2, 24, 6, 4);
+
+        new AnimationTimer(){
+            long prv = -1;
+            @Override
+            public void handle(long now) {
+                if (now - prv < 2e9) {
+                 //   System.out.println(1);
+                    return;
+                }
+                prv = now;
+                moveAnimal.setDirection((moveAnimal.getDirection() + 1) % 4);
+
             }
         }.start();
 

@@ -36,7 +36,8 @@ public class SpriteAnimation extends Transition {
 
     @Override
     protected void interpolate(double k) {
-        final int index = Math.min((int) Math.floor(k * count), count - 1);
+        int index = lastIndex + 1;
+        if(index == count) index = 0;
         if (index != lastIndex) {
             final int x = (index % columns) * width + offsetX;
             final int y = (index / columns) * height + offsetY;
