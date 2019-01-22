@@ -51,7 +51,6 @@ abstract public class Animal extends Entity implements Serializable {
         int y = start.getPositionY() + (int) Math.min(1.0, speed / distance) * dy;
         return map.getCell(x, y);
     }
-
     public String getName() {
         return name;
     }
