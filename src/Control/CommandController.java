@@ -249,7 +249,7 @@ public class CommandController {
     }
 
     public void run(String mapName) {
-        String json = read(".\\Data\\Levels\\" + mapName + ".json");
+        String json = read("./Data/Levels/" + mapName + ".json");
         JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
 
         int levelNumber = Integer.valueOf(mapName.substring(5));
