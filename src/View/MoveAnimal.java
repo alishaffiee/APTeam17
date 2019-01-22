@@ -28,15 +28,16 @@ public class MoveAnimal {
         imageView[1] = GameScene.getImage("./Graphic/Animals/" + name + "/up.png");
         imageView[2] = GameScene.getImage("./Graphic/Animals/" + name + "/right.png");
         imageView[3] = GameScene.getImage("./Graphic/Animals/" + name + "/down.png");
-
+        System.out.println(imageView[0]==null);
+        System.out.println(imageView[1]==null);
+        System.out.println(imageView[2]==null);
+        System.out.println(imageView[3]==null);
         for (int i = 0; i < 4; i++) {
             int columns = (i % 2 == 1 ? vColumns : hColumns);
             int rows = count / columns;
-            System.out.println(imageView[i]==null);
+          //  System.out.println(imageView[i]==null);
             int height = (int) imageView[i].getImage().getHeight() / rows;
             int width = (int) imageView[i].getImage().getWidth() / columns;
-            System.out.println(height);
-            System.out.println(width);
             spriteAnimations[i] = new SpriteAnimation(imageView[i], new Duration(1000), count, columns, 0, 0, width, height);
             final int id = i;
             new AnimationTimer() {

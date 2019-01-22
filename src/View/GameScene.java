@@ -84,7 +84,7 @@ public class GameScene {
 
 
 
-        MoveAnimal moveAnimal = new MoveAnimal("Sheep", 0, 0, 0, 1, 25, 5, 4);
+        MoveAnimal moveAnimal = new MoveAnimal("Cow", 500, 500, 0, 1, 25, 5, 4);
 
         new AnimationTimer(){
             long prv = -1;
