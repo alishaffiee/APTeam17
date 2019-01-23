@@ -2,18 +2,13 @@ package View;
 
 import Control.CommandController;
 import javafx.animation.*;
-import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -66,9 +61,18 @@ public class GameScene {
         });
     }
 
+    protected ImageView addIcon(int x, int y, int level, String name){
+        if(name.equals("well")) {
+            return addWellIcon(x, y, level);
+        }
+        ImageView image = getImage("./Graphic/Service/" + name + "/" + Integer.toString(level) + ".png");
+        image.setX(x);
+        image.setY(y);
+        root.getChildren().add(image);
+        return image;
 
-
-    private void addWellIcon(int x, int y,int level) {
+    }
+    protected ImageView addWellIcon(int x, int y,int level) {
         ImageView image = getImage("./Graphic/Service/Well/" + level + ".png");
         image.setX(x);
         image.setY(y);
@@ -106,10 +110,10 @@ public class GameScene {
                 }.start();
             }
         });
+        return image;
     }
-
     private void addWellUpgradeButton(int x, int y) {
-        ImageView image = getImage("./Graphic/UI/Icons/plus.png");
+        ImageView image = getImage("./Graphic/plus.png");
         image.setX(x);
         image.setY(y);
         root.getChildren().add(image);
@@ -120,7 +124,8 @@ public class GameScene {
                     CommandController.commandController.upgrade("well");
                     root.getChildren().remove(wellSpriteAnimation.getImageView());
                     int level = CommandController.commandController.getGame().getCurrentLevel().getMap().getWell().getLevel() + 1;
-                    addWellIcon(wellX, wellY, level);
+                    addIcon(wellX, wellY, level, "well");
+                 //   addWellIcon(wellX, wellY, level);
 
                 } catch (Exception e) {
                     System.out.println("cannot upgrade");
@@ -176,7 +181,20 @@ public class GameScene {
         addAnimalIcon("Cow", 30 + W * 1, 30);
         addAnimalIcon("Sheep", 30 + W * 2, 30);
         addAnimalIcon("Cat", 30 + W * 3, 21);
-        addWellIcon(wellX, wellY, 1);
+        //TODO depot icon
+
+
+        addIcon(wellX, wellY, 1, "well");
+
+        //TODO their upgrades
+
+        new UpgradeButton("Depot", 450, 650, null, this,
+                addIcon(450, 650, 1, "Depot"));
+        new UpgradeButton("Helicopter", 750, 630, null, this,
+                addIcon(750, 630, 1, "Helicopter"));
+        new UpgradeButton("Truck", 200, 650, null, this,
+                addIcon(200, 650, 1, "Truck"));
+
         addWellUpgradeButton(wellX + 15, wellY + 10);
 
         Label moneyLebal = new Label("Start");
@@ -194,7 +212,7 @@ public class GameScene {
                 rightBoundery - leftBoundery, downBoundery - upBoundery);
         root.getChildren().add(rectangle);
         */
-        MoveAnimal moveAnimal = new MoveAnimal("Sheep", 500, 500, 0, 1, 25, 5, 4);
+        MoveAnimal moveAnimal = new MoveAnimal("Bear", 500, 500, 0, 1, 24, 4, 4);
         moveAnimal.start();
 
         new AnimationTimer() {
@@ -213,8 +231,6 @@ public class GameScene {
         }.start();
 
         backImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            boolean flag = false;
-
             @Override
             public void handle(MouseEvent event) {
                 int x = (int)event.getX();

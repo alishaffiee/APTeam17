@@ -47,4 +47,8 @@ abstract public class Vehicle implements Serializable {
     public int getUpgradeCost() {
         return (level + 1) * 120;
     }
+
+    public int getLevel() {
+        return level;
+    }
 }

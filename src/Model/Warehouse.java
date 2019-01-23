@@ -88,4 +88,10 @@ public class Warehouse implements Upgradable, Printable, Serializable {
         }
         return ans;
     }
+
+    @Override
+    public int getLevel() {
+        System.out.println(6);
+        return level;
+    }
 }

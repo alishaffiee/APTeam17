@@ -158,7 +158,7 @@ public class CommandController {
         }
         Upgradable upgradable;
         switch (name) {
-            case "warehouse": {
+            case "depot": {
                 upgradable = game.getCurrentLevel().getMap().getWarehouse();
                 break;
             }
@@ -203,6 +203,43 @@ public class CommandController {
 
     }
 
+
+    public int getLevel(String name) {
+        if (game.getCurrentLevel() == null) {
+            return 0;
+        }
+
+        Upgradable upgradable;
+        switch (name.toLowerCase()) {
+            case "depot": {
+                upgradable = game.getCurrentLevel().getMap().getWarehouse();
+                break;
+            }
+            case "well": {
+                upgradable = game.getCurrentLevel().getMap().getWell();
+                break;
+            }
+            case "truck": {
+                upgradable = game.getCurrentLevel().getMap().getTruck();
+                break;
+            }
+            case "helicopter": {
+                upgradable = game.getCurrentLevel().getMap().getHelicopter();
+                break;
+            }
+            default: {
+                upgradable = Workshop.getWorkshopByName(name);
+            }
+        }
+
+        if (upgradable == null) {
+            System.out.println(66);
+            return 0;
+        }
+
+        return upgradable.getLevel();
+
+    }
     String read(String path) {
         String ans = "";
         try {
