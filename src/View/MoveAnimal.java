@@ -33,6 +33,8 @@ public class MoveAnimal {
         System.out.println(imageView[2]==null);
         System.out.println(imageView[3]==null);
         for (int i = 0; i < 4; i++) {
+            imageView[i].setScaleX(0.75);
+            imageView[i].setScaleY(0.75);
             int columns = (i % 2 == 1 ? vColumns : hColumns);
             int rows = count / columns;
           //  System.out.println(imageView[i]==null);
