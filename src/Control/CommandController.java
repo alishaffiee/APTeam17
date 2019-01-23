@@ -72,6 +72,7 @@ public class CommandController {
         }
         game.getCurrentLevel().getMap().addMoney(-cost);
         animal.getCell().addEntity(animal);
+        animal.start();
 
         System.out.println("Buying animal was successful.");
     }
