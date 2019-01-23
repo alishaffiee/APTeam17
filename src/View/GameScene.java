@@ -82,7 +82,8 @@ public class GameScene {
             }
         }.start();
 
-
+        Rectangle rectangle = new Rectangle(212, 190, 370, 290);
+        root.getChildren().add(rectangle);
 
         MoveAnimal moveAnimal = new MoveAnimal("Sheep", 500, 500, 0, 1, 25, 5, 4);
         moveAnimal.start();
@@ -104,9 +105,5 @@ public class GameScene {
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    public Group getRoot() {
-        return root;
     }
 }

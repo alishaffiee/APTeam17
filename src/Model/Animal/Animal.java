@@ -21,8 +21,8 @@ abstract public class Animal extends Entity implements Serializable {
     }
 
     protected void start() {
-        moveAnimal.setPositionX(this.cell.getPositionX());
-        moveAnimal.setPositionY(this.cell.getPositionY());
+        moveAnimal.setPositionX(this.cell.getPositionX() + 212);
+        moveAnimal.setPositionY(this.cell.getPositionY() + 190);
         moveAnimal.start();
     }
 
