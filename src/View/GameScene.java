@@ -59,7 +59,45 @@ public class GameScene {
             }
         });
     }
+    private void addWellIcon(int x,int y){
+        ImageView image = getImage("./Graphic/Service/Well/01.png");
+        image.setX(x);
+        image.setY(y);
+        int width = (int) image.getImage().getWidth();
+        int height = (int) image.getImage().getHeight();
+        SpriteAnimation wellSpriteAnimation = new SpriteAnimation(image, new Duration(1000), 16, 4, 0, 0, width/4, height/4);
+        wellSpriteAnimation.interpolate(1);
+        root.getChildren().add(image);
+        image.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            boolean flag = false;
+            @Override
+            public void handle(MouseEvent event) {
+                if(flag)
+                    return;
+                flag = true;
+                System.out.println("Well");
+                CommandController.commandController.well();
+                new AnimationTimer() {
+                    long prv = -1, count = 0;
 
+                    @Override
+                    public void handle(long now) {
+                        if (now - prv < 5e7) {
+                            return;
+                        }
+                        count++;
+                        if(count == 30) {
+                            stop();
+                            flag = false;
+                        }
+                        prv = now;
+                        wellSpriteAnimation.interpolate(0.1);
+                    }
+                }.start();
+            }
+        });
+
+    }
     public void start() {
         ImageView backImage = getImage("./Graphic/back.png");
         backImage.setX(0);
@@ -70,7 +108,7 @@ public class GameScene {
         addAnimalIcon("Cow", 70, 20);
         addAnimalIcon("Sheep", 120, 20);
         addAnimalIcon("Cat", 170, 14);
-
+        addWellIcon(380, 25);
         Label moneyLebal = new Label("Start");
         moneyLebal.relocate(550, 20);
         root.getChildren().add(moneyLebal);
@@ -81,10 +119,10 @@ public class GameScene {
                 moneyLebal.setText("Money : " + CommandController.commandController.getGame().getCurrentLevel().getMap().getMoney());
             }
         }.start();
-
+        /*
         Rectangle rectangle = new Rectangle(212, 190, 370, 290);
         root.getChildren().add(rectangle);
-
+        */
         MoveAnimal moveAnimal = new MoveAnimal("Sheep", 500, 500, 0, 1, 25, 5, 4);
         moveAnimal.start();
 
