@@ -27,7 +27,8 @@ public class GameScene {
     public static Group root;
     private Stage primaryStage;
     private Scene scene;
-
+    private final int wellX = 620;
+    private final int wellY = 110;
     protected static ImageView getImage(String path) {
         try {
             return new ImageView(new Image(new FileInputStream(path)));
@@ -38,7 +39,7 @@ public class GameScene {
 
     private GameScene() {
         root = new Group();
-        scene = new Scene(root, 800, 600);
+        scene = new Scene(root, 1200, 900);
     }
 
     public void setPrimaryStage(Stage primaryStage) {
@@ -101,9 +102,7 @@ public class GameScene {
                 }.start();
             }
         });
-
     }
-
     public void addWellUpgradeButton(int x, int y) {
         ImageView image = getImage("./Graphic/UI/Icons/plus.png");
         image.setX(x);
@@ -118,7 +117,7 @@ public class GameScene {
                     CommandController.commandController.upgrade("well");
                     root.getChildren().remove(wellSpriteAnimation.getImageView());
                     int level = CommandController.commandController.getGame().getCurrentLevel().getMap().getWell().getLevel() + 1;
-                    addWellIcon(380, 25, level);
+                    addWellIcon(wellX, wellY, level);
 
                 } catch (Exception e) {
                     System.out.println("cannot upgrade");
@@ -127,19 +126,30 @@ public class GameScene {
             }
         });
     }
+    public void addGrass(int x,int y){
+        ImageView image = getImage("./Graphic/Grass/grass1.png");
+        image.setX(x);
+        image.setY(y);
+        int width = (int) image.getImage().getWidth();
+        int height = (int) image.getImage().getHeight();
+        SpriteAnimation SpriteAnimation = new SpriteAnimation(image, new Duration(1000), 16, 4, 0, 0, width / 4, height / 4);
+        SpriteAnimation.interpolate(1);
+        root.getChildren().add(image);
+    }
 
     public void start() {
         ImageView backImage = getImage("./Graphic/back.png");
         backImage.setX(0);
         backImage.setY(0);
         root.getChildren().add(backImage);
-        int W = 70;
-        addAnimalIcon("Chicken", 20, 20);
-        addAnimalIcon("Cow", 20 + W * 1, 20);
-        addAnimalIcon("Sheep", 20 + W * 2, 20);
-        addAnimalIcon("Cat", 20 + W * 3, 14);
-        addWellIcon(380, 25, 1);
-        addWellUpgradeButton(400, 40);
+        int W = 105;
+        addAnimalIcon("Chicken", 30, 30);
+        addAnimalIcon("Cow", 30 + W * 1, 30);
+        addAnimalIcon("Sheep", 30 + W * 2, 30);
+        addAnimalIcon("Cat", 30 + W * 3, 21);
+        addWellIcon(wellX, wellY, 1);
+        addWellUpgradeButton(wellX + 15, wellY + 10);
+        addGrass(450, 600);
         Label moneyLebal = new Label("Start");
         moneyLebal.relocate(550, 20);
         root.getChildren().add(moneyLebal);
@@ -150,10 +160,10 @@ public class GameScene {
                 moneyLebal.setText("Money : " + CommandController.commandController.getGame().getCurrentLevel().getMap().getMoney());
             }
         }.start();
-        /*
-        Rectangle rectangle = new Rectangle(212, 190, 370, 290);
+
+        Rectangle rectangle = new Rectangle(318, 285, 555, 435);
         root.getChildren().add(rectangle);
-        */
+
         MoveAnimal moveAnimal = new MoveAnimal("Sheep", 500, 500, 0, 1, 25, 5, 4);
         moveAnimal.start();
 
@@ -171,6 +181,17 @@ public class GameScene {
 
             }
         }.start();
+
+        backImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            boolean flag = false;
+
+            @Override
+            public void handle(MouseEvent event) {
+                int x = (int)event.getX();
+                int y = (int) event.getY();
+                addGrass(x - 24, y - 24);
+            }
+        });
 
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
