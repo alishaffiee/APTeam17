@@ -51,13 +51,28 @@ abstract public class Animal extends Entity implements Serializable {
         }
     }
 
-    protected Cell move(Cell start, Cell end, int speed) {
+    protected Cell move(Cell start, Cell end) {
         int dx = start.getPositionX() - end.getPositionX();
         int dy = start.getPositionY() - end.getPositionY();
-        double distance = Math.sqrt(dx * dx + dy * dy);
-        int x = start.getPositionX() + (int) Math.min(1.0, speed / distance) * dx;
-        int y = start.getPositionY() + (int) Math.min(1.0, speed / distance) * dy;
-        return map.getCell(x, y);
+        if(dx != 0){
+            if(start.getPositionX() > end.getPositionX()){
+                moveAnimal.setDirection(0);
+                return map.getCell(start.getPositionX() - 1, start.getPositionY());
+            }
+            else{
+                moveAnimal.setDirection(2);
+                return map.getCell(start.getPositionX() + 1, start.getPositionY());
+            }
+        }
+        else {
+            if (start.getPositionY() > end.getPositionY()) {
+                moveAnimal.setDirection(1);
+                return map.getCell(start.getPositionX(), start.getPositionY() - 1);
+            } else {
+                moveAnimal.setDirection(3);
+                return map.getCell(start.getPositionX(), start.getPositionY() + 1);
+            }
+        }
     }
     public String getName() {
         return name;

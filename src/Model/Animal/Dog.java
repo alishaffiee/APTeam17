@@ -24,7 +24,7 @@ public class Dog extends Animal {
     @Override
     public Cell nextMove() {
         if (map.getNearestWildAnimal(cell) != null) {
-            return move(cell, map.getNearestWildAnimal(cell), getSpeed());
+            return move(cell, map.getNearestWildAnimal(cell));
         }
         return randomMove(cell);
     }

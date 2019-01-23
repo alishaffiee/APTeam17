@@ -30,7 +30,7 @@ public class Pet extends Animal {
         if (isHungry() && map.getNearestGrass(cell) != null) {
             if (super.cell.hasGrass())
                 return super.cell;
-            return move(cell, map.getNearestGrass(cell), getSpeed());
+            return move(cell, map.getNearestGrass(cell));
         }
         return randomMove(cell);
     }
