@@ -12,8 +12,8 @@ public class MoveAnimal {
 
     private int positionX, positionY, direction, step;
 
-    private int dx[] = {-1, 0, +1, 0};
-    private int dy[] = {0, -1, 0, +1};
+    public static int dx[] = {-1, 0, +1, 0};
+    public static int dy[] = {0, -1, 0, +1};
     private Group root;
 
     public MoveAnimal(String name, int positionX, int positionY, int direction,
