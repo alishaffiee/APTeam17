@@ -1,6 +1,6 @@
 {
   "goal_money" : 100,
-  "initial_money" : 120,
+  "initial_money" : 100000,
   "goals" : [
     {
       "item" : "Egg",

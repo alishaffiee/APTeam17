@@ -20,7 +20,7 @@ abstract public class Animal extends Entity implements Serializable {
         this.cell = map.getRandomCell();
     }
 
-    protected void start() {
+    public void start() {
         moveAnimal.setPositionX(this.cell.getPositionX() + 212);
         moveAnimal.setPositionY(this.cell.getPositionY() + 190);
         moveAnimal.start();
