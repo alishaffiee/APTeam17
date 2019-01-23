@@ -8,13 +8,13 @@ import java.util.ArrayList;
 public class Grass extends Entity {
     private int turnsToDie, value;
     private ArrayList<Cell> cells = new ArrayList<>();
-
+    private final int offset = 4;
     public Grass(Cell cell) {
         Map map = CommandController.commandController.getGame().getCurrentLevel().getMap();
         int x = cell.getPositionX();
         int y = cell.getPositionY();
-        for(int dx=-4; dx<=4; dx++){
-            for(int dy=-4; dy<=4; dy++){
+        for(int dx=-offset; dx<offset; dx++){
+            for(int dy=-offset; dy<offset; dy++){
                 Cell tmp = map.getCell(x + dx, y + dy);
                 if(tmp != null) {
                     cells.add(tmp);

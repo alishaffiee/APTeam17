@@ -28,10 +28,6 @@ public class MoveAnimal {
         imageView[1] = GameScene.getImage("./Graphic/Animals/" + name + "/up.png");
         imageView[2] = GameScene.getImage("./Graphic/Animals/" + name + "/right.png");
         imageView[3] = GameScene.getImage("./Graphic/Animals/" + name + "/down.png");
-        System.out.println(imageView[0]==null);
-        System.out.println(imageView[1]==null);
-        System.out.println(imageView[2]==null);
-        System.out.println(imageView[3]==null);
         for (int i = 0; i < 4; i++) {
             imageView[i].setScaleX(0.75);
             imageView[i].setScaleY(0.75);

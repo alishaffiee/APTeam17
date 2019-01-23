@@ -1,9 +1,12 @@
 package Values;
 
+import Control.Game;
+import View.GameScene;
+
 public class Values {
     public static int
-            MAP_HEIGHT = 350,
-            MAP_WIDTH = 270,
+            MAP_HEIGHT = GameScene.downBoundery - GameScene.upBoundery,
+            MAP_WIDTH = GameScene.rightBoundery - GameScene.leftBoundery,
             WORK_SHOP_MAX_LEVEL = 4,
             CHICKEN_PRODUCT_TIME = 20,
             COW_PRODUCT_TIME = 20,

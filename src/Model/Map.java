@@ -4,6 +4,7 @@ import Interfaces.Printable;
 import Model.Animal.Animal;
 import Model.Vehicle.Helicopter;
 import Model.Vehicle.Truck;
+import Values.Values;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,12 +19,14 @@ public class Map implements Printable, Serializable {
     private ArrayList<Workshop> workshops;
 
     public Map(int height, int width, int initialMoney) {
+
         this.height = height;
         this.width = width;
         money = initialMoney;
         cells = new ArrayList<>();
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 cells.add(new Cell(i, j, this));
             }
         }
@@ -142,7 +145,7 @@ public class Map implements Printable, Serializable {
 
     public Cell getRandomCell() {
         int id = (int) (Math.random() * cells.size());
-        System.out.println(id);
+        //System.out.println(id);
         return cells.get(id);
     }
 

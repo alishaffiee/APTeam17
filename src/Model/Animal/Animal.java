@@ -3,6 +3,7 @@ package Model.Animal;
 import Model.Cell;
 import Model.Entity;
 import Model.Map;
+import View.GameScene;
 import View.MoveAnimal;
 
 import java.io.Serializable;
@@ -21,8 +22,9 @@ abstract public class Animal extends Entity implements Serializable {
     }
 
     public void start() {
-        moveAnimal.setPositionX(this.cell.getPositionX() + 212);
-        moveAnimal.setPositionY(this.cell.getPositionY() + 190);
+
+        moveAnimal.setPositionX(this.cell.getPositionX() + GameScene.leftBoundery);
+        moveAnimal.setPositionY(this.cell.getPositionY() + GameScene.upBoundery);
         moveAnimal.start();
     }
 

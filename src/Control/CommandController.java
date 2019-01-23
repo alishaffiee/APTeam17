@@ -108,22 +108,14 @@ public class CommandController {
     public void plant(int x, int y) {
         if (game.getCurrentLevel() == null) {
             System.out.println("level not found.");
-            return;
+            throw new RuntimeException("level not found.");
         }
         if (game.getCurrentLevel().getMap().getWell().getWaterValue() == 0) {
             System.out.println("not enough water.");
-            return;
+            throw new RuntimeException("not enough water.");
         }
-        for (int dx = -3; dx < 4; dx++) {
-            for (int dy = -3; dy < 4; dy++) {
-                Cell cell = game.getCurrentLevel().getMap().getCell(x + dx, y + dy);
-                if (cell == null)
-                    continue;
-                if (cell.hasGrass())
-                    cell.getEntities().remove(cell.getGrass());
-                cell.addEntity(new Grass(cell));
-            }
-        }
+
+        Grass grass = new Grass(game.getCurrentLevel().getMap().getCell(x, y));
         game.getCurrentLevel().getMap().getWell().decreaseWater();
         System.out.println("plant was successful.");
     }
