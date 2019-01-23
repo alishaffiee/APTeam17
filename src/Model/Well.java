@@ -62,4 +62,8 @@ public class Well implements Upgradable, Printable, Serializable {
         System.out.println("water value = " + waterValue);
         System.out.println("level = " + level);
     }
+
+    public int getLevel() {
+        return level;
+    }
 }

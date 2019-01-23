@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.util.Random;
 
 public class GameScene {
+    private SpriteAnimation wellSpriteAnimation;
     public static GameScene gameScene = new GameScene();
     public static Group root;
     private Stage primaryStage;
@@ -59,20 +60,24 @@ public class GameScene {
             }
         });
     }
-    private void addWellIcon(int x,int y){
-        ImageView image = getImage("./Graphic/Service/Well/01.png");
+
+
+
+    private void addWellIcon(int x, int y,int level) {
+        ImageView image = getImage("./Graphic/Service/Well/" + level + ".png");
         image.setX(x);
         image.setY(y);
         int width = (int) image.getImage().getWidth();
         int height = (int) image.getImage().getHeight();
-        SpriteAnimation wellSpriteAnimation = new SpriteAnimation(image, new Duration(1000), 16, 4, 0, 0, width/4, height/4);
+        wellSpriteAnimation = new SpriteAnimation(image, new Duration(1000), 16, 4, 0, 0, width / 4, height / 4);
         wellSpriteAnimation.interpolate(1);
         root.getChildren().add(image);
         image.setOnMouseClicked(new EventHandler<MouseEvent>() {
             boolean flag = false;
+
             @Override
             public void handle(MouseEvent event) {
-                if(flag)
+                if (flag)
                     return;
                 flag = true;
                 System.out.println("Well");
@@ -86,7 +91,7 @@ public class GameScene {
                             return;
                         }
                         count++;
-                        if(count == 30) {
+                        if (count == 30) {
                             stop();
                             flag = false;
                         }
@@ -98,6 +103,31 @@ public class GameScene {
         });
 
     }
+
+    public void addWellUpgradeButton(int x, int y) {
+        ImageView image = getImage("./Graphic/UI/Icons/plus.png");
+        image.setX(x);
+        image.setY(y);
+        root.getChildren().add(image);
+        image.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            boolean flag = false;
+
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    CommandController.commandController.upgrade("well");
+                    root.getChildren().remove(wellSpriteAnimation.getImageView());
+                    int level = CommandController.commandController.getGame().getCurrentLevel().getMap().getWell().getLevel() + 1;
+                    addWellIcon(380, 25, level);
+
+                } catch (Exception e) {
+                    System.out.println("cannot upgrade");
+                }
+
+            }
+        });
+    }
+
     public void start() {
         ImageView backImage = getImage("./Graphic/back.png");
         backImage.setX(0);
@@ -108,7 +138,8 @@ public class GameScene {
         addAnimalIcon("Cow", 70, 20);
         addAnimalIcon("Sheep", 120, 20);
         addAnimalIcon("Cat", 170, 14);
-        addWellIcon(380, 25);
+        addWellIcon(380, 25, 1);
+        addWellUpgradeButton(400, 40);
         Label moneyLebal = new Label("Start");
         moneyLebal.relocate(550, 20);
         root.getChildren().add(moneyLebal);
@@ -126,12 +157,13 @@ public class GameScene {
         MoveAnimal moveAnimal = new MoveAnimal("Sheep", 500, 500, 0, 1, 25, 5, 4);
         moveAnimal.start();
 
-        new AnimationTimer(){
+        new AnimationTimer() {
             long prv = -1;
+
             @Override
             public void handle(long now) {
                 if (now - prv < 2e9) {
-                 //   System.out.println(1);
+                    //   System.out.println(1);
                     return;
                 }
                 prv = now;
