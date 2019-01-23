@@ -27,8 +27,8 @@ public class GameScene {
     public static Group root;
     private Stage primaryStage;
     private Scene scene;
-    private final int wellX = 620;
-    private final int wellY = 110;
+    private final int wellX = 570;
+    private final int wellY = 80;
     protected static ImageView getImage(String path) {
         try {
             return new ImageView(new Image(new FileInputStream(path)));
@@ -39,7 +39,7 @@ public class GameScene {
 
     private GameScene() {
         root = new Group();
-        scene = new Scene(root, 1200, 900);
+        scene = new Scene(root, 1100, 825);
     }
 
     public void setPrimaryStage(Stage primaryStage) {
@@ -142,7 +142,7 @@ public class GameScene {
         backImage.setX(0);
         backImage.setY(0);
         root.getChildren().add(backImage);
-        int W = 105;
+        int W = 80;
         addAnimalIcon("Chicken", 30, 30);
         addAnimalIcon("Cow", 30 + W * 1, 30);
         addAnimalIcon("Sheep", 30 + W * 2, 30);
@@ -160,10 +160,10 @@ public class GameScene {
                 moneyLebal.setText("Money : " + CommandController.commandController.getGame().getCurrentLevel().getMap().getMoney());
             }
         }.start();
-
+        /*
         Rectangle rectangle = new Rectangle(318, 285, 555, 435);
         root.getChildren().add(rectangle);
-
+        */
         MoveAnimal moveAnimal = new MoveAnimal("Sheep", 500, 500, 0, 1, 25, 5, 4);
         moveAnimal.start();
 
