@@ -39,16 +39,17 @@ abstract public class Animal extends Entity implements Serializable {
     }
 
     protected Cell randomMove(Cell cell) {
-        while (true) {
-            Random random = new Random();
-            int speed = random.nextInt(getSpeed());
-            int x = random.nextInt(5);
-            int[] dx = {0, -1, 1, 0, 0};
-            int[] dy = {0, 0, 0, 1, -1};
-            Cell cell1 = map.getCell(cell.getPositionX() + dx[x] * speed, cell.getPositionY() + dy[x] * speed);
-            if (cell1 != null)
-                return cell1;
+        int x = this.cell.getPositionX();
+        int y = this.cell.getPositionY();
+        int direction = moveAnimal.getDirection();
+        int p = x + MoveAnimal.dx[direction];
+        int q = y + MoveAnimal.dy[direction];
+        if(map.getCell(p, q) != null) {
+            return map.getCell(p, q);
         }
+        moveAnimal.setDirection((moveAnimal.getDirection() + 1) % 4);
+        direction = moveAnimal.getDirection();
+        return map.getCell(x + MoveAnimal.dx[direction], y + MoveAnimal.dy[direction]);
     }
 
     protected Cell move(Cell start, Cell end) {
