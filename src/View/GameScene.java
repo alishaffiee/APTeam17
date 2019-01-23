@@ -133,11 +133,11 @@ public class GameScene {
         backImage.setX(0);
         backImage.setY(0);
         root.getChildren().add(backImage);
-
+        int W = 70;
         addAnimalIcon("Chicken", 20, 20);
-        addAnimalIcon("Cow", 70, 20);
-        addAnimalIcon("Sheep", 120, 20);
-        addAnimalIcon("Cat", 170, 14);
+        addAnimalIcon("Cow", 20 + W * 1, 20);
+        addAnimalIcon("Sheep", 20 + W * 2, 20);
+        addAnimalIcon("Cat", 20 + W * 3, 14);
         addWellIcon(380, 25, 1);
         addWellUpgradeButton(400, 40);
         Label moneyLebal = new Label("Start");
