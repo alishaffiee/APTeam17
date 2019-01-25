@@ -1,6 +1,7 @@
 package View;
 
 import Control.CommandController;
+import Model.Well;
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -9,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -103,6 +106,7 @@ public class GameScene {
                         }
                         count++;
                         if (count == 30) {
+                            CommandController.commandController.getGame().getCurrentLevel().getMap().getWell().fill();
                             stop();
                             flag = false;
                         }
@@ -176,6 +180,23 @@ public class GameScene {
         }.start();
     }
 
+    private void addWaterValue(int x, int y) {
+        Rectangle rectangle = new Rectangle(x, y, 7, 110);
+        rectangle.setFill(Color.BLUE);
+        root.getChildren().add(rectangle);
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                Well well = CommandController.commandController.getGame().getCurrentLevel().getMap().getWell();
+                int capacity = well.getCapacity();
+                int waterValue = well.getWaterValue();
+                rectangle.setY(y + 110 * (capacity - waterValue) / capacity);
+                rectangle.setHeight(110 * waterValue / capacity);
+
+            }
+        }.start();
+    }
+
     public void start() {
         ImageView backImage = getImage("./Graphic/back.png");
         backImage.setX(0);
@@ -197,7 +218,8 @@ public class GameScene {
         new UpgradeButton("Truck", 200, 650, null, this,
                 addIcon(200, 650, 1, "Truck"));
 
-        addWellUpgradeButton(wellX + 15, wellY + 10);
+        addWellUpgradeButton(wellX , wellY + 10);
+        addWaterValue(wellX + 130, wellY + 10);
 
         Label moneyLebal = new Label("Start");
         moneyLebal.relocate(550, 20);

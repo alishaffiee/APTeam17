@@ -126,7 +126,7 @@ public class CommandController {
             return;
         }
         try {
-            game.getCurrentLevel().getMap().fillWell();
+          //  game.getCurrentLevel().getMap().fillWell();
             System.out.println("filling well was successful.");
         } catch (Exception e) {
             System.out.println("Not enough money");

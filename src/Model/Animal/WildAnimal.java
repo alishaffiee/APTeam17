@@ -48,7 +48,6 @@ public class WildAnimal extends Animal {
     }
 
     public void nextTurn() {
-        System.out.println(1);
     }
 
     public int getVolume() {

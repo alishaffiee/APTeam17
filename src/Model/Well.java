@@ -51,6 +51,7 @@ public class Well implements Upgradable, Printable, Serializable {
         if (level == 3)
             throw new RuntimeException("Already at max level.");
         level++;
+        waterValue = getCapacity();
     }
 
     public int getUpgradeCost() {
