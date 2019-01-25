@@ -30,6 +30,7 @@ public class WildAnimal extends Animal {
             imageViews[i].setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
+                    System.out.println(1);
                     moveAnimal.kill();
                     cell.getEntities().remove(this);
                     dead = true;
@@ -64,14 +65,16 @@ public class WildAnimal extends Animal {
 
     @Override
     public Cell nextMove() {
-        Random random = new Random();
-        if (cell.getPets().size() > 0 && random.nextInt(10) < 2) {
-            Pet pet = cell.getPets().get(0);
-            cell.delete(pet);
+        Cell cell1 = map.getNearestAnimal(cell);
+        if (cell1 != null && cell1.getPets().size() > 0 && map.getDistance(cell1, cell) < 600) {
+            Pet pet = cell1.getPets().get(0);
+            cell1.delete(pet);
+            pet.moveAnimal.kill();
             return cell;
         }
+
         if (map.getNearestAnimal(cell) != null) {
-            return move(cell, map.getNearestItem(cell));
+            return move(cell, map.getNearestAnimal(cell));
         }
         return randomMove();
     }

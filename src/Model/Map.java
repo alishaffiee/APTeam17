@@ -104,7 +104,7 @@ public class Map implements Printable, Serializable {
         int mn = (int) 2e9;
         Cell ans = null;
         for (Cell cell1 : cells) {
-            if (cell1.hasGrass() && mn < getDistance(cell, cell1)) {
+            if (cell1.hasGrass() && mn > getDistance(cell, cell1)) {
                 mn = getDistance(cell, cell1);
                 ans = cell1;
             }
@@ -113,10 +113,10 @@ public class Map implements Printable, Serializable {
     }
 
     public Cell getNearestAnimal(Cell cell) {
-        int mn = (int) 2e9;
+        long mn = (long) 1e18;
         Cell ans = null;
         for (Cell cell1 : cells) {
-            if (cell1.getPets().size() > 0 && mn < getDistance(cell, cell1)) {
+            if (cell1.getPets().size() > 0 && mn > getDistance(cell, cell1)) {
                 mn = getDistance(cell, cell1);
                 ans = cell1;
             }
@@ -128,7 +128,7 @@ public class Map implements Printable, Serializable {
         int mn = (int) 2e9;
         Cell ans = null;
         for (Cell cell1 : cells) {
-            if (cell1.getItems().size() > 0 && mn < getDistance(cell, cell1)) {
+            if (cell1.getItems().size() > 0 && mn > getDistance(cell, cell1)) {
                 mn = getDistance(cell, cell1);
                 ans = cell1;
             }
@@ -136,11 +136,22 @@ public class Map implements Printable, Serializable {
         return ans;
     }
 
+    public ArrayList<Cell> getNearCell(Cell cell, int radius) {
+        ArrayList<Cell> cells = new ArrayList<>();
+        for(int dx = -radius; dx <= radius; dx++) {
+            for(int dy = -radius; dy <= radius; dy++) {
+                if(getCell(cell.getPositionX() + dx, cell.getPositionY() + dy) != null)
+                    cells.add(getCell(cell.getPositionX() + dx, cell.getPositionY() + dy));
+            }
+        }
+        return cells;
+    }
+
     public Cell getNearestWildAnimal(Cell cell) {
         int mn = (int) 2e9;
         Cell ans = null;
         for (Cell cell1 : cells) {
-            if (cell1.getWildAnimals().size() > 0 && mn < getDistance(cell, cell1)) {
+            if (cell1.getWildAnimals().size() > 0 && mn > getDistance(cell, cell1)) {
                 mn = getDistance(cell, cell1);
                 ans = cell1;
             }
