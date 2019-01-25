@@ -35,9 +35,14 @@ public class SpriteAnimation extends Transition {
     }
 
     @Override
-    protected void interpolate(double k) {
-        int index = lastIndex + 1;
+    protected void interpolate(double frac) {
+
+    }
+
+    protected void interpolate(int k) {
+        int index = lastIndex + k;
         if(index == count - 1) index = 0;
+        if(index == -1) index = count - 7;
         if (index != lastIndex) {
             final int x = (index % columns) * width + offsetX;
             final int y = (index / columns) * height + offsetY;

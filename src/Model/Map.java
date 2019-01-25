@@ -2,6 +2,7 @@ package Model;
 
 import Interfaces.Printable;
 import Model.Animal.Animal;
+import Model.Animal.WildAnimal;
 import Model.Vehicle.Helicopter;
 import Model.Vehicle.Truck;
 import Values.Values;
@@ -47,6 +48,7 @@ public class Map implements Printable, Serializable {
         for (Animal animal : animals) {
             animal.setCell(animal.nextMove());
             animal.getCell().addEntity(animal);
+            animal.getMoveAnimal().nextMove();
         }
     }
 
@@ -62,7 +64,10 @@ public class Map implements Printable, Serializable {
         ArrayList<Animal> cats = new ArrayList<>();
 
         for (Cell cell : cells) {
-            wildAnimals.addAll(cell.getWildAnimals());
+            for(WildAnimal wildAnimal : cell.getWildAnimals()) {
+                if(!wildAnimal.isDead())
+                    wildAnimals.add(wildAnimal);
+            }
             pets.addAll(cell.getPets());
             cats.addAll(cell.getCats());
             dogs.addAll(cell.getDogs());

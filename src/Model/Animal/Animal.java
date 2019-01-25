@@ -22,9 +22,8 @@ abstract public class Animal extends Entity implements Serializable {
     }
 
     public void start() {
-
-        moveAnimal.setPositionX(this.cell.getPositionX() + GameScene.leftBoundery);
-        moveAnimal.setPositionY(this.cell.getPositionY() + GameScene.upBoundery);
+        moveAnimal.setPositionX(cell.getPositionX() + GameScene.leftBoundery);
+        moveAnimal.setPositionY(cell.getPositionY() + GameScene.upBoundery);
         moveAnimal.start();
     }
 
@@ -40,7 +39,7 @@ abstract public class Animal extends Entity implements Serializable {
         return cell;
     }
 
-    protected Cell randomMove(Cell cell) {
+    protected Cell randomMove() {
         int x = this.cell.getPositionX();
         int y = this.cell.getPositionY();
         int direction = moveAnimal.getDirection();
@@ -55,9 +54,7 @@ abstract public class Animal extends Entity implements Serializable {
     }
 
     protected Cell move(Cell start, Cell end) {
-        int dx = start.getPositionX() - end.getPositionX();
-        int dy = start.getPositionY() - end.getPositionY();
-        if(dx != 0){
+        if(start.getPositionX() != end.getPositionX()){
             if(start.getPositionX() > end.getPositionX()){
                 moveAnimal.setDirection(0);
                 return map.getCell(start.getPositionX() - 1, start.getPositionY());
@@ -79,5 +76,9 @@ abstract public class Animal extends Entity implements Serializable {
     }
     public String getName() {
         return name;
+    }
+
+    public MoveAnimal getMoveAnimal() {
+        return moveAnimal;
     }
 }

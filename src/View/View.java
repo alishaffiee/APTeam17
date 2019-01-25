@@ -23,7 +23,7 @@ public class View extends Application {
     public Stage primaryStage;
 
     private void debug() {
-        CommandController.commandController.run("level0");
+        CommandController.commandController.run("Level0");
     }
 
     @Override

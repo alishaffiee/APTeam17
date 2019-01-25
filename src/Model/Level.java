@@ -53,14 +53,20 @@ public class Level implements Serializable {
 
     public void nextTurn() {
         Random random = new Random();
-        while (random.nextInt(100) < 2) {
+
+        if (random.nextInt(400) < 2) {
             Bear bear = new Bear(map);
             bear.getCell().addEntity(bear);
+            bear.start();
+            bear.setKillAnimation();
         }
-        while (random.nextInt(100) < 2) {
+        if (random.nextInt(400) < 2) {
             Lion lion = new Lion(map);
             lion.getCell().addEntity(lion);
+            lion.start();
+            lion.setKillAnimation();
         }
+
         map.nextTurn();
     }
 

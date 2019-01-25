@@ -27,15 +27,17 @@ public class Pet extends Animal {
     }
 
     public Cell nextMove() {
-        if (isHungry() && map.getNearestGrass(cell) != null) {
+        if (false && isHungry() && map.getNearestGrass(cell) != null) {
             if (super.cell.hasGrass())
                 return super.cell;
             return move(cell, map.getNearestGrass(cell));
         }
-        return randomMove(cell);
+        return randomMove();
     }
 
     public void nextTurn() {
+        return;
+        /*
         turnsToDie--;
         turnsToProduct--;
         if (turnsToProduct == 0) {
@@ -50,5 +52,6 @@ public class Pet extends Animal {
         if (turnsToDie == -1) {
             cell.delete(this);
         }
+        */
     }
 }

@@ -241,6 +241,7 @@ public class CommandController {
 
     }
     String read(String path) {
+        System.out.println(path);
         String ans = "";
         try {
             FileReader inputStream = new FileReader(path);
@@ -280,6 +281,7 @@ public class CommandController {
 
     public void run(String mapName) {
         String json = read("./Data/Levels/" + mapName + ".json");
+        System.out.println(read("GameScene.java"));
         JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
 
         int levelNumber = Integer.valueOf(mapName.substring(5));
@@ -414,8 +416,6 @@ public class CommandController {
             System.out.println("Level completed!");
             game.startLevel(null);
         }
-
-        System.out.println("passing time was successful.");
     }
 
     public Game getGame() {

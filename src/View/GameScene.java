@@ -25,9 +25,10 @@ public class GameScene {
     private final int wellX = 570;
     private final int wellY = 80;
     public final static int leftBoundery = 280;
-    public final static int rightBoundery = 830;
+    public final static int rightBoundery = 805;
     public final static int upBoundery = 250;
-    public final static int downBoundery = 660;
+    public final static int downBoundery = 610;
+
     protected static ImageView getImage(String path) {
         try {
             return new ImageView(new Image(new FileInputStream(path)));
@@ -61,8 +62,8 @@ public class GameScene {
         });
     }
 
-    protected ImageView addIcon(int x, int y, int level, String name){
-        if(name.equals("well")) {
+    protected ImageView addIcon(int x, int y, int level, String name) {
+        if (name.equals("well")) {
             return addWellIcon(x, y, level);
         }
         ImageView image = getImage("./Graphic/Service/" + name + "/" + Integer.toString(level) + ".png");
@@ -72,7 +73,8 @@ public class GameScene {
         return image;
 
     }
-    protected ImageView addWellIcon(int x, int y,int level) {
+
+    protected ImageView addWellIcon(int x, int y, int level) {
         ImageView image = getImage("./Graphic/Service/Well/" + level + ".png");
         image.setX(x);
         image.setY(y);
@@ -105,13 +107,14 @@ public class GameScene {
                             flag = false;
                         }
                         prv = now;
-                        wellSpriteAnimation.interpolate(0.1);
+                        wellSpriteAnimation.interpolate(1);
                     }
                 }.start();
             }
         });
         return image;
     }
+
     private void addWellUpgradeButton(int x, int y) {
         ImageView image = getImage("./Graphic/plus.png");
         image.setX(x);
@@ -125,7 +128,7 @@ public class GameScene {
                     root.getChildren().remove(wellSpriteAnimation.getImageView());
                     int level = CommandController.commandController.getGame().getCurrentLevel().getMap().getWell().getLevel() + 1;
                     addIcon(wellX, wellY, level, "well");
-                 //   addWellIcon(wellX, wellY, level);
+                    //   addWellIcon(wellX, wellY, level);
 
                 } catch (Exception e) {
                     System.out.println("cannot upgrade");
@@ -134,10 +137,11 @@ public class GameScene {
             }
         });
     }
-    private void addGrass(int x,int y){
-        if(x < leftBoundery || x > rightBoundery)
+
+    private void addGrass(int x, int y) {
+        if (x < leftBoundery || x > rightBoundery)
             return;
-        if(y < upBoundery || y > downBoundery)
+        if (y < upBoundery || y > downBoundery)
             return;
         try {
             CommandController.commandController.plant(x - leftBoundery, y - upBoundery);
@@ -155,6 +159,7 @@ public class GameScene {
         root.getChildren().add(image);
         new AnimationTimer() {
             long prv = -1, count = 0;
+
             @Override
             public void handle(long now) {
                 if (now - prv < 5e7) {
@@ -162,7 +167,7 @@ public class GameScene {
                     return;
                 }
                 count++;
-                if(count == 13)
+                if (count == 13)
                     stop();
                 prv = now;
                 spriteAnimation.interpolate(1);
@@ -180,13 +185,10 @@ public class GameScene {
         addAnimalIcon("Chicken", 30, 30);
         addAnimalIcon("Cow", 30 + W * 1, 30);
         addAnimalIcon("Sheep", 30 + W * 2, 30);
-        addAnimalIcon("Cat", 30 + W * 3, 21);
-        //TODO depot icon
-
+        addAnimalIcon("Cat", 30 + W * 3, 30);
+        addAnimalIcon("Dog", 30 + W * 4, 30);
 
         addIcon(wellX, wellY, 1, "well");
-
-        //TODO their upgrades
 
         new UpgradeButton("Depot", 450, 650, null, this,
                 addIcon(450, 650, 1, "Depot"));
@@ -212,32 +214,29 @@ public class GameScene {
                 rightBoundery - leftBoundery, downBoundery - upBoundery);
         root.getChildren().add(rectangle);
         */
-        MoveAnimal moveAnimal = new MoveAnimal("Bear", 500, 500, 0, 1, 24, 4, 4);
-        moveAnimal.start();
+
+        backImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                int x = (int) event.getX();
+                int y = (int) event.getY();
+                addGrass(x - 24, y - 24);
+            }
+        });
 
         new AnimationTimer() {
             long prv = -1;
 
             @Override
             public void handle(long now) {
-                if (now - prv < 2e9) {
+                if (now - prv < 2e7) {
                     //   System.out.println(1);
                     return;
                 }
                 prv = now;
-                moveAnimal.setDirection((moveAnimal.getDirection() + 1) % 4);
-
+                CommandController.commandController.nextTurn(1);
             }
         }.start();
-
-        backImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                int x = (int)event.getX();
-                int y = (int) event.getY();
-                addGrass(x - 24, y - 24);
-            }
-        });
 
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
