@@ -56,6 +56,10 @@ public class GameScene {
         image.setY(y);
         root.getChildren().add(image);
 
+        SpriteAnimation spriteAnimation = new SpriteAnimation(image, 4, 1);
+
+        spriteAnimation.interpolate(1);
+
         image.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -269,6 +273,7 @@ public class GameScene {
         upgradeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                if (level == 3) return;
                 root.getChildren().remove(imageView);
                 root.getChildren().remove(upgradeButton);
                 addWorkshop(name, place, level + 1);
@@ -281,14 +286,15 @@ public class GameScene {
         backImage.setX(0);
         backImage.setY(0);
         root.getChildren().add(backImage);
-        int W = 80;
+        int W = 60;
         addAnimalIcon("Chicken", 30, 30);
         addAnimalIcon("Cow", 30 + W * 1, 30);
         addAnimalIcon("Sheep", 30 + W * 2, 30);
         addAnimalIcon("Cat", 30 + W * 3, 30);
         addAnimalIcon("Dog", 30 + W * 4, 30);
 
-        addCoin(735, 13);
+        // 735 13
+        addCoin(920, 35);
 
         addIcon(wellX, wellY, 1, "well");
 
