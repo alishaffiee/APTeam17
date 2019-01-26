@@ -33,7 +33,7 @@ public class GameScene {
     private final int wellX = 570;
     private final int wellY = 80;
     public final static int leftBoundery = 280;
-    public final static int rightBoundery = 805;
+    public final static int rightBoundery = 790;
     public final static int upBoundery = 250;
     public final static int downBoundery = 590;
 
@@ -256,7 +256,7 @@ public class GameScene {
     public void addWorkshop(String name, int place, int level) {
         ImageView imageView = getImage("./Graphic/Workshops/" + name + "/0" + (level + 1) + ".png");
 
-        int[] x = {130, 130, 130, 820, 820, 820};
+        int[] x = {105, 105, 105, 820, 820, 820};
         int[] y = {200, 350, 500, 200, 350, 500};
 
         imageView.setX(x[place]);
@@ -335,10 +335,10 @@ public class GameScene {
 
         new UpgradeButton("Depot", 450, 650, null, this,
                 addIcon(450, 650, 1, "Depot"));
-        new UpgradeButton("Helicopter", 750, 630, null, this,
-                addIcon(750, 630, 1, "Helicopter"));
-        new UpgradeButton("Truck", 200, 650, null, this,
-                addIcon(200, 650, 1, "Truck"));
+        new UpgradeButton("Helicopter", 705, 650, null, this,
+                addIcon(705, 650, 1, "Helicopter"));
+        new UpgradeButton("Truck", 200, 670, null, this,
+                addIcon(200, 670, 1, "Truck"));
 
         addWellUpgradeButton(wellX, wellY + 10);
         addWaterValue(wellX + 130, wellY + 10);
