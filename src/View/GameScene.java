@@ -219,6 +219,21 @@ public class GameScene {
         root.getChildren().add(imageView);
     }
 
+    public void addWorkshop(String name, int place, int level) {
+        ImageView imageView = getImage("./Graphic/Workshops/" + name + "/0" + (level + 1) + ".png");
+
+        int[] x = {130, 130, 130, 820, 820, 820};
+        int[] y = {200, 350, 500, 200, 350, 500};
+
+        imageView.setX(x[place]);
+        imageView.setY(y[place]);
+
+        SpriteAnimation spriteAnimation = new SpriteAnimation(imageView, 16, 4);
+        spriteAnimation.interpolate(1);
+
+        root.getChildren().add(imageView);
+    }
+
     public void start() {
         ImageView backImage = getImage("./Graphic/back.png");
         backImage.setX(0);
@@ -255,6 +270,15 @@ public class GameScene {
                 moneyLebal.setText("" + CommandController.commandController.getGame().getCurrentLevel().getMap().getMoney());
             }
         }.start();
+
+        addWorkshop("Cake", 0, 0);
+        addWorkshop("Cake", 1, 1);
+        addWorkshop("Cake", 2, 2);
+        addWorkshop("Cake", 3, 3);
+        addWorkshop("Weaving", 4, 0);
+        addWorkshop("Weaving", 5, 1);
+
+
         /*
         Rectangle rectangle = new Rectangle(leftBoundery, upBoundery,
                 rightBoundery - leftBoundery, downBoundery - upBoundery);

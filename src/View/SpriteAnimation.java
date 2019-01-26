@@ -34,6 +34,18 @@ public class SpriteAnimation extends Transition {
         setInterpolator(Interpolator.LINEAR);
     }
 
+    public SpriteAnimation(ImageView imageView, int count, int columns) {
+        this.imageView = imageView;
+        this.count = count;
+        this.columns = columns;
+        this.offsetX = 0;
+        this.offsetY = 0;
+        this.width = (int) imageView.getImage().getWidth() / columns;
+        this.height = (int) imageView.getImage().getHeight() / (count / columns);
+        setCycleDuration(new Duration(1000));
+        setInterpolator(Interpolator.LINEAR);
+    }
+
     @Override
     protected void interpolate(double frac) {
 
