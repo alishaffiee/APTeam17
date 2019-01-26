@@ -3,9 +3,15 @@ package View;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 
 public class MenuScene {
     public static MenuScene menuScene = new MenuScene();
@@ -14,7 +20,7 @@ public class MenuScene {
     private Stage primaryStage;
     private Scene scene;
 
-    private MenuScene(){
+    private MenuScene() {
         root = new Group();
         scene = new Scene(root, 1100, 825);
     }
@@ -24,29 +30,70 @@ public class MenuScene {
         this.primaryStage = primaryStage;
     }
 
-    public void start(){
+    public void start() {
         ImageView background = GameScene.getImage("./Graphic/Menu/Background.png");
         root.getChildren().add(background);
 
         addStartButton(410, 170);
+        addLoadButton(410, 300);
+        addQuitButton(410, 430);
 
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private void addStartButton(int x, int y){
-        ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+    private void addButton (int x, int y, ImageView button) {
         button.setX(x);
         button.setY(y);
-
         root.getChildren().add(button);
+    }
+
+    private void addText (int x , int y, String buttonText) {
+        Text text = new Text(x, y, buttonText);
+        text.setFont(Font.font(null, FontWeight.BOLD, 32));
+        root.getChildren().add(text);
+    }
+
+    private void addStartButton(int x, int y) {
+        ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+
+        addButton(x, y, button);
+        addText(x + 64, y + 57, "New Game!");
 
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 GameScene.gameScene.setPrimaryStage(primaryStage);
                 GameScene.gameScene.start();
+            }
+        });
+    }
+
+    private void addLoadButton(int x, int y) {
+        ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+
+        addButton(x, y, button);
+        addText(x + 107, y + 57, "Load");
+
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                // TODO
+            }
+        });
+    }
+
+    private void addQuitButton(int x, int y) {
+        ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+
+        addButton(x, y, button);
+        addText(x + 112, y + 57, "Quit");
+
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                primaryStage.close();
             }
         });
     }
