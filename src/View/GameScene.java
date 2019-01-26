@@ -156,17 +156,17 @@ public class GameScene {
     }
 
     private void addGrass(int x, int y) {
+        int id = new Random().nextInt(4) + 1;
+        ImageView image = getImage("./Graphic/Grass/grass" + id + ".png");
         if (x < leftBoundery || x > rightBoundery)
             return;
         if (y < upBoundery || y > downBoundery)
             return;
         try {
-            CommandController.commandController.plant(x - leftBoundery, y - upBoundery);
+            CommandController.commandController.plant(x - leftBoundery, y - upBoundery, image);
         } catch (Exception e) {
             return;
         }
-        int id = new Random().nextInt(4) + 1;
-        ImageView image = getImage("./Graphic/Grass/grass" + id + ".png");
         image.setX(x);
         image.setY(y);
         int width = (int) image.getImage().getWidth();

@@ -2,34 +2,28 @@ package Model;
 
 import Control.CommandController;
 import Values.Values;
+import View.GameScene;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
 public class Grass extends Entity {
     private int turnsToDie, value;
-    private ArrayList<Cell> cells = new ArrayList<>();
+    private Cell cell;
     private final int offset = 4;
-    public Grass(Cell cell) {
-        Map map = CommandController.commandController.getGame().getCurrentLevel().getMap();
-        int x = cell.getPositionX();
-        int y = cell.getPositionY();
-        for(int dx=-offset; dx<offset; dx++){
-            for(int dy=-offset; dy<offset; dy++){
-                Cell tmp = map.getCell(x + dx, y + dy);
-                if(tmp != null) {
-                    cells.add(tmp);
-                    tmp.addEntity(this);
-                }
-            }
-        }
+    private ImageView imageView;
+
+    public Grass(Cell cell, ImageView imageView) {
+        this.cell = cell;
+        this.imageView = imageView;
         turnsToDie = Values.GRASS_LIFE_TIME;
         value = Values.GRASS_VALUE;
+        cell.getEntities().add(this);
     }
 
     private void kill() {
-        for(Cell cell : cells) {
-            cell.delete(this);
-        }
+        cell.delete(this);
+        GameScene.root.getChildren().remove(imageView);
     }
 
     public void nextTurn() {
@@ -40,6 +34,7 @@ public class Grass extends Entity {
     }
 
     public void eat() {
+        System.out.println(value);
         value--;
         if (value == 0) {
             kill();

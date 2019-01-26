@@ -19,7 +19,7 @@ public class Pet extends Animal {
     }
 
     public boolean isHungry() {
-        return turnsToDie < health / 5;
+        return turnsToDie < health * 3 / 4;
     }
 
     @Override
@@ -28,11 +28,16 @@ public class Pet extends Animal {
     }
 
     public Cell nextMove() {
-        if (false && isHungry() && map.getNearestGrass(cell) != null) {
-            if (super.cell.hasGrass())
-                return super.cell;
-            return move(cell, map.getNearestGrass(cell));
+        Cell grassCell = map.getNearestGrass(cell);
+        if(isHungry() && grassCell != null) {
+            if(map.getDistance(cell, grassCell) < 600) {
+                grassCell.getGrass().eat();
+                turnsToDie = health;
+                return cell;
+            }
+            return move(cell, grassCell);
         }
+
         return randomMove();
     }
 
@@ -43,16 +48,11 @@ public class Pet extends Animal {
             GameScene.gameScene.addItemType(production, cell.getPositionX() + GameScene.leftBoundery + 30, cell.getPositionY() + GameScene.upBoundery + 30);
             turnsToProduct = productTime;
         }
-        /*
+
         turnsToDie--;
-        if (cell.hasGrass() && isHungry()) {
-            Grass grass = cell.getGrass();
-            grass.eat();
-            turnsToDie += 15;
-        }
         if (turnsToDie == -1) {
-            cell.delete(this);
+            System.out.println(7);
+            kill();
         }
-        */
     }
 }

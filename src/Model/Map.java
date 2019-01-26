@@ -201,7 +201,7 @@ public class Map implements Printable, Serializable {
                     continue;
                 if (cell.hasGrass())
                     cell.getEntities().remove(cell.getGrass());
-                cell.getEntities().add(new Grass(cell));
+              //  cell.getEntities().add(new Grass(cell));
             }
         }
     }

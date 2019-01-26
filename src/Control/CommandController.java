@@ -9,6 +9,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.scene.image.ImageView;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -105,7 +106,7 @@ public class CommandController {
         }
     }
 
-    public void plant(int x, int y) {
+    public void plant(int x, int y, ImageView imageView) {
         if (game.getCurrentLevel() == null) {
             System.out.println("level not found.");
             throw new RuntimeException("level not found.");
@@ -115,7 +116,7 @@ public class CommandController {
             throw new RuntimeException("not enough water.");
         }
 
-        Grass grass = new Grass(game.getCurrentLevel().getMap().getCell(x, y));
+        Grass grass = new Grass(game.getCurrentLevel().getMap().getCell(x, y), imageView);
         game.getCurrentLevel().getMap().getWell().decreaseWater();
         System.out.println("plant was successful.");
     }

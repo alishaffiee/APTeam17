@@ -26,10 +26,6 @@ public class InputReader {
                     commandController.cage(Integer.valueOf(parts[1]), Integer.valueOf(parts[2]));
                     break;
                 }
-                case "plant" : {
-                    commandController.plant(Integer.valueOf(parts[1]), Integer.valueOf(parts[2]));
-                    break;
-                }
                 case "well" : {
                     commandController.well();
                     break;
