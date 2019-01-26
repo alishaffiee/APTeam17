@@ -238,6 +238,21 @@ public class GameScene {
         root.getChildren().add(coin);
     }
 
+    private void addReturnToMenu (int x, int y) {
+        ImageView button = getImage("./Graphic/returnMenu.png");
+        button.setX(x);
+        button.setY(y);
+        root.getChildren().add(button);
+
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                MenuScene.menuScene.setPrimaryStage(primaryStage);
+                MenuScene.menuScene.start();
+            }
+        });
+    }
+
     public void addWorkshop(String name, int place, int level) {
         ImageView imageView = getImage("./Graphic/Workshops/" + name + "/0" + (level + 1) + ".png");
 
@@ -313,6 +328,8 @@ public class GameScene {
         addAnimalIcon("Dog", 30 + W * 4, 30, Values.DOG_COST);
 
         addCoin(920, 35);
+
+        addReturnToMenu(1000, 700);
 
         addIcon(wellX, wellY, 1, "well");
 
