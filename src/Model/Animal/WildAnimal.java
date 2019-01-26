@@ -69,7 +69,7 @@ public class WildAnimal extends Animal {
         if (cell1 != null && cell1.getPets().size() > 0 && map.getDistance(cell1, cell) < 600) {
             Pet pet = cell1.getPets().get(0);
             cell1.delete(pet);
-            pet.moveAnimal.kill();
+            pet.kill();
             return cell;
         }
 

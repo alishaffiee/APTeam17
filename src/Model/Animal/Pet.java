@@ -1,6 +1,7 @@
 package Model.Animal;
 
 import Model.*;
+import View.GameScene;
 
 public class Pet extends Animal {
     private ItemType production;
@@ -36,14 +37,14 @@ public class Pet extends Animal {
     }
 
     public void nextTurn() {
-        return;
-        /*
-        turnsToDie--;
         turnsToProduct--;
         if (turnsToProduct == 0) {
             cell.add(new Item(production, cell));
+            GameScene.gameScene.addItemType(production, cell.getPositionX() + GameScene.leftBoundery + 30, cell.getPositionY() + GameScene.upBoundery + 30);
             turnsToProduct = productTime;
         }
+        /*
+        turnsToDie--;
         if (cell.hasGrass() && isHungry()) {
             Grass grass = cell.getGrass();
             grass.eat();

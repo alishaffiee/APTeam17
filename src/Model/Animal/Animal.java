@@ -7,18 +7,28 @@ import View.GameScene;
 import View.MoveAnimal;
 
 import java.io.Serializable;
-import java.util.Random;
 
 abstract public class Animal extends Entity implements Serializable {
     protected Map map;
     protected Cell cell;
     protected String name;
     protected MoveAnimal moveAnimal;
+    private boolean killed;
 
     public Animal(Map map, String name) {
         this.map = map;
         this.name = name;
         this.cell = map.getRandomCell();
+        killed = false;
+    }
+
+    public boolean isKilled() {
+        return killed;
+    }
+
+    public void kill() {
+        killed = true;
+        moveAnimal.kill();
     }
 
     public void start() {

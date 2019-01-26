@@ -1,6 +1,7 @@
 package View;
 
 import Control.CommandController;
+import Model.ItemType;
 import Model.Well;
 import javafx.animation.*;
 import javafx.event.EventHandler;
@@ -197,6 +198,20 @@ public class GameScene {
         }.start();
     }
 
+    public void addItemType(ItemType itemType, int x, int y) {
+        ImageView imageView = getImage("./Graphic/Products/" + itemType.getName() + ".png");
+        imageView.setX(x);
+        imageView.setY(y);
+        root.getChildren().add(imageView);
+
+        imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                root.getChildren().remove(imageView);
+            }
+        });
+    }
+
     public void start() {
         ImageView backImage = getImage("./Graphic/back.png");
         backImage.setX(0);
@@ -218,7 +233,7 @@ public class GameScene {
         new UpgradeButton("Truck", 200, 650, null, this,
                 addIcon(200, 650, 1, "Truck"));
 
-        addWellUpgradeButton(wellX , wellY + 10);
+        addWellUpgradeButton(wellX, wellY + 10);
         addWaterValue(wellX + 130, wellY + 10);
 
         Label moneyLebal = new Label("Start");
