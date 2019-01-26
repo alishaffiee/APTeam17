@@ -1,10 +1,13 @@
 package Model.Animal;
 
+import Control.CommandController;
 import Model.Cell;
 import Model.Entity;
 import Model.Map;
+import Model.Well;
 import View.GameScene;
 import View.MoveAnimal;
+import javafx.animation.AnimationTimer;
 
 import java.io.Serializable;
 
@@ -29,6 +32,21 @@ abstract public class Animal extends Entity implements Serializable {
     public void kill() {
         killed = true;
         moveAnimal.kill();
+        new AnimationTimer() {
+            long prv = -1;
+            @Override
+            public void handle(long now) {
+                if(prv == -1)
+                {
+                    prv = now;
+                    return;
+                }
+                if(now - prv < 6e9)
+                    return;
+                GameScene.root.getChildren().remove(moveAnimal.getDeath());
+                stop();
+            }
+        }.start();
     }
 
     public void start() {

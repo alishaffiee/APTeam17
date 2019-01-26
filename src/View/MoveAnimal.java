@@ -108,6 +108,10 @@ public class MoveAnimal {
         return imageView;
     }
 
+    public ImageView getDeath() {
+        return death;
+    }
+
     public void kill() {
         root.getChildren().remove(imageView[this.direction]);
         death.setX(positionX);
