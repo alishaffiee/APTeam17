@@ -46,6 +46,8 @@ public class Map implements Printable, Serializable {
 
     private void calc(ArrayList<Animal> animals) {
         for (Animal animal : animals) {
+            if(animal.getCell() == null)
+                continue;
             if(animal.isKilled())
                 continue;
             animal.setCell(animal.nextMove());

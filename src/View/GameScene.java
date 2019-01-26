@@ -4,7 +4,6 @@ import Control.CommandController;
 import Model.ItemType;
 import Model.Well;
 import Values.Values;
-import com.sun.jdi.Value;
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -36,7 +35,7 @@ public class GameScene {
     public final static int leftBoundery = 280;
     public final static int rightBoundery = 805;
     public final static int upBoundery = 250;
-    public final static int downBoundery = 610;
+    public final static int downBoundery = 590;
 
     protected static ImageView getImage(String path) {
         try {
