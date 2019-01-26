@@ -1,5 +1,6 @@
 package View;
 
+import Control.CommandController;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -96,6 +97,9 @@ public class MenuScene {
             @Override
             public void handle (MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
+                CommandController.commandController.loadGame("gameData");
+                GameScene.gameScene.setPrimaryStage(primaryStage);
+                GameScene.gameScene.start();
             }
         });
     }

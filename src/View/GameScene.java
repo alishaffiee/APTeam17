@@ -246,6 +246,7 @@ public class GameScene {
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                CommandController.commandController.saveGame("gameData");
                 MenuScene.menuScene.setPrimaryStage(primaryStage);
                 MenuScene.menuScene.start();
             }

@@ -5,6 +5,7 @@ import Interfaces.Upgradable;
 import Model.Animal.*;
 import Model.*;
 import Values.Values;
+import View.GameScene;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -332,6 +333,7 @@ public class CommandController {
         try {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("./Data/" + name + ".out"));
             objectOutputStream.writeObject(game.getCurrentLevel());
+            objectOutputStream.writeObject(GameScene.gameScene);
             objectOutputStream.close();
         } catch (IOException e) {
             System.out.println("there is an error in saving game.");
@@ -344,6 +346,7 @@ public class CommandController {
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("./Data/" + name + ".out"));
             Level level = (Level) objectInputStream.readObject();
+            GameScene.gameScene = (GameScene) objectInputStream.readObject();
             game.startLevel(level);
             objectInputStream.close();
         } catch (Exception e) {
