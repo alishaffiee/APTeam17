@@ -232,6 +232,34 @@ public class GameScene {
         spriteAnimation.interpolate(1);
 
         root.getChildren().add(imageView);
+
+        imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            boolean flag = false;
+
+            @Override
+            public void handle(MouseEvent event) {
+                if (flag)
+                    return;
+                flag = true;
+                new AnimationTimer() {
+                    long prv = -1, count = 0;
+
+                    @Override
+                    public void handle(long now) {
+                        if (now - prv < 5e7) {
+                            return;
+                        }
+                        count++;
+                        if (count == 60) {
+                            stop();
+                            flag = false;
+                        }
+                        prv = now;
+                        spriteAnimation.interpolate(1);
+                    }
+                }.start();
+            }
+        });
     }
 
     public void start() {
