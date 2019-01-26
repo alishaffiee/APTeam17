@@ -1,8 +1,10 @@
 package View;
 
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class MenuScene {
@@ -23,11 +25,29 @@ public class MenuScene {
     }
 
     public void start(){
-        ImageView background = GameScene.getImage("./Graphic/MenuBackground.png");
+        ImageView background = GameScene.getImage("./Graphic/Menu/Background.png");
         root.getChildren().add(background);
+
+        addStartButton(410, 170);
 
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void addStartButton(int x, int y){
+        ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+        button.setX(x);
+        button.setY(y);
+
+        root.getChildren().add(button);
+
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                GameScene.gameScene.setPrimaryStage(primaryStage);
+                GameScene.gameScene.start();
+            }
+        });
     }
 }
