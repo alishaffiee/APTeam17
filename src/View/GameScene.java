@@ -261,6 +261,19 @@ public class GameScene {
                 }.start();
             }
         });
+
+        ImageView upgradeButton = getImage("./Graphic/plus.png");
+        upgradeButton.setX(x[place] + 5);
+        upgradeButton.setY(y[place] + 5);
+        root.getChildren().add(upgradeButton);
+        upgradeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                root.getChildren().remove(imageView);
+                root.getChildren().remove(upgradeButton);
+                addWorkshop(name, place, level + 1);
+            }
+        });
     }
 
     public void start() {
@@ -301,11 +314,11 @@ public class GameScene {
         }.start();
 
         addWorkshop("Cake", 0, 0);
-        addWorkshop("Cake", 1, 1);
-        addWorkshop("Cake", 2, 2);
-        addWorkshop("Cake", 3, 3);
-        addWorkshop("Weaving", 4, 0);
-        addWorkshop("Weaving", 5, 1);
+        addWorkshop("Spinnery", 1, 0);
+        addWorkshop("FlouryCake", 2, 0);
+        addWorkshop("DriedEggs", 3, 0);
+        addWorkshop("CarnivalDress", 4, 0);
+        addWorkshop("Weaving", 5, 0);
 
 
         /*
