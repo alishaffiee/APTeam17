@@ -207,6 +207,7 @@ public class GameScene {
         imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                CommandController.commandController.getGame().getCurrentLevel().getMap().getWarehouse().add(itemType);
                 root.getChildren().remove(imageView);
             }
         });
@@ -231,11 +232,11 @@ public class GameScene {
         SpriteAnimation spriteAnimation = new SpriteAnimation(imageView, 16, 4);
         spriteAnimation.interpolate(1);
 
+
         root.getChildren().add(imageView);
 
         imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             boolean flag = false;
-
             @Override
             public void handle(MouseEvent event) {
                 if (flag)
