@@ -41,13 +41,13 @@ public class GameScene {
         }
     }
 
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
     private GameScene() {
         root = new Group();
         scene = new Scene(root, 1100, 825);
-    }
-
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
     }
 
     private void addAnimalIcon(String name, int x, int y) {

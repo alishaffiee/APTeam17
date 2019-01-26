@@ -30,8 +30,10 @@ public class View extends Application {
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
         debug();
-        GameScene.gameScene.setPrimaryStage(primaryStage);
-        GameScene.gameScene.start();
+      //  GameScene.gameScene.setPrimaryStage(primaryStage);
+        MenuScene.menuScene.setPrimaryStage(primaryStage);
+        MenuScene.menuScene.start();
+     //   GameScene.gameScene.start();
     }
 
 
