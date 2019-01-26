@@ -3,6 +3,8 @@ package View;
 import Control.CommandController;
 import Model.ItemType;
 import Model.Well;
+import Values.Values;
+import com.sun.jdi.Value;
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -13,6 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -50,7 +55,7 @@ public class GameScene {
         scene = new Scene(root, 1100, 825);
     }
 
-    private void addAnimalIcon(String name, int x, int y) {
+    private void addAnimalIcon(String name, int x, int y, int cost) {
         ImageView image = getImage("./Graphic/UI/Icons/Products/" + name.toLowerCase() + ".png");
         image.setX(x);
         image.setY(y);
@@ -68,6 +73,10 @@ public class GameScene {
 
             }
         });
+
+        Text text = new Text(x + 16, y + 51, String.valueOf(cost));
+        text.setFont(Font.font(null, FontWeight.BOLD, 10));
+        root.getChildren().add(text);
     }
 
     protected ImageView addIcon(int x, int y, int level, String name) {
@@ -218,10 +227,15 @@ public class GameScene {
     }
 
     private void addCoin(int x, int y) {
-        ImageView imageView = getImage("./Graphic/UI/Icons/Coin.png");
-        imageView.setX(x);
-        imageView.setY(y);
-        root.getChildren().add(imageView);
+        ImageView back = getImage("./Graphic/UI/Icons/CoinBackground.png");
+        back.setX(x);
+        back.setY(y);
+        root.getChildren().add(back);
+
+        ImageView coin = getImage("./Graphic/UI/Icons/Coin.png");
+        coin.setX(x);
+        coin.setY(y);
+        root.getChildren().add(coin);
     }
 
     public void addWorkshop(String name, int place, int level) {
@@ -267,13 +281,18 @@ public class GameScene {
         });
 
         ImageView upgradeButton = getImage("./Graphic/plus.png");
-        upgradeButton.setX(x[place] + 5);
-        upgradeButton.setY(y[place] + 5);
-        root.getChildren().add(upgradeButton);
+
+        if (level != 3) {
+            upgradeButton.setX(x[place] + 5);
+            upgradeButton.setY(y[place] + 5);
+            root.getChildren().add(upgradeButton);
+        }
+
         upgradeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (level == 3) return;
+
                 root.getChildren().remove(imageView);
                 root.getChildren().remove(upgradeButton);
                 addWorkshop(name, place, level + 1);
@@ -287,13 +306,12 @@ public class GameScene {
         backImage.setY(0);
         root.getChildren().add(backImage);
         int W = 60;
-        addAnimalIcon("Chicken", 30, 30);
-        addAnimalIcon("Cow", 30 + W * 1, 30);
-        addAnimalIcon("Sheep", 30 + W * 2, 30);
-        addAnimalIcon("Cat", 30 + W * 3, 30);
-        addAnimalIcon("Dog", 30 + W * 4, 30);
+        addAnimalIcon("Chicken", 30, 30, Values.CHICKEN_COST);
+        addAnimalIcon("Cow", 30 + W * 1, 30, Values.COW_COST);
+        addAnimalIcon("Sheep", 30 + W * 2, 30, Values.SHEEP_COST);
+        addAnimalIcon("Cat", 30 + W * 3, 30, Values.CAT_COST);
+        addAnimalIcon("Dog", 30 + W * 4, 30, Values.DOG_COST);
 
-        // 735 13
         addCoin(920, 35);
 
         addIcon(wellX, wellY, 1, "well");
@@ -308,14 +326,15 @@ public class GameScene {
         addWellUpgradeButton(wellX, wellY + 10);
         addWaterValue(wellX + 130, wellY + 10);
 
-        Label moneyLebal = new Label("Start");
-        moneyLebal.relocate(790, 28);
-        root.getChildren().add(moneyLebal);
+        Text text = new Text(977, 64, "Start");
+        text.setFill(Color.YELLOW);
+        text.setFont(Font.font(null, FontWeight.BOLD, 18));
+        root.getChildren().add(text);
 
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                moneyLebal.setText("" + CommandController.commandController.getGame().getCurrentLevel().getMap().getMoney());
+                text.setText("" + CommandController.commandController.getGame().getCurrentLevel().getMap().getMoney());
             }
         }.start();
 
