@@ -212,6 +212,13 @@ public class GameScene {
         });
     }
 
+    private void addCoin(int x, int y) {
+        ImageView imageView = getImage("./Graphic/UI/Icons/Coin.png");
+        imageView.setX(x);
+        imageView.setY(y);
+        root.getChildren().add(imageView);
+    }
+
     public void start() {
         ImageView backImage = getImage("./Graphic/back.png");
         backImage.setX(0);
@@ -223,6 +230,8 @@ public class GameScene {
         addAnimalIcon("Sheep", 30 + W * 2, 30);
         addAnimalIcon("Cat", 30 + W * 3, 30);
         addAnimalIcon("Dog", 30 + W * 4, 30);
+
+        addCoin(735, 13);
 
         addIcon(wellX, wellY, 1, "well");
 
@@ -237,13 +246,13 @@ public class GameScene {
         addWaterValue(wellX + 130, wellY + 10);
 
         Label moneyLebal = new Label("Start");
-        moneyLebal.relocate(550, 20);
+        moneyLebal.relocate(790, 28);
         root.getChildren().add(moneyLebal);
 
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                moneyLebal.setText("Money : " + CommandController.commandController.getGame().getCurrentLevel().getMap().getMoney());
+                moneyLebal.setText("" + CommandController.commandController.getGame().getCurrentLevel().getMap().getMoney());
             }
         }.start();
         /*
