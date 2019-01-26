@@ -49,21 +49,29 @@ public class MenuScene {
         root.getChildren().add(button);
     }
 
-    private void addText (int x , int y, String buttonText) {
-        Text text = new Text(x, y, buttonText);
+    private void addText (Text text) {
         text.setFont(Font.font(null, FontWeight.BOLD, 32));
         root.getChildren().add(text);
     }
 
     private void addStartButton(int x, int y) {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+        Text text = new Text(x + 64, y + 57, "New Game!");
 
         addButton(x, y, button);
-        addText(x + 64, y + 57, "New Game!");
+        addText(text);
 
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        button.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                text.setFill(Color.rgb(200, 200, 200));
+            }
+        });
+
+        button.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle (MouseEvent event) {
+                text.setFill(Color.rgb(0, 0, 0));
                 GameScene.gameScene.setPrimaryStage(primaryStage);
                 GameScene.gameScene.start();
             }
@@ -72,27 +80,44 @@ public class MenuScene {
 
     private void addLoadButton(int x, int y) {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+        Text text = new Text(x + 107, y + 57, "Load");
 
         addButton(x, y, button);
-        addText(x + 107, y + 57, "Load");
+        addText(text);
 
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        button.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                // TODO
+                text.setFill(Color.rgb(200, 200, 200));
+            }
+        });
+
+        button.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle (MouseEvent event) {
+                text.setFill(Color.rgb(0, 0, 0));
             }
         });
     }
 
     private void addQuitButton(int x, int y) {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+        Text text = new Text(x + 112, y + 57, "Quit");
 
         addButton(x, y, button);
-        addText(x + 112, y + 57, "Quit");
+        addText(text);
 
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        button.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                text.setFill(Color.rgb(200, 200, 200));
+            }
+        });
+
+        button.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle (MouseEvent event) {
+                text.setFill(Color.rgb(0, 0, 0));
                 primaryStage.close();
             }
         });
