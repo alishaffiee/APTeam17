@@ -3,8 +3,10 @@ package View;
 import Control.CommandController;
 import Control.Game;
 import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
 public class MoveAnimal {
@@ -126,6 +128,12 @@ public class MoveAnimal {
                 }
                 count++;
                 if (count == cnt - 3) {
+                    death.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            root.getChildren().remove(death);
+                        }
+                    });
                     stop();
                 }
                 prv = now;
