@@ -207,6 +207,7 @@ public class GameScene {
         imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                CommandController.commandController.getGame().getCurrentLevel().getMap().getWarehouse().add(itemType);
                 root.getChildren().remove(imageView);
             }
         });
@@ -231,7 +232,48 @@ public class GameScene {
         SpriteAnimation spriteAnimation = new SpriteAnimation(imageView, 16, 4);
         spriteAnimation.interpolate(1);
 
+
         root.getChildren().add(imageView);
+
+        imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            boolean flag = false;
+            @Override
+            public void handle(MouseEvent event) {
+                if (flag)
+                    return;
+                flag = true;
+                new AnimationTimer() {
+                    long prv = -1, count = 0;
+
+                    @Override
+                    public void handle(long now) {
+                        if (now - prv < 5e7) {
+                            return;
+                        }
+                        count++;
+                        if (count == 60) {
+                            stop();
+                            flag = false;
+                        }
+                        prv = now;
+                        spriteAnimation.interpolate(1);
+                    }
+                }.start();
+            }
+        });
+
+        ImageView upgradeButton = getImage("./Graphic/plus.png");
+        upgradeButton.setX(x[place] + 5);
+        upgradeButton.setY(y[place] + 5);
+        root.getChildren().add(upgradeButton);
+        upgradeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                root.getChildren().remove(imageView);
+                root.getChildren().remove(upgradeButton);
+                addWorkshop(name, place, level + 1);
+            }
+        });
     }
 
     public void start() {
@@ -272,11 +314,11 @@ public class GameScene {
         }.start();
 
         addWorkshop("Cake", 0, 0);
-        addWorkshop("Cake", 1, 1);
-        addWorkshop("Cake", 2, 2);
-        addWorkshop("Cake", 3, 3);
-        addWorkshop("Weaving", 4, 0);
-        addWorkshop("Weaving", 5, 1);
+        addWorkshop("Spinnery", 1, 0);
+        addWorkshop("FlouryCake", 2, 0);
+        addWorkshop("DriedEggs", 3, 0);
+        addWorkshop("CarnivalDress", 4, 0);
+        addWorkshop("Weaving", 5, 0);
 
 
         /*
