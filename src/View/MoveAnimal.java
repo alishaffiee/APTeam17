@@ -2,6 +2,7 @@ package View;
 
 import Control.CommandController;
 import Control.Game;
+import Model.ItemType;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -17,18 +18,21 @@ public class MoveAnimal {
 
     private int positionX, positionY, direction, step, cnt;
     private boolean killed;
+    private ItemType itemType;
 
     public static int dx[] = {-1, 0, +1, 0};
     public static int dy[] = {0, -1, 0, +1};
     private Group root;
 
     public MoveAnimal(String name, int positionX, int positionY, int direction,
-                      int step, int count, int upColumns, int downColumns, int hColumns, int killColumns) {
+                      int step, int count, int upColumns, int downColumns, int hColumns, int killColumns, ItemType itemType) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.direction = direction;
         this.cnt = count;
         this.step = step;
+        this.itemType = itemType;
+
         killed = false;
         root = GameScene.root;
 
@@ -135,6 +139,14 @@ public class MoveAnimal {
                     death.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
+                            if(itemType != null) {
+                                try {
+                                    CommandController.commandController.getGame().getCurrentLevel().getMap().getWarehouse().add(itemType);
+                                } catch (Exception e) {
+                                    System.out.println("Cannot add this object to warehouse.");
+                                    return;
+                                }
+                            }
                             root.getChildren().remove(death);
                         }
                     });
