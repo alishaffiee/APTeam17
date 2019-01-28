@@ -249,8 +249,13 @@ public class GameScene {
         imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                CommandController.commandController.getGame().getCurrentLevel().getMap().getWarehouse().add(itemType);
-                root.getChildren().remove(imageView);
+                try {
+                    CommandController.commandController.getGame().getCurrentLevel().getMap().getWarehouse().add(itemType);
+                    root.getChildren().remove(imageView);
+                } catch (Exception e) {
+                    System.out.println("Cannot add this item to warehouse");
+                }
+
             }
         });
     }
