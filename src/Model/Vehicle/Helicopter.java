@@ -19,6 +19,13 @@ public class Helicopter extends Vehicle implements Upgradable, Printable {
     public void go(ArrayList<ItemType> itemTypes, int cost) {
         if(map.getMoney() < cost)
             throw new RuntimeException("not enough money");
+        int sum = 0;
+        for(ItemType itemType : itemTypes) {
+            sum += itemType.getVolume();
+        }
+        if(sum > map.getWarehouse().getFreeCapacity())
+            throw new RuntimeException("not enough storage");
+
         map.addMoney(-cost);
         for(ItemType itemType : itemTypes) {
             map.getWarehouse().add(itemType);
