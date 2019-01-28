@@ -427,5 +427,10 @@ public class GameScene {
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 }
