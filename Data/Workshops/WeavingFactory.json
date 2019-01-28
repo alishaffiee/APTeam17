@@ -1,9 +1,9 @@
 {
   "name" : "WeavingFactory",
   "inputs" : [
-    "DriedEggs", "Egg"
+    "Sewing"
   ],
-  "output" : "SourCream",
+  "output" : "Fabric",
   "production_time" : 15,
   "time_decrease_step" : 1,
   "upgrade_cost" : 2000,

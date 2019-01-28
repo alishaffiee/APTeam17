@@ -1,7 +1,7 @@
 {
   "name" : "CakeBakery",
   "inputs" : [
-    "DriedEggs", "Egg"
+    "Cake", "Flour"
   ],
   "output" : "FlouryCake",
   "production_time" : 15,

@@ -1,9 +1,9 @@
 {
   "name" : "SewingFactory",
   "inputs" : [
-    "DriedEggs", "Egg"
+    "Fabric"
   ],
-  "output" : "Curd",
+  "output" : "Adornment",
   "production_time" : 15,
   "time_decrease_step" : 1,
   "upgrade_cost" : 2500,

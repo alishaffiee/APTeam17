@@ -3,7 +3,7 @@
   "inputs" : [
     "Egg"
   ],
-  "output" : "DriedEggs",
+  "output" : "Flour",
   "production_time" : 15,
   "time_decrease_step" : 1,
   "upgrade_cost" : 150,

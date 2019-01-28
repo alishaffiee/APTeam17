@@ -1,7 +1,7 @@
 {
   "name" : "Spinnery",
   "inputs" : [
-    "DriedEggs", "Egg"
+    "Wool"
   ],
   "output" : "Sewing",
   "production_time" : 15,
