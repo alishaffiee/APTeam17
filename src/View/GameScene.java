@@ -2,6 +2,7 @@ package View;
 
 import Control.CommandController;
 import Model.ItemType;
+import Model.Vehicle.Helicopter;
 import Model.Well;
 import Values.Values;
 import javafx.animation.*;
@@ -82,10 +83,31 @@ public class GameScene {
         if (name.equals("well")) {
             return addWellIcon(x, y, level);
         }
+
         ImageView image = getImage("./Graphic/Service/" + name + "/" + Integer.toString(level) + ".png");
         image.setX(x);
         image.setY(y);
         root.getChildren().add(image);
+        if(name.equals("Truck")){
+            image.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    System.out.println("Truck menu");
+                    TruckScene.truckScene.setPrimaryStage(primaryStage);
+                    TruckScene.truckScene.start();
+                }
+            });
+        }
+        if(name.equals("Helicopter")){
+            image.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    System.out.println("Helicopter menu");
+                    HelicopterScene.helicopterScene.setPrimaryStage(primaryStage);
+                    HelicopterScene.helicopterScene.start();
+                }
+            });
+        }
         return image;
 
     }
