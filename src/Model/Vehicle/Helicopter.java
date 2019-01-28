@@ -16,22 +16,17 @@ public class Helicopter extends Vehicle implements Upgradable, Printable {
         super(map);
     }
 
-    public void go(ArrayList<ItemType> itemTypes) {
-        if (!isFree())
-            throw new RuntimeException("Hellicopter is on the way!");
-        timeToComeBack = travelTime();
-        this.itemTypes = itemTypes;
+    public void go(ArrayList<ItemType> itemTypes, int cost) {
+        if(map.getMoney() < cost)
+            throw new RuntimeException("not enough money");
+        map.addMoney(-cost);
+        for(ItemType itemType : itemTypes) {
+            map.getWarehouse().add(itemType);
+        }
     }
 
     public void nextTurn() {
-        if (isFree())
-            return;
-        super.nextTurn();
-        if (timeToComeBack == 0) {
-            for (ItemType itemType : itemTypes)
-                map.getWarehouse().add(itemType);
-            itemTypes = new ArrayList<>();
-        }
+
     }
 
     @Override

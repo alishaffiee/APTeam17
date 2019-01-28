@@ -22,12 +22,12 @@ public class Truck extends Vehicle implements Upgradable, Printable {
         for(ItemType itemType : itemTypes) {
             sum += itemType.getVolume();
         }
-        if(sum > getCapacity())
-            throw new RuntimeException("Not enough capacity.");
         price = 0;
-        for(ItemType itemType : itemTypes)
-            price += itemType.getBuyCost();
-        timeToComeBack = travelTime();
+        for(ItemType itemType : itemTypes) {
+            map.getWarehouse().remove(itemType);
+            price += itemType.getSellCost();
+        }
+        map.addMoney(price);
     }
 
     @Override

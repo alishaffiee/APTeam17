@@ -51,6 +51,8 @@ public class Map implements Printable, Serializable {
             if(animal.isKilled())
                 continue;
             animal.setCell(animal.nextMove());
+            if(animal.nextMove() == null)
+                continue;
             animal.getCell().addEntity(animal);
             animal.getMoveAnimal().nextMove();
         }
