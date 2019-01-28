@@ -61,17 +61,21 @@ public class TruckScene {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        int dx = 150;
-        int dy = 100;
+        int dx = 185;
+        int dy = 110;
         int startX = 100;
         int startY = 100, cur = 0;
+        ImageView sendButton = GameScene.getImage("./Graphic/send.png");
+        sendButton.setX(950);
+        sendButton.setY(630);
+        root.getChildren().add(sendButton);
         for (String product : products) {
             int cnt = 0;
             for (ItemType item : items) {
                 if(item.getName().equals(product))
                     cnt++;
             }
-            System.out.println(product + " " + cnt);
+
             boolean bad = false;
 
                 try {
@@ -90,15 +94,24 @@ public class TruckScene {
                 ImageView sell = GameScene.getImage("./Graphic/Products/" + product + ".png");
                 int w = (int) sell.getImage().getWidth();
                 int h = (int) sell.getImage().getHeight();
-                sell.setX(startX + dx * i);
-                sell.setY(startY + dy * j);
+                int x = startX + dx * i;
+                int y = startY + dy * j;
+                sell.setX(x);
+                sell.setY(y);
                 root.getChildren().add(sell);
-                Text text = new Text(startX + dx * i + 2 * w/2 + 20, startY + dy * j + h/2, String.valueOf(cnt));
-                
+                Text text = new Text(x + 70, y + 32,
+                        String.valueOf(cnt) + "\n" + ItemType.getItemType(product).getSellCost());
 
+                text.setStyle("-fx-font: 18 arial;");
 
+                ImageView sellButton = GameScene.getImage("./Graphic/sell.png");
+                sellButton.setX(x + 140);
+
+                sellButton.setY(y + 17);
 
                 root.getChildren().add(text);
+                root.getChildren().add(sellButton);
+
             }
         }
 
