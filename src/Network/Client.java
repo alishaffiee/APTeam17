@@ -23,6 +23,7 @@ public class Client {
             int port = Integer.valueOf(scanner.nextLine());
             socket = new Socket(host, port);
 
+
         } catch (Exception e) {
             System.out.println("Server not found.");
         }
@@ -30,5 +31,9 @@ public class Client {
 
     public Socket getSocket() {
         return socket;
+    }
+
+    public void addCommand(String command) {
+        formatter.format(command + "\n");
     }
 }
