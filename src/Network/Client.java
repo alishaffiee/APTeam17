@@ -10,7 +10,7 @@ public class Client {
     private Scanner scanner;
     private Formatter formatter;
 
-    public Client(String name, String id, String host) {
+    public Client(String name, String id, String host) throws Exception{
         try {
             socket = new Socket(host, 8050);
             scanner = new Scanner(socket.getInputStream());
@@ -26,10 +26,10 @@ public class Client {
                     break;
                 } catch (Exception e) {}
             }
-            System.out.println("x");
         } catch (Exception e) {
             System.out.println("Server not found.");
             e.printStackTrace();
+            throw new Exception("Server not found.");
         }
     }
 

@@ -40,25 +40,24 @@ public class MenuScene {
     public void start() {
         ImageView background = GameScene.getImage("./Graphic/Menu/Background.png");
         root.getChildren().add(background);
-        int offset = 60;
+        int offset = -10;
         addStartButton(410, 90 - offset);
         addLoadButton(410, 220 - offset);
         addClientButton(410, 350 - offset);
         addHostButton(410, 480 - offset);
-        addRankingButton(410, 610 - offset);
-        addQuitButton(410, 740 - offset);
+        addQuitButton(410, 610 - offset);
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private void addButton (int x, int y, ImageView button) {
+    private void addButton(int x, int y, ImageView button) {
         button.setX(x);
         button.setY(y);
         root.getChildren().add(button);
     }
 
-    private void addText (Text text) {
+    private void addText(Text text) {
         text.setFont(Font.font(null, FontWeight.BOLD, 32));
         root.getChildren().add(text);
     }
@@ -79,7 +78,7 @@ public class MenuScene {
 
         button.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
-            public void handle (MouseEvent event) {
+            public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
                 GameScene.gameScene.setPrimaryStage(primaryStage);
                 GameScene.gameScene.start();
@@ -103,7 +102,7 @@ public class MenuScene {
 
         button.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
-            public void handle (MouseEvent event) {
+            public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
                 CommandController.commandController.loadGame("gameData");
                 GameScene.gameScene.setPrimaryStage(primaryStage);
@@ -128,13 +127,14 @@ public class MenuScene {
 
         button.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
-            public void handle (MouseEvent event) {
+            public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
                 primaryStage.close();
             }
         });
     }
-    private void addHostButton(int x,int y){
+
+    private void addHostButton(int x, int y) {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
         Text text = new Text(x + 115, y + 57, "Host");
         addButton(x, y, button);
@@ -157,7 +157,7 @@ public class MenuScene {
                 root.getChildren().add(check);
                 cancel.setOnMouseReleased(new EventHandler<MouseEvent>() {
                     @Override
-                    public void handle (MouseEvent event) {
+                    public void handle(MouseEvent event) {
                         root.getChildren().remove(name.getTextField());
                         root.getChildren().remove(id.getTextField());
                         root.getChildren().remove(check);
@@ -168,7 +168,7 @@ public class MenuScene {
 
                 check.setOnMouseReleased(new EventHandler<MouseEvent>() {
                     @Override
-                    public void handle (MouseEvent event) {
+                    public void handle(MouseEvent event) {
                         Server server = new Server();
                         root.getChildren().remove(name.getTextField());
                         root.getChildren().remove(id.getTextField());
@@ -182,13 +182,14 @@ public class MenuScene {
 
         button.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
-            public void handle (MouseEvent event) {
+            public void handle(MouseEvent event) {
                 TextField textField = new TextField();
             }
         });
 
     }
-    private void addClientButton(int x,int y){
+
+    private void addClientButton(int x, int y) {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
         Text text = new Text(x + 105, y + 57, "Client");
         addButton(x, y, button);
@@ -201,7 +202,7 @@ public class MenuScene {
                 int dy = 30;
                 TextInput name = new TextInput("name", 800, 330);
                 TextInput id = new TextInput("id", 800, 330 + dy);
-                TextInput host = new TextInput("host", 800,  330 + dy * 2);
+                TextInput host = new TextInput("host", 800, 330 + dy * 2);
                 ImageView check = GameScene.getImage("./Graphic/Menu/check.png");
                 ImageView cancel = GameScene.getImage("./Graphic/Menu/cancel.png");
                 cancel.setX(935);
@@ -212,7 +213,7 @@ public class MenuScene {
                 root.getChildren().add(check);
                 cancel.setOnMouseReleased(new EventHandler<MouseEvent>() {
                     @Override
-                    public void handle (MouseEvent event) {
+                    public void handle(MouseEvent event) {
                         root.getChildren().remove(name.getTextField());
                         root.getChildren().remove(id.getTextField());
                         root.getChildren().remove(host.getTextField());
@@ -224,8 +225,13 @@ public class MenuScene {
 
                 check.setOnMouseReleased(new EventHandler<MouseEvent>() {
                     @Override
-                    public void handle (MouseEvent event) {
-                        Client client = new Client(name.getString(), id.getString(), host.getString());
+                    public void handle(MouseEvent event) {
+                        Client client;
+                        try {
+                            client = new Client(name.getString(), id.getString(), host.getString());
+                        } catch (Exception e) {
+                            return;
+                        }
 
                         root.getChildren().remove(host.getTextField());
                         root.getChildren().remove(name.getTextField());
@@ -233,6 +239,9 @@ public class MenuScene {
                         root.getChildren().remove(check);
                         root.getChildren().remove(cancel);
                         text.setFill(Color.BLACK);
+
+                        ClientMenuScene.clientMenuScene.setPrimaryStage(primaryStage);
+                        ClientMenuScene.clientMenuScene.start(client);
                     }
                 });
             }
@@ -255,7 +264,7 @@ public class MenuScene {
 
         button.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
-            public void handle (MouseEvent event) {
+            public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
                 //    GameScene.gameScene.setPrimaryStage(primaryStage);
                 //    GameScene.gameScene.start();
