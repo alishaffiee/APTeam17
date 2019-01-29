@@ -1,5 +1,8 @@
 package Network;
 
+import Social.Profile;
+import Social.User;
+
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Formatter;
@@ -52,15 +55,13 @@ public class ConnectThread extends Thread{
                 socket = serverSocket.accept();
                 System.err.println("User adding");
 
-                /*
-                Profile profile = new Profile(new Person(id, id), socket);
-                profiles.add(profile);
-                profile.setServer(me);
 
-                profile.run();
+                Profile profile = new Profile(new User(name, id), socket);
+                server.addProfile(profile);
+                profile.setServer(server);
 
                 System.err.println("User added");
-                */
+
             } catch (Exception e) {
                 System.err.println("Server's problem");
                 e.printStackTrace();
