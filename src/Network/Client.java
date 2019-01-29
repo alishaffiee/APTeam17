@@ -20,12 +20,8 @@ public class Client {
             formatter.flush();
             int port = Integer.valueOf(scanner.nextLine());
             System.out.println(port);
-            while(true) {
-                try {
-                    socket = new Socket(host, port);
-                    break;
-                } catch (Exception e) {}
-            }
+            socket = new Socket(host, port);
+            new ClientCommandController(this).start();
         } catch (Exception e) {
             System.out.println("Server not found.");
             e.printStackTrace();

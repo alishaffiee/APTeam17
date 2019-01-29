@@ -25,4 +25,8 @@ public class Connection {
     public Scanner getScanner() {
         return scanner;
     }
+
+    public Socket getSocket() {
+        return socket;
+    }
 }

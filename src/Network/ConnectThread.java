@@ -51,6 +51,8 @@ public class ConnectThread extends Thread{
 
                 System.err.println("User added");
 
+                new ServerCommandController(new Connection(socket, server)).start();
+
             } catch (Exception e) {
                 System.err.println("there is a problem in server.");
             }
