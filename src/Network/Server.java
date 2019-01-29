@@ -14,7 +14,7 @@ public class Server {
     public Server() {
         try {
             serverSocket = new ServerSocket(8050);
-            ConnectThread connectThread = new ConnectThread(serverSocket, this);
+            ConnectThread connectThread = new ConnectThread(this);
             connectThread.run();
             socket = serverSocket.accept();
             scanner = new Scanner(socket.getInputStream());
