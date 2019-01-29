@@ -46,6 +46,10 @@ public class MenuScene {
         addClientButton(410, 430 - offset);
         addHostButton(410, 560 - offset);
         addQuitButton(410, 690 - offset);
+
+        Sound.init();
+        Sound.play("menu");
+
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
         primaryStage.show();
