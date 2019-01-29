@@ -140,24 +140,24 @@ public class MenuScene {
         button.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                TextField textField = new TextField();
-                root.getChildren().add(textField);
-                textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent event) {
-                        if(event.getCode().equals(KeyCode.ENTER)){
-                            GameScene.gameScene.setPrimaryStage(primaryStage);
-                            GameScene.gameScene.start();
-                        }
-                    }
-                });
+                text.setFill(Color.rgb(200, 200, 200));
+                int dy = 30;
+                TextInput name = new TextInput("name", 200, 500);
+                TextInput id = new TextInput("id", 200, 500 + dy);
+                ImageView check = GameScene.getImage("./Graphic/Menu/check.png");
+                ImageView cancel = GameScene.getImage("./Graphic/Menu/cancel.png");
+                cancel.setX(320);
+                cancel.setY(570);
+                check.setX(200);
+                check.setY(570);
+                root.getChildren().add(cancel);
+                root.getChildren().add(check);
             }
         });
 
         button.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle (MouseEvent event) {
-                text.setFill(Color.rgb(0, 0, 0));
                 TextField textField = new TextField();
             }
         });
@@ -172,14 +172,18 @@ public class MenuScene {
         button.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
+                text.setFill(Color.rgb(200, 200, 200));
                 int dy = 30;
                 TextInput name = new TextInput("name", 800, 330);
                 TextInput id = new TextInput("id", 800, 330 + dy);
                 TextInput host = new TextInput("host", 800,  330 + dy * 2);
                 ImageView check = GameScene.getImage("./Graphic/Menu/check.png");
+                ImageView cancel = GameScene.getImage("./Graphic/Menu/cancel.png");
+                cancel.setX(935);
+                cancel.setY(420);
                 check.setX(800);
                 check.setY(420);
+                root.getChildren().add(cancel);
                 root.getChildren().add(check);
 
             }
@@ -188,7 +192,6 @@ public class MenuScene {
         button.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle (MouseEvent event) {
-                text.setFill(Color.rgb(0, 0, 0));
                 TextField textField = new TextField();
             }
         });
