@@ -1,11 +1,12 @@
 package View;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 
 public class Sound {
 
@@ -17,15 +18,19 @@ public class Sound {
         library.put("menu", new MediaPlayer(sound));
     }
 
+    public static void play(String name) {
+        MediaPlayer sound = library.get(name);
+        if(name.equals("menu"))
+            sound.setCycleCount(1000);
+        sound.play();
+    }
+
     public static void mute() {
         for (Map.Entry<String, MediaPlayer> entry : library.entrySet()) {
             entry.getValue().stop();
         }
     }
 
-    public static void play(String type) {
-        library.get(type).play();
-    }
 
 
 }
