@@ -172,7 +172,7 @@ public class MenuScene {
         button.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                
+
                 int dy = 30;
                 TextInput name = new TextInput("name", 800, 330);
                 TextInput id = new TextInput("id", 800, 330 + dy);
