@@ -24,26 +24,17 @@ import java.util.Random;
 
 public class View extends Application {
     public Stage primaryStage;
-    private static Media sound = new Media(new File("Sounds/menu.mp3").toURI().toString());
-    private static MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
     private void debug() {
         CommandController.commandController.run("Level0");
     }
-    {
-        if(sound == null)
-            System.out.println("NULLLL");
-        System.out.println("YAYY");
-        mediaPlayer.play();
-    }
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
         debug();
         MenuScene.menuScene.setPrimaryStage(primaryStage);
         MenuScene.menuScene.start();
-
-        String musicFile = "menu.mp3";     // For example
     }
 
 

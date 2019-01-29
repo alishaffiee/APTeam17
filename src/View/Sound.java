@@ -1,34 +1,36 @@
 package View;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+
 public class Sound {
 
-    private static HashMap<String, MediaPlayer> mediaPlayerHashMap = new HashMap<>();
+    private static HashMap<String, MediaPlayer> library = new HashMap<>();
 
     public static void init() {
-        mediaPlayerHashMap.clear();
+        library.clear();
         Media sound = new Media(new File("Sounds/menu.mp3").toURI().toString());
-        mediaPlayerHashMap.put("menu", new MediaPlayer(sound));
+        library.put("menu", new MediaPlayer(sound));
+    }
+
+    public static void play(String name) {
+        MediaPlayer sound = library.get(name);
+        if(name.equals("menu"))
+            sound.setCycleCount(1000);
+        sound.play();
     }
 
     public static void mute() {
-        for (Map.Entry<String, MediaPlayer> entry : mediaPlayerHashMap.entrySet()) {
+        for (Map.Entry<String, MediaPlayer> entry : library.entrySet()) {
             entry.getValue().stop();
         }
     }
 
-    public static void play(String type) {
-
-        mediaPlayerHashMap.get(type).play();
-        System.out.println(mediaPlayerHashMap.get("menu"));
-        System.out.println("TYPE " + type);
-    }
 
 
 }
