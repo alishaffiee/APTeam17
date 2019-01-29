@@ -41,11 +41,12 @@ public class MenuScene {
         ImageView background = GameScene.getImage("./Graphic/Menu/Background.png");
         root.getChildren().add(background);
         int offset = 60;
-        addStartButton(410, 170 - offset);
-        addLoadButton(410, 300 - offset);
-        addClientButton(410, 430 - offset);
-        addHostButton(410, 560 - offset);
-        addQuitButton(410, 690 - offset);
+        addStartButton(410, 90 - offset);
+        addLoadButton(410, 220 - offset);
+        addClientButton(410, 350 - offset);
+        addHostButton(410, 480 - offset);
+        addRankingButton(410, 610 - offset);
+        addQuitButton(410, 740 - offset);
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -135,7 +136,7 @@ public class MenuScene {
     }
     private void addHostButton(int x,int y){
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
-        Text text = new Text(x + 112, y + 57, "Host");
+        Text text = new Text(x + 115, y + 57, "Host");
         addButton(x, y, button);
         addText(text);
 
@@ -189,7 +190,7 @@ public class MenuScene {
     }
     private void addClientButton(int x,int y){
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
-        Text text = new Text(x + 112, y + 57, "Client");
+        Text text = new Text(x + 105, y + 57, "Client");
         addButton(x, y, button);
         addText(text);
 
@@ -236,13 +237,29 @@ public class MenuScene {
                 });
             }
         });
+    }
+
+    private void addRankingButton(int x, int y) {
+        ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+        Text text = new Text(x + 92, y + 57, "Ranking");
+
+        addButton(x, y, button);
+        addText(text);
+
+        button.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                text.setFill(Color.rgb(200, 200, 200));
+            }
+        });
 
         button.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle (MouseEvent event) {
-                TextField textField = new TextField();
+                text.setFill(Color.rgb(0, 0, 0));
+                //    GameScene.gameScene.setPrimaryStage(primaryStage);
+                //    GameScene.gameScene.start();
             }
         });
-
     }
 }
