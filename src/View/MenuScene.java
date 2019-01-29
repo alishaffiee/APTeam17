@@ -4,8 +4,12 @@ import Control.CommandController;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -136,7 +140,17 @@ public class MenuScene {
         button.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                text.setFill(Color.rgb(200, 200, 200));
+                TextField textField = new TextField();
+                root.getChildren().add(textField);
+                textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent event) {
+                        if(event.getCode().equals(KeyCode.ENTER)){
+                            GameScene.gameScene.setPrimaryStage(primaryStage);
+                            GameScene.gameScene.start();
+                        }
+                    }
+                });
             }
         });
 
@@ -144,9 +158,10 @@ public class MenuScene {
             @Override
             public void handle (MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
-                primaryStage.close();
+                TextField textField = new TextField();
             }
         });
+
     }
     private void addClientButton(int x,int y){
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
@@ -157,7 +172,17 @@ public class MenuScene {
         button.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                text.setFill(Color.rgb(200, 200, 200));
+                TextField textField = new TextField();
+                root.getChildren().add(textField);
+                textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent event) {
+                        if(event.getCode().equals(KeyCode.ENTER)){
+                            GameScene.gameScene.setPrimaryStage(primaryStage);
+                            GameScene.gameScene.start();
+                        }
+                    }
+                });
             }
         });
 
@@ -165,8 +190,9 @@ public class MenuScene {
             @Override
             public void handle (MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
-                primaryStage.close();
+                TextField textField = new TextField();
             }
         });
+
     }
 }
