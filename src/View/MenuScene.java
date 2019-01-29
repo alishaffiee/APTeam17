@@ -172,17 +172,16 @@ public class MenuScene {
         button.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                TextField textField = new TextField();
-                root.getChildren().add(textField);
-                textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent event) {
-                        if(event.getCode().equals(KeyCode.ENTER)){
-                            GameScene.gameScene.setPrimaryStage(primaryStage);
-                            GameScene.gameScene.start();
-                        }
-                    }
-                });
+                
+                int dy = 30;
+                TextInput name = new TextInput("name", 800, 330);
+                TextInput id = new TextInput("id", 800, 330 + dy);
+                TextInput host = new TextInput("host", 800,  330 + dy * 2);
+                ImageView check = GameScene.getImage("./Graphic/Menu/check.png");
+                check.setX(800);
+                check.setY(420);
+                root.getChildren().add(check);
+
             }
         });
 
