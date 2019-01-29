@@ -17,6 +17,7 @@ public class ConnectThread extends Thread{
 
     @Override
     public void run() {
+        System.out.println(1);
         int cnt = 8051;
         while (true) {
             ServerSocket serverSocket;
@@ -63,8 +64,7 @@ public class ConnectThread extends Thread{
                 System.err.println("User added");
 
             } catch (Exception e) {
-                System.err.println("Server's problem");
-                e.printStackTrace();
+                System.err.println("there is a problem in server.");
             }
         }
     }
