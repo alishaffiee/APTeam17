@@ -13,7 +13,7 @@ public class Sound {
 
     public static void init() {
         mediaPlayerHashMap.clear();
-        Media sound = new Media(new File("Graphic/menu.mp3").toURI().toString());
+        Media sound = new Media(new File("Sounds/menu.mp3").toURI().toString());
         mediaPlayerHashMap.put("menu", new MediaPlayer(sound));
     }
 

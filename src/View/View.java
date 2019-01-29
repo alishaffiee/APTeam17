@@ -24,7 +24,7 @@ import java.util.Random;
 
 public class View extends Application {
     public Stage primaryStage;
-    private static Media sound = new Media(new File("menu.mp3").toURI().toString());
+    private static Media sound = new Media(new File("Sounds/menu.mp3").toURI().toString());
     private static MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
     private void debug() {
