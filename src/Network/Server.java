@@ -1,7 +1,10 @@
 package Network;
 
+import Social.Profile;
+
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Scanner;
 
@@ -10,20 +13,19 @@ public class Server {
     private ServerSocket serverSocket;
     private Scanner scanner;
     private Formatter formatter;
+    private ArrayList<Profile> profiles = new ArrayList<>();
 
     public Server() {
         try {
             serverSocket = new ServerSocket(8050);
             ConnectThread connectThread = new ConnectThread(this);
             connectThread.run();
-            socket = serverSocket.accept();
-            scanner = new Scanner(socket.getInputStream());
-            formatter = new Formatter(socket.getOutputStream());
-            formatter.format("8060");
-            int value = scanner.nextInt();
-
         } catch (Exception e) {
             System.out.println("Server not found.");
         }
+    }
+
+    public void addProfile(Profile profile) {
+        profiles.add(profile);
     }
 }

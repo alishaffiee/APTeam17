@@ -26,6 +26,9 @@ public class Client {
         } catch (Exception e) {
             System.out.println("Server not found.");
         }
+    }
 
+    public Socket getSocket() {
+        return socket;
     }
 }
