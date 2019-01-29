@@ -23,8 +23,12 @@ public class ConnectThread extends Thread{
                 System.err.println("connected new user");
                 Formatter formatter = new Formatter(socket.getOutputStream());
                 Scanner scanner = new Scanner(socket.getInputStream());
+
+                String name = scanner.nextLine();
                 String id = scanner.nextLine();
-                System.err.println("user id is : " + id);
+
+                System.err.println("name : " + name);
+                System.err.println("user : " + id);
 
                 formatter.format(Integer.toString(cnt) + '\n');
                 System.err.println("port is " + cnt);
