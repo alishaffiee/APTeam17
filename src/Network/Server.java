@@ -17,9 +17,9 @@ public class Server {
 
     public Server() {
         try {
-            serverSocket = new ServerSocket(8050);
             ConnectThread connectThread = new ConnectThread(this);
-            connectThread.run();
+            connectThread.start();
+            System.out.println("Building server was successful.");
         } catch (Exception e) {
             System.out.println("Server not found.");
         }
