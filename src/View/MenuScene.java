@@ -146,12 +146,22 @@ public class MenuScene {
                 TextInput id = new TextInput("id", 200, 500 + dy);
                 ImageView check = GameScene.getImage("./Graphic/Menu/check.png");
                 ImageView cancel = GameScene.getImage("./Graphic/Menu/cancel.png");
-                cancel.setX(320);
+                cancel.setX(335);
                 cancel.setY(570);
                 check.setX(200);
                 check.setY(570);
                 root.getChildren().add(cancel);
                 root.getChildren().add(check);
+                cancel.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle (MouseEvent event) {
+                        root.getChildren().remove(name.getTextField());
+                        root.getChildren().remove(id.getTextField());
+                        root.getChildren().remove(check);
+                        root.getChildren().remove(cancel);
+                        text.setFill(Color.BLACK);
+                    }
+                });
             }
         });
 
@@ -185,7 +195,17 @@ public class MenuScene {
                 check.setY(420);
                 root.getChildren().add(cancel);
                 root.getChildren().add(check);
-
+                cancel.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle (MouseEvent event) {
+                        root.getChildren().remove(name.getTextField());
+                        root.getChildren().remove(id.getTextField());
+                        root.getChildren().remove(host.getTextField());
+                        root.getChildren().remove(check);
+                        root.getChildren().remove(cancel);
+                        text.setFill(Color.BLACK);
+                    }
+                });
             }
         });
 

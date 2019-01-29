@@ -13,8 +13,10 @@ public class TextInput{
     int x, y;
     private TextField field;
     private boolean change = false;
+    private TextField textField;
+
     public TextInput(String init,int x,int y){
-        TextField textField = new TextField(init);
+        textField = new TextField(init);
         field = textField;
         textField.setLayoutX(x);
         textField.setLayoutY(y);
@@ -45,4 +47,7 @@ public class TextInput{
         return field.getText();
     }
 
+    public TextField getTextField() {
+        return textField;
+    }
 }
