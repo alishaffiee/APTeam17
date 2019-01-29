@@ -1,6 +1,7 @@
 package View;
 
 import Control.CommandController;
+import Network.Client;
 import Network.Server;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -214,6 +215,20 @@ public class MenuScene {
                         root.getChildren().remove(name.getTextField());
                         root.getChildren().remove(id.getTextField());
                         root.getChildren().remove(host.getTextField());
+                        root.getChildren().remove(check);
+                        root.getChildren().remove(cancel);
+                        text.setFill(Color.BLACK);
+                    }
+                });
+
+                check.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle (MouseEvent event) {
+                        Client client = new Client(name.getString(), id.getString(), host.getString());
+
+                        root.getChildren().remove(host.getTextField());
+                        root.getChildren().remove(name.getTextField());
+                        root.getChildren().remove(id.getTextField());
                         root.getChildren().remove(check);
                         root.getChildren().remove(cancel);
                         text.setFill(Color.BLACK);

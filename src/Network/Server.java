@@ -22,6 +22,7 @@ public class Server {
             System.out.println("Building server was successful.");
         } catch (Exception e) {
             System.out.println("Server not found.");
+            e.printStackTrace();
         }
     }
 

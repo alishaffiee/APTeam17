@@ -38,18 +38,6 @@ public class ConnectThread extends Thread{
                 System.err.println("port is " + cnt);
                 formatter.flush();
 
-                System.err.println("waiting for finishing");
-                String connected = scanner.nextLine();
-                System.err.println("connected");
-
-                formatter.close();
-                scanner.close();
-
-                if(connected.equals("false")) {
-                    System.out.println("cannot connect");
-                    continue;
-                }
-
                 serverSocket.close();
                 serverSocket = new ServerSocket(cnt);
                 cnt++;

@@ -15,17 +15,21 @@ public class Client {
             socket = new Socket(host, 8050);
             scanner = new Scanner(socket.getInputStream());
             formatter = new Formatter(socket.getOutputStream());
-
             formatter.format(name + "\n");
             formatter.format(id + "\n");
             formatter.flush();
-
             int port = Integer.valueOf(scanner.nextLine());
-            socket = new Socket(host, port);
-
-
+            System.out.println(port);
+            while(true) {
+                try {
+                    socket = new Socket(host, port);
+                    break;
+                } catch (Exception e) {}
+            }
+            System.out.println("x");
         } catch (Exception e) {
             System.out.println("Server not found.");
+            e.printStackTrace();
         }
     }
 
