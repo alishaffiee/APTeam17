@@ -34,11 +34,12 @@ public class MenuScene {
     public void start() {
         ImageView background = GameScene.getImage("./Graphic/Menu/Background.png");
         root.getChildren().add(background);
-
-        addStartButton(410, 170);
-        addLoadButton(410, 300);
-        addQuitButton(410, 430);
-
+        int offset = 60;
+        addStartButton(410, 170 - offset);
+        addLoadButton(410, 300 - offset);
+        addClientButton(410, 430 - offset);
+        addHostButton(410, 560 - offset);
+        addQuitButton(410, 690 - offset);
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -108,6 +109,48 @@ public class MenuScene {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
         Text text = new Text(x + 112, y + 57, "Quit");
 
+        addButton(x, y, button);
+        addText(text);
+
+        button.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                text.setFill(Color.rgb(200, 200, 200));
+            }
+        });
+
+        button.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle (MouseEvent event) {
+                text.setFill(Color.rgb(0, 0, 0));
+                primaryStage.close();
+            }
+        });
+    }
+    private void addHostButton(int x,int y){
+        ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+        Text text = new Text(x + 112, y + 57, "Host");
+        addButton(x, y, button);
+        addText(text);
+
+        button.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                text.setFill(Color.rgb(200, 200, 200));
+            }
+        });
+
+        button.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle (MouseEvent event) {
+                text.setFill(Color.rgb(0, 0, 0));
+                primaryStage.close();
+            }
+        });
+    }
+    private void addClientButton(int x,int y){
+        ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+        Text text = new Text(x + 112, y + 57, "Client");
         addButton(x, y, button);
         addText(text);
 
