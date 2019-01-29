@@ -33,6 +33,8 @@ public class View extends Application {
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
         debug();
+        Sound.init();
+        Sound.play("menu");
         MenuScene.menuScene.setPrimaryStage(primaryStage);
         MenuScene.menuScene.start();
     }
