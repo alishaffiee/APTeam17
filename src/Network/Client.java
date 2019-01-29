@@ -10,13 +10,18 @@ public class Client {
     private Scanner scanner;
     private Formatter formatter;
 
-    public Client() {
+    public Client(String name, String id, String host) {
         try {
-            socket = new Socket("loaclhost", 8050);
+            socket = new Socket(host, 8050);
             scanner = new Scanner(socket.getInputStream());
             formatter = new Formatter(socket.getOutputStream());
-            int port = scanner.nextInt();
-            formatter.format("1234");
+
+            formatter.format(name + "\n");
+            formatter.format(id + "\n");
+            formatter.flush();
+
+            int port = Integer.valueOf(scanner.nextLine());
+            socket = new Socket(host, port);
 
         } catch (Exception e) {
             System.out.println("Server not found.");
