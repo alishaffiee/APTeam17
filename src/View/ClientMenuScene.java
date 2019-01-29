@@ -18,6 +18,7 @@ public class ClientMenuScene {
     public static Group root;
     private Stage primaryStage;
     private Scene scene;
+    private Client client;
 
     private ClientMenuScene() {
         root = new Group();
@@ -30,6 +31,7 @@ public class ClientMenuScene {
     }
 
     public void start(Client client) {
+        this.client = client;
         ImageView background = GameScene.getImage("./Graphic/Menu/Background.png");
         root.getChildren().add(background);
         int offset = 60;
@@ -88,6 +90,7 @@ public class ClientMenuScene {
             @Override
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(200, 200, 200));
+                client.addCommand("get users");
             }
         });
 

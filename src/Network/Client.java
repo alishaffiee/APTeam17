@@ -9,6 +9,7 @@ public class Client {
     private Socket socket;
     private Scanner scanner;
     private Formatter formatter;
+    private ClientCommandController clientCommandController;
 
     public Client(String name, String id, String host) throws Exception{
         try {
@@ -19,9 +20,10 @@ public class Client {
             formatter.format(id + "\n");
             formatter.flush();
             int port = Integer.valueOf(scanner.nextLine());
-            System.out.println(port);
+
             socket = new Socket(host, port);
-            new ClientCommandController(this).start();
+            clientCommandController = new ClientCommandController(this);
+            clientCommandController.start();
         } catch (Exception e) {
             System.out.println("Server not found.");
             e.printStackTrace();
@@ -34,6 +36,6 @@ public class Client {
     }
 
     public void addCommand(String command) {
-        formatter.format(command + "\n");
+        clientCommandController.sendCommand(command);
     }
 }

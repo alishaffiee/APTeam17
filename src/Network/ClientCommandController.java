@@ -39,13 +39,11 @@ public class ClientCommandController {
             case "show": {
                 break;
             }
-            default: {
-                System.out.println("command is invalid.");
-            }
         }
     }
 
-    private void sendCommand(String command) {
+    public void sendCommand(String command) {
         formatter.format(command + "\n");
+        formatter.flush();
     }
 }

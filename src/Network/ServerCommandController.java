@@ -1,6 +1,9 @@
 package Network;
 
+import Social.Profile;
+
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Scanner;
 
@@ -15,6 +18,7 @@ public class ServerCommandController {
 
     public void start() {
         Socket socket = connection.getSocket();
+        System.out.println("*" + socket.getPort());
         try {
             scanner = new Scanner(socket.getInputStream());
             formatter = new Formatter(socket.getOutputStream());
@@ -28,6 +32,7 @@ public class ServerCommandController {
             public void run() {
                 while (true) {
                     String command = scanner.nextLine();
+                    System.out.println(command);
                     handle(command);
                 }
             }
@@ -36,16 +41,22 @@ public class ServerCommandController {
 
     private void handle(String command) {
         switch (command) {
-            case "show": {
+            case "get users": {
+                ArrayList<Profile> profiles = connection.getServer().getProfiles();
+                String ans = "";
+                for(Profile profile : profiles) {
+                    ans = ans + " " + profile.getUser().getName();
+                }
+                ans = ans.trim();
+                sendCommand(ans);
+                System.out.println(ans);
                 break;
-            }
-            default: {
-                System.out.println("command is invalid.");
             }
         }
     }
 
     private void sendCommand(String command) {
         formatter.format(command + "\n");
+        formatter.flush();
     }
 }

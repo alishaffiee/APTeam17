@@ -17,7 +17,6 @@ public class ConnectThread extends Thread{
 
     @Override
     public void run() {
-        System.out.println(1);
         int cnt = 8051;
         while (true) {
             ServerSocket serverSocket;
@@ -42,6 +41,7 @@ public class ConnectThread extends Thread{
                 serverSocket = new ServerSocket(cnt);
                 cnt++;
                 socket = serverSocket.accept();
+                System.out.println(socket.getPort());
                 System.err.println("User adding");
 
 

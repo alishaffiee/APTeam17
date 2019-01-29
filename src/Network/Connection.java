@@ -29,4 +29,8 @@ public class Connection {
     public Socket getSocket() {
         return socket;
     }
+
+    public Server getServer() {
+        return server;
+    }
 }

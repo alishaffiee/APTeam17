@@ -29,4 +29,8 @@ public class Server {
     public void addProfile(Profile profile) {
         profiles.add(profile);
     }
+
+    public ArrayList<Profile> getProfiles() {
+        return profiles;
+    }
 }
