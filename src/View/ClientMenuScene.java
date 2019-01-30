@@ -90,7 +90,7 @@ public class ClientMenuScene {
             @Override
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(200, 200, 200));
-                client.addCommand("get users");
+                String ans = client.addCommand("get users");
             }
         });
 

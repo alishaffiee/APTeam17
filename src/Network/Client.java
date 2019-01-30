@@ -35,7 +35,7 @@ public class Client {
         return socket;
     }
 
-    public void addCommand(String command) {
-        clientCommandController.sendCommand(command);
+    public String addCommand(String command) {
+        return clientCommandController.sendCommand(command);
     }
 }
