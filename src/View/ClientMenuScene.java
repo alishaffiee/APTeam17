@@ -118,6 +118,7 @@ public class ClientMenuScene {
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(200, 200, 200));
                 String ans = client.addCommand("get users");
+                System.out.println(ans);
             }
         });
 
