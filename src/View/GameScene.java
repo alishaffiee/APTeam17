@@ -240,12 +240,28 @@ public class GameScene {
         imageView.setY(y);
         root.getChildren().add(imageView);
 
+        final int positionX = x, positionY = y;
+
         imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 try {
                     CommandController.commandController.getGame().getCurrentLevel().getMap().getWarehouse().add(itemType);
-                    root.getChildren().remove(imageView);
+                    new AnimationTimer() {
+                        long prv = -1, x = positionX, y = positionY;
+                        @Override
+                        public void handle(long now) {
+                            if(now - prv < 2e8)
+                                return;
+                            x += (500 - x) / 10;
+                            y += (650 - y) / 10;
+                            imageView.relocate(x, y);
+                            if(Math.abs(x - 500) < 20 && Math.abs(y - 650) < 20) {
+                                root.getChildren().remove(imageView);
+                                stop();
+                            }
+                        }
+                    }.start();
                 } catch (Exception e) {
                     System.out.println("Cannot add this item to warehouse");
                 }

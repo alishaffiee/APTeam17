@@ -151,7 +151,21 @@ public class MoveAnimal {
                                     return;
                                 }
                             }
-                            root.getChildren().remove(death);
+                            new AnimationTimer() {
+                                long prv = -1, x = positionX, y = positionY;
+                                @Override
+                                public void handle(long now) {
+                                    if(now - prv < 2e8)
+                                        return;
+                                    x += (500 - x) / 10;
+                                    y += (650 - y) / 10;
+                                    death.relocate(x, y);
+                                    if(Math.abs(x - 500) < 20 && Math.abs(y - 650) < 20) {
+                                        root.getChildren().remove(death);
+                                        stop();
+                                    }
+                                }
+                            }.start();
                         }
                     });
                     stop();

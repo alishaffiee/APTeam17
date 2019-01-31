@@ -12,12 +12,14 @@ public class Grass extends Entity {
     private Cell cell;
     private final int offset = 4;
     private ImageView imageView;
+    private double size;
 
     public Grass(Cell cell, ImageView imageView) {
         this.cell = cell;
         this.imageView = imageView;
         turnsToDie = Values.GRASS_LIFE_TIME;
         value = Values.GRASS_VALUE;
+        size = 1.0;
         cell.getEntities().add(this);
     }
 
@@ -34,7 +36,10 @@ public class Grass extends Entity {
     }
 
     public void eat() {
+        size *= 0.9;
         System.out.println(value);
+        imageView.setScaleX(size);
+        imageView.setScaleY(size);
         value--;
         if (value == 0) {
             kill();
