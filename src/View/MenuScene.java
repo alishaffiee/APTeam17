@@ -1,6 +1,7 @@
 package View;
 
 import Control.CommandController;
+import Model.Level;
 import Network.Client;
 import Network.Server;
 import javafx.event.EventHandler;
@@ -26,6 +27,10 @@ public class MenuScene {
     public static Group root;
     private Stage primaryStage;
     private Scene scene;
+
+    public Scene getScene() {
+        return scene;
+    }
 
     private MenuScene() {
         root = new Group();
@@ -80,8 +85,8 @@ public class MenuScene {
             @Override
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
-                GameScene.gameScene.setPrimaryStage(primaryStage);
-                GameScene.gameScene.start();
+                LevelScene.LevelScene.setPrimaryStage(primaryStage);
+                LevelScene.LevelScene.start();
             }
         });
     }
