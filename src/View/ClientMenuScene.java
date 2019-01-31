@@ -185,25 +185,43 @@ public class ClientMenuScene {
 
     private void addUsersButton(int x, int y) {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+        ImageView profile = GameScene.getImage("./Graphic/profile.png");
         Text text = new Text(x + 82, y + 57, "Users");
 
         addButton(x, y, button);
         addText(text);
-        /*
+        Label users = new Label();
+        int profilex = 800;
+        int profiley = 50;
+        profile.setX(profilex);
+        profile.setY(profiley);
+        users.setStyle("-fx-font: normal bold 20px 'Comic Sans MS'");
         button.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(200, 200, 200));
                 String ans = client.addCommand("get users");
-                System.out.println(ans);
+                String[] array = ans.split(" ");
+                int n = array.length;
+                String text = "";
+                for(int i=0; i<n; i++){
+                    String s = String.valueOf(i + 1) + ". ";
+                    s = s + array[i];
+                    text = text + s + '\n';
+                }
+                users.setText(text);
+                users.relocate(profilex + 100, profiley);
+                root.getChildren().add(profile);
+                root.getChildren().add(users);
             }
         });
-        */
 
-        button.setOnMouseReleased(new EventHandler<MouseEvent>() {
+        button.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
+                root.getChildren().remove(profile);
+                root.getChildren().remove(users);
             }
         });
     }
