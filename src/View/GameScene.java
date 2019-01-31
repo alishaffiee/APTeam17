@@ -176,12 +176,6 @@ public class GameScene {
             }
         });
     }
-    private void addChat(){
-        ImageView image = getImage("./Graphic/chat.png");
-        image.setX(600);
-        image.setY(600);
-        root.getChildren().add(image);
-    }
     private void addGrass(int x, int y) {
         int id = new Random().nextInt(4) + 1;
         ImageView image = getImage("./Graphic/Grass/grass" + id + ".png");
@@ -368,7 +362,6 @@ public class GameScene {
         addAnimalIcon("Sheep", 30 + W * 2, 30, Values.SHEEP_COST);
         addAnimalIcon("Cat", 30 + W * 3, 30, Values.CAT_COST);
         addAnimalIcon("Dog", 30 + W * 4, 30, Values.DOG_COST);
-        addChat();
         addCoin(920, 35);
 
         addReturnToMenu(1000, 700);
