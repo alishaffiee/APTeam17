@@ -26,7 +26,7 @@ public class Cat extends Animal {
         if (map.getNearestItem(cell) != null) {
             return move(cell, map.getNearestItem(cell), 1);
         }
-        return randomMove();
+        return randomMove(getSpeed());
     }
 
     public static int getLevel() {

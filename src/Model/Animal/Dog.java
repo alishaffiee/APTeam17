@@ -33,6 +33,6 @@ public class Dog extends Animal {
         if (map.getNearestWildAnimal(cell) != null) {
             return move(cell, map.getNearestWildAnimal(cell), getSpeed());
         }
-        return randomMove();
+        return randomMove(getSpeed());
     }
 }

@@ -38,7 +38,7 @@ public class Pet extends Animal {
             return move(cell, grassCell, speed);
         }
 
-        return randomMove();
+        return randomMove(speed);
     }
 
     public void nextTurn() {
@@ -51,7 +51,6 @@ public class Pet extends Animal {
 
         turnsToDie--;
         if (turnsToDie == -1) {
-            System.out.println(7);
             kill();
         }
     }
