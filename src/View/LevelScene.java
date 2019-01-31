@@ -67,7 +67,6 @@ public class LevelScene {
         back.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("Back Truck menu");
                 root.getChildren().clear();
                 primaryStage.setScene(MenuScene.menuScene.getScene());
             }

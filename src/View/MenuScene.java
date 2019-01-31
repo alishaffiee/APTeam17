@@ -111,7 +111,7 @@ public class MenuScene {
                 text.setFill(Color.rgb(0, 0, 0));
                 CommandController.commandController.loadGame("gameData");
                 GameScene.gameScene.setPrimaryStage(primaryStage);
-                GameScene.gameScene.start();
+                GameScene.gameScene.start(null);
             }
         });
     }

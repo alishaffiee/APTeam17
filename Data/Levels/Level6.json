@@ -1,0 +1,18 @@
+{
+  "goal_money" : 100,
+  "initial_money" : 300,
+  "goals" : [
+    {
+      "item" : "Egg",
+      "count" : 10
+    },
+    {
+      "item" : "Chicken",
+      "count" : 3
+    },
+    {
+      "item" : "DriedEggs",
+      "count" : 3
+    }
+  ]
+}
