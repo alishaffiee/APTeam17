@@ -1,5 +1,7 @@
 package Network;
 
+import Social.Profile;
+
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -7,10 +9,12 @@ public class Connection {
     private Socket socket;
     private Server server;
     private Scanner scanner;
+    private Profile profile;
 
-    public Connection(Socket socket, Server server) {
+    public Connection(Socket socket, Server server, Profile profile) {
         this.socket = socket;
         this.server = server;
+        this.profile = profile;
         try {
             scanner = new Scanner(socket.getInputStream());
         } catch (Exception e) {
@@ -32,5 +36,9 @@ public class Connection {
 
     public Server getServer() {
         return server;
+    }
+
+    public Profile getProfile() {
+        return profile;
     }
 }

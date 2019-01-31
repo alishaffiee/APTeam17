@@ -81,7 +81,7 @@ public class MenuScene {
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
                 GameScene.gameScene.setPrimaryStage(primaryStage);
-                GameScene.gameScene.start();
+                GameScene.gameScene.start("Level0");
             }
         });
     }
@@ -106,7 +106,7 @@ public class MenuScene {
                 text.setFill(Color.rgb(0, 0, 0));
                 CommandController.commandController.loadGame("gameData");
                 GameScene.gameScene.setPrimaryStage(primaryStage);
-                GameScene.gameScene.start();
+                GameScene.gameScene.start(null);
             }
         });
     }
@@ -230,6 +230,12 @@ public class MenuScene {
                         try {
                             client = new Client(name.getString(), id.getString(), host.getString());
                         } catch (Exception e) {
+                            root.getChildren().remove(name.getTextField());
+                            root.getChildren().remove(id.getTextField());
+                            root.getChildren().remove(host.getTextField());
+                            root.getChildren().remove(check);
+                            root.getChildren().remove(cancel);
+                            text.setFill(Color.BLACK);
                             return;
                         }
 
@@ -244,30 +250,6 @@ public class MenuScene {
                         ClientMenuScene.clientMenuScene.start(client);
                     }
                 });
-            }
-        });
-    }
-
-    private void addRankingButton(int x, int y) {
-        ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
-        Text text = new Text(x + 92, y + 57, "Ranking");
-
-        addButton(x, y, button);
-        addText(text);
-
-        button.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                text.setFill(Color.rgb(200, 200, 200));
-            }
-        });
-
-        button.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                text.setFill(Color.rgb(0, 0, 0));
-                //    GameScene.gameScene.setPrimaryStage(primaryStage);
-                //    GameScene.gameScene.start();
             }
         });
     }

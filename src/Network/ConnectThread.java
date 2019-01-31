@@ -15,6 +15,16 @@ public class ConnectThread extends Thread{
         this.server = server;
     }
 
+    private boolean validate(String name, String id) {
+        for (Profile profile : server.getProfiles()) {
+            if(profile.getUser().getId().equals(id))
+                return false;
+        }
+        if(name.length() == 0 || id.length() == 0)
+            return false;
+        return true;
+    }
+
     @Override
     public void run() {
         int cnt = 8051;
@@ -30,8 +40,14 @@ public class ConnectThread extends Thread{
                 String name = scanner.nextLine();
                 String id = scanner.nextLine();
 
-                System.err.println("name : " + name);
-                System.err.println("user : " + id);
+                if(!validate(name, id)) {
+                    serverSocket.close();
+                    System.err.println("invalid name of id.");
+                    continue;
+                }
+
+                System.err.println("name = " + name);
+                System.err.println("user = " + id);
 
                 formatter.format(Integer.toString(cnt) + '\n');
                 System.err.println("port is " + cnt);
@@ -51,10 +67,10 @@ public class ConnectThread extends Thread{
 
                 System.err.println("User added");
 
-                new ServerCommandController(new Connection(socket, server)).start();
+                new ServerCommandController(new Connection(socket, server, profile)).start();
 
             } catch (Exception e) {
-                System.err.println("there is a problem in server.");
+                e.printStackTrace();
             }
         }
     }

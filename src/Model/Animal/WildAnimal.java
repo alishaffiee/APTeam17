@@ -74,7 +74,7 @@ public class WildAnimal extends Animal {
         }
 
         if (map.getNearestAnimal(cell) != null) {
-            return move(cell, map.getNearestAnimal(cell));
+            return move(cell, map.getNearestAnimal(cell), speed);
         }
         return randomMove();
     }

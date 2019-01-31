@@ -27,6 +27,7 @@ public class Client {
         } catch (Exception e) {
             System.out.println("Server not found.");
             e.printStackTrace();
+            socket.close();
             throw new Exception("Server not found.");
         }
     }
