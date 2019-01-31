@@ -30,13 +30,6 @@ public class LevelScene {
     public void start() {
         ImageView background = GameScene.getImage("./Graphic/Menu/Background.png");
         root.getChildren().add(background);
-        int offset = -10;
-        /*
-        addStartButton(410, 90 - offset);
-        addLoadButton(410, 220 - offset);
-        addClientButton(410, 350 - offset);
-        addHostButton(410, 480 - offset);
-        addQuitButton(410, 610 - offset);*/
         for(int i=0; i<3; i++){
             for(int j=0; j<3; j++){
                 int number = i + j * 3 + 1;

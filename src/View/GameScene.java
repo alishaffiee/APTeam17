@@ -357,6 +357,11 @@ public class GameScene {
         backImage.setX(0);
         backImage.setY(0);
         root.getChildren().add(backImage);
+        ImageView clock = getImage("./Graphic/clock.png");
+        clock.setX(820);
+        clock.setY(20);
+        root.getChildren().add(clock);
+        Countdown countdown = new Countdown(root, 750, 20, primaryStage);
         int W = 60;
         addAnimalIcon("Chicken", 30, 30, Values.CHICKEN_COST);
         addAnimalIcon("Cow", 30 + W * 1, 30, Values.COW_COST);
