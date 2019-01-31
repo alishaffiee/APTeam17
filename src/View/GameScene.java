@@ -268,6 +268,40 @@ public class GameScene {
 
             }
         });
+
+        new AnimationTimer() {
+            long prv = -1;
+            @Override
+            public void handle(long now) {
+                if(now - prv < 5e9 && prv != -1)
+                    return;
+                if(prv == -1) {
+                    prv = now;
+                    return;
+                }
+                if(!root.getChildren().contains(imageView)) {
+                    stop();
+                    return;
+                }
+                new AnimationTimer() {
+                    long prv = -1, cnt = 0;
+                    @Override
+                    public void handle(long now) {
+                        if(now - prv < 8e8)
+                            return;
+                        cnt++;
+                        if(cnt==25) stop();
+                        if(cnt % 2 == 1) {
+                            root.getChildren().remove(imageView);
+                            return;
+                        }
+
+                        root.getChildren().add(imageView);
+                    }
+                }.start();
+                stop();
+            }
+        }.start();
     }
 
     private void addCoin(int x, int y) {
