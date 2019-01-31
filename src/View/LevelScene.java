@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import static View.GameScene.gameScene;
 import static View.GameScene.getImage;
 
 public class LevelScene {
@@ -45,7 +46,13 @@ public class LevelScene {
                 int offsetX = 85;
                 int offsetY = 85;
                 addButton(sx + i * offsetX, sy + j * offsetY, image);
-
+                image.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        GameScene.gameScene.setPrimaryStage(primaryStage);
+                        GameScene.gameScene.start("Level" + number);
+                    }
+                });
             }
         }
         addBackButton();
