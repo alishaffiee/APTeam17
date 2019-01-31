@@ -67,12 +67,12 @@ abstract public class Animal extends Entity implements Serializable {
         return cell;
     }
 
-    protected Cell randomMove() {
+    protected Cell randomMove(int speed) {
         int x = this.cell.getPositionX();
         int y = this.cell.getPositionY();
         int direction = moveAnimal.getDirection();
-        int p = x + MoveAnimal.dx[direction];
-        int q = y + MoveAnimal.dy[direction];
+        int p = x + MoveAnimal.dx[direction] * speed;
+        int q = y + MoveAnimal.dy[direction] * speed;
         if(map.getCell(p, q) != null) {
             return map.getCell(p, q);
         }
@@ -82,23 +82,26 @@ abstract public class Animal extends Entity implements Serializable {
     }
 
     protected Cell move(Cell start, Cell end, int speed) {
-        if(start.getPositionX() != end.getPositionX()){
+        if(this instanceof WildAnimal)
+            System.out.println(start.getPositionX() + " " + start.getPositionY());
+        int direction = moveAnimal.getDirection();
+        if(Math.abs(start.getPositionX() - end.getPositionX()) > speed && (Math.abs(start.getPositionY() - end.getPositionY()) > speed || direction % 2 == 0)){
             if(start.getPositionX() > end.getPositionX()){
                 moveAnimal.setDirection(0);
-                return map.getCell(start.getPositionX() - speed, start.getPositionY());
+                return map.getCell(Math.max(start.getPositionX() - speed, 0), start.getPositionY());
             }
             else{
                 moveAnimal.setDirection(2);
-                return map.getCell(start.getPositionX() + speed, start.getPositionY());
+                return map.getCell(Math.min(start.getPositionX() + speed, map.getWidth() - 1), start.getPositionY());
             }
         }
         else {
             if (start.getPositionY() > end.getPositionY()) {
                 moveAnimal.setDirection(1);
-                return map.getCell(start.getPositionX(), start.getPositionY() - speed);
+                return map.getCell(start.getPositionX(), Math.max(0, start.getPositionY() - speed));
             } else {
                 moveAnimal.setDirection(3);
-                return map.getCell(start.getPositionX(), start.getPositionY() + speed);
+                return map.getCell(start.getPositionX(), Math.min(start.getPositionY() + speed, map.getHeight() - 1));
             }
         }
     }
