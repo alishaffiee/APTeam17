@@ -13,6 +13,7 @@ public class Client {
 
     public Client(String name, String id, String host) throws Exception{
         try {
+
             socket = new Socket(host, 8050);
             scanner = new Scanner(socket.getInputStream());
             formatter = new Formatter(socket.getOutputStream());
@@ -20,10 +21,19 @@ public class Client {
             formatter.format(id + "\n");
             formatter.flush();
             int port = Integer.valueOf(scanner.nextLine());
-
-            socket = new Socket(host, port);
+            socket.close();
+            while (true) {
+                try {
+                    socket = new Socket(host, port);
+                    break;
+                }
+                catch (Exception e){
+                    System.out.println("not this time : (");
+                }
+            }
             clientCommandController = new ClientCommandController(this);
             clientCommandController.start();
+
         } catch (Exception e) {
             System.out.println("Server not found.");
             e.printStackTrace();
