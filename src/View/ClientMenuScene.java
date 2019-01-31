@@ -67,24 +67,49 @@ public class ClientMenuScene {
 
     private void addProfileButton(int x, int y) {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+        ImageView profile = GameScene.getImage("./Graphic/profile.png");
         Text text = new Text(x + 82, y + 57, "Profile");
 
         addButton(x, y, button);
         addText(text);
+        int profilex = 800;
+        int profiley = 50;
+        profile.setX(profilex);
+        profile.setY(profiley);
 
-        button.setOnMousePressed(new EventHandler<MouseEvent>() {
+        Label prof = new Label();
+        prof.setStyle("-fx-font: normal bold 20px 'Comic Sans MS'");
+        button.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(200, 200, 200));
                 String ans = client.addCommand("get profile");
                 System.out.println(ans);
+                String[] array = ans.split(" ");
+                int n = array.length;
+                String text = "";
+                for(int i=0; i<n; i+=4){
+                    String s = "";
+                    s = s + " ID: " + array[i] + "\n";
+                    s = s + " Name: " + array[i + 1] + "\n";
+                    s = s + " Buy: " + array[i + 2] + "\n";
+                    s = s + " Sell: " + array[i + 3] + "\n";
+                    text = text + s + '\n';
+                }
+                prof.setText(text);
+                prof.relocate(profilex + 100, profiley);
+                root.getChildren().add(prof);
+                root.getChildren().add(profile);
             }
         });
 
-        button.setOnMouseReleased(new EventHandler<MouseEvent>() {
+        button.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
+                root.getChildren().remove(prof);
+                root.getChildren().remove(profile);
+
             }
         });
     }
@@ -102,7 +127,10 @@ public class ClientMenuScene {
         addButton(x, y, button);
         addText(text);
         Label scoreboard = new Label();
-        scoreboard.setStyle("-fx-font: normal bold 30px 'serif'");
+
+
+        scoreboard.setStyle("-fx-font: normal bold 20px 'Comic Sans MS'");
+
         button.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -161,8 +189,8 @@ public class ClientMenuScene {
 
         addButton(x, y, button);
         addText(text);
-
-        button.setOnMousePressed(new EventHandler<MouseEvent>() {
+        /*
+        button.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(200, 200, 200));
@@ -170,6 +198,7 @@ public class ClientMenuScene {
                 System.out.println(ans);
             }
         });
+        */
 
         button.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
