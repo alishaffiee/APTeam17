@@ -242,7 +242,8 @@ public class CommandController {
         return upgradable.getLevel();
 
     }
-    String read(String path) {
+
+    public String read(String path) {
         System.out.println(path);
         String ans = "";
         try {

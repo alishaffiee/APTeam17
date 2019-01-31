@@ -5,6 +5,10 @@ import Model.ItemType;
 import Model.Vehicle.Helicopter;
 import Model.Well;
 import Values.Values;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -23,6 +27,7 @@ import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameScene {
@@ -335,6 +340,17 @@ public class GameScene {
     public void addWorkshop(String name, int place, int level) {
         ImageView imageView = getImage("./Graphic/Workshops/" + name + "/0" + (level + 1) + ".png");
 
+        String json = CommandController.commandController.read("./Data/Workshops/" + name + ".json");
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+
+        JsonArray inputs = jsonObject.get("inputs").getAsJsonArray();
+        ArrayList<ItemType> itemTypes = new ArrayList<>();
+        for (JsonElement jsonElement : inputs) {
+            itemTypes.add(ItemType.getItemType(jsonElement.getAsString()));
+        }
+
+        ItemType output = ItemType.getItemType(jsonObject.get("output").getAsString());
+
         int[] x = {105, 105, 105, 820, 820, 820};
         int[] y = {200, 350, 500, 200, 350, 500};
 
@@ -371,6 +387,39 @@ public class GameScene {
                         spriteAnimation.interpolate(1);
                     }
                 }.start();
+            }
+        });
+
+        ImageView outputImage = getImage("./Graphic/Products/" + output.getName() + ".png");
+        outputImage.relocate(600, 20);
+
+        int sx = 400;
+
+        ArrayList<ImageView> imageViews = new ArrayList<>();
+        for (ItemType itemType : itemTypes) {
+            ImageView imageView1 = getImage("./Graphic/Products/" + itemType.getName() + ".png");
+            imageView1.relocate(sx, 20);
+            sx += 50;
+            imageViews.add(imageView1);
+        }
+
+        imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                root.getChildren().add(outputImage);
+                for (ImageView view : imageViews) {
+                    root.getChildren().add(view);
+                }
+            }
+        });
+
+        imageView.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                root.getChildren().remove(outputImage);
+                for (ImageView view : imageViews) {
+                    root.getChildren().remove(view);
+                }
             }
         });
 

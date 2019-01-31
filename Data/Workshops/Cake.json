@@ -1,11 +1,11 @@
 {
-  "name" : "EggPowderPlant",
+  "name" : "Cake",
   "inputs" : [
-    "Egg"
+    "Cake", "Flour"
   ],
-  "output" : "Flour",
+  "output" : "FlouryCake",
   "production_time" : 15,
   "time_decrease_step" : 1,
-  "upgrade_cost" : 150,
+  "upgrade_cost" : 300,
   "cost_increase_step": 100
 }
