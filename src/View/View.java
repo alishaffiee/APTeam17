@@ -25,14 +25,9 @@ import java.util.Random;
 public class View extends Application {
     public Stage primaryStage;
 
-    private void debug() {
-        CommandController.commandController.run("Level0");
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
-        debug();
         Sound.init();
         Sound.play("menu");
         MenuScene.menuScene.setPrimaryStage(primaryStage);

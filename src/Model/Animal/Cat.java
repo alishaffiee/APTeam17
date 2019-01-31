@@ -24,7 +24,7 @@ public class Cat extends Animal {
     @Override
     public Cell nextMove() {
         if (map.getNearestItem(cell) != null) {
-            return move(cell, map.getNearestItem(cell));
+            return move(cell, map.getNearestItem(cell), 1);
         }
         return randomMove();
     }

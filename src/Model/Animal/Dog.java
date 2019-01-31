@@ -9,11 +9,11 @@ public class Dog extends Animal {
 
     public Dog(Map map) {
         super(map, "Dog");
-        moveAnimal = new MoveAnimal("Dog", 0, 0, 0, 1, 24, 6, 6, 6, 6, null);
+        moveAnimal = new MoveAnimal("Dog", 0, 0, 0, 3, 24, 6, 6, 6, 6, null);
     }
 
     public int getSpeed() {
-        return Values.DOG_SPEED;
+        return 3;
     }
 
     public void nextTurn() {
@@ -31,7 +31,7 @@ public class Dog extends Animal {
         }
 
         if (map.getNearestWildAnimal(cell) != null) {
-            return move(cell, map.getNearestWildAnimal(cell));
+            return move(cell, map.getNearestWildAnimal(cell), getSpeed());
         }
         return randomMove();
     }

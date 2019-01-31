@@ -350,7 +350,9 @@ public class GameScene {
         });
     }
 
-    public void start() {
+    public void start(String level) {
+        if(level != null)
+            CommandController.commandController.run(level);
         ImageView backImage = getImage("./Graphic/back.png");
         backImage.setX(0);
         backImage.setY(0);

@@ -35,7 +35,7 @@ public class Pet extends Animal {
                 turnsToDie = health;
                 return cell;
             }
-            return move(cell, grassCell);
+            return move(cell, grassCell, speed);
         }
 
         return randomMove();

@@ -1,6 +1,7 @@
 package Network;
 
 import Social.Profile;
+import Social.User;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -49,8 +50,22 @@ public class ServerCommandController {
                 }
                 ans = ans.trim();
                 sendCommand(ans);
-                System.out.println(ans);
                 break;
+            }
+            case "get scores": {
+                ArrayList<Profile> profiles = connection.getServer().getProfiles();
+                String ans = "";
+                for(Profile profile : profiles) {
+                    ans = ans + " " + profile.getUser().getName() + " " + profile.getUser().getScore();
+                }
+                ans = ans.trim();
+                sendCommand(ans);
+                break;
+            }
+            case "get profile": {
+                Profile profile = connection.getProfile();
+                User user = profile.getUser();
+                sendCommand(user.getId() + " " + user.getName() + " " + user.getBuyCount() + " " + user.getSellCount());
             }
         }
     }
