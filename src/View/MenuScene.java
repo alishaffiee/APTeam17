@@ -207,7 +207,7 @@ public class MenuScene {
                 int dy = 30;
                 TextInput name = new TextInput("name", 800, 330);
                 TextInput id = new TextInput("id", 800, 330 + dy);
-                TextInput host = new TextInput("host", 800, 330 + dy * 2);
+                TextInput host = new TextInput("localhost", 800, 330 + dy * 2);
                 ImageView check = GameScene.getImage("./Graphic/Menu/check.png");
                 ImageView cancel = GameScene.getImage("./Graphic/Menu/cancel.png");
                 cancel.setX(935);

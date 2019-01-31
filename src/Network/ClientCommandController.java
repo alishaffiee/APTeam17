@@ -25,7 +25,7 @@ public class ClientCommandController {
             e.printStackTrace();
             return;
         }
-
+        /*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -36,6 +36,7 @@ public class ClientCommandController {
                 }
             }
         }).start();
+        */
     }
 
     private void handle(String command) {
@@ -52,11 +53,11 @@ public class ClientCommandController {
     public String sendCommand(String command) {
         formatter.format(command + "\n");
         formatter.flush();
-
         while (true) {
-            if (infos.size() == 0)
-                continue;
-            String info = infos.get(0);
+
+          //  if (infos.size() == 0)
+          //      continue;
+            String info = scanner.nextLine();
             infos.remove(info);
             return info;
         }
