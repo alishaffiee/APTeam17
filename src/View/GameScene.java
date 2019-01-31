@@ -176,12 +176,6 @@ public class GameScene {
             }
         });
     }
-    private void addChat(){
-        ImageView image = getImage("./Graphic/chat.png");
-        image.setX(600);
-        image.setY(600);
-        root.getChildren().add(image);
-    }
     private void addGrass(int x, int y) {
         int id = new Random().nextInt(4) + 1;
         ImageView image = getImage("./Graphic/Grass/grass" + id + ".png");
@@ -357,13 +351,17 @@ public class GameScene {
         backImage.setX(0);
         backImage.setY(0);
         root.getChildren().add(backImage);
+        ImageView clock = getImage("./Graphic/clock.png");
+        clock.setX(820);
+        clock.setY(20);
+        root.getChildren().add(clock);
+        Countdown countdown = new Countdown(root, 750, 20, primaryStage);
         int W = 60;
         addAnimalIcon("Chicken", 30, 30, Values.CHICKEN_COST);
         addAnimalIcon("Cow", 30 + W * 1, 30, Values.COW_COST);
         addAnimalIcon("Sheep", 30 + W * 2, 30, Values.SHEEP_COST);
         addAnimalIcon("Cat", 30 + W * 3, 30, Values.CAT_COST);
         addAnimalIcon("Dog", 30 + W * 4, 30, Values.DOG_COST);
-        addChat();
         addCoin(920, 35);
 
         addReturnToMenu(1000, 700);
