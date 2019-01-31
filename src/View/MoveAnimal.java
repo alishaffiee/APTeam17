@@ -94,6 +94,10 @@ public class MoveAnimal {
         return direction;
     }
 
+    public void setStep(int step) {
+        this.step = step;
+    }
+
     public void move() {
         positionX += step * dx[direction];
         positionY += step * dy[direction];

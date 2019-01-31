@@ -82,8 +82,6 @@ abstract public class Animal extends Entity implements Serializable {
     }
 
     protected Cell move(Cell start, Cell end, int speed) {
-        if(this instanceof WildAnimal)
-            System.out.println(start.getPositionX() + " " + start.getPositionY());
         int direction = moveAnimal.getDirection();
         if(Math.abs(start.getPositionX() - end.getPositionX()) > speed && (Math.abs(start.getPositionY() - end.getPositionY()) > speed || direction % 2 == 0)){
             if(start.getPositionX() > end.getPositionX()){

@@ -28,6 +28,15 @@ public class Pet extends Animal {
     }
 
     public Cell nextMove() {
+        if(isHungry()) {
+            speed = 4;
+            moveAnimal.setStep(4);
+        }
+        else
+        {
+            speed = 1;
+            moveAnimal.setStep(1);
+        }
         Cell grassCell = map.getNearestGrass(cell);
         if(isHungry() && grassCell != null) {
             if(map.getDistance(cell, grassCell) < 600) {
