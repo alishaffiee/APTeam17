@@ -71,6 +71,5 @@ public class LevelScene {
                 primaryStage.setScene(MenuScene.menuScene.getScene());
             }
         });
-
     }
 }

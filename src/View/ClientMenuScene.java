@@ -245,8 +245,13 @@ public class ClientMenuScene {
             @Override
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
+                ChatScene.chatScene.setPrimaryStage(primaryStage);
+                ChatScene.chatScene.start();
             }
         });
     }
 
+    public Scene getScene() {
+        return scene;
+    }
 }
