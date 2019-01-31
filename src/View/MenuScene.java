@@ -1,6 +1,7 @@
 package View;
 
 import Control.CommandController;
+import Model.Level;
 import Network.Client;
 import Network.Server;
 import javafx.event.EventHandler;
@@ -26,6 +27,10 @@ public class MenuScene {
     public static Group root;
     private Stage primaryStage;
     private Scene scene;
+
+    public Scene getScene() {
+        return scene;
+    }
 
     private MenuScene() {
         root = new Group();
@@ -80,8 +85,8 @@ public class MenuScene {
             @Override
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
-                GameScene.gameScene.setPrimaryStage(primaryStage);
-                GameScene.gameScene.start("Level0");
+                LevelScene.LevelScene.setPrimaryStage(primaryStage);
+                LevelScene.LevelScene.start();
             }
         });
     }
@@ -230,12 +235,6 @@ public class MenuScene {
                         try {
                             client = new Client(name.getString(), id.getString(), host.getString());
                         } catch (Exception e) {
-                            root.getChildren().remove(name.getTextField());
-                            root.getChildren().remove(id.getTextField());
-                            root.getChildren().remove(host.getTextField());
-                            root.getChildren().remove(check);
-                            root.getChildren().remove(cancel);
-                            text.setFill(Color.BLACK);
                             return;
                         }
 
@@ -250,6 +249,30 @@ public class MenuScene {
                         ClientMenuScene.clientMenuScene.start(client);
                     }
                 });
+            }
+        });
+    }
+
+    private void addRankingButton(int x, int y) {
+        ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+        Text text = new Text(x + 92, y + 57, "Ranking");
+
+        addButton(x, y, button);
+        addText(text);
+
+        button.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                text.setFill(Color.rgb(200, 200, 200));
+            }
+        });
+
+        button.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                text.setFill(Color.rgb(0, 0, 0));
+                //    GameScene.gameScene.setPrimaryStage(primaryStage);
+                //    GameScene.gameScene.start();
             }
         });
     }
