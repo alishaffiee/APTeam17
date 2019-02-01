@@ -46,7 +46,8 @@ public class ServerCommandController {
                 ArrayList<Profile> profiles = connection.getServer().getProfiles();
                 String ans = "";
                 for(Profile profile : profiles) {
-                    ans = ans + " " + profile.getUser().getName();
+                    User user = profile.getUser();
+                    ans = ans + " " + user.getId() + " " + user.getName() + " " + user.getBuyCount() + " " + user.getSellCount();
                 }
                 ans = ans.trim();
                 sendCommand(ans);
