@@ -47,7 +47,7 @@ public class ServerCommandController {
                 String ans = "";
                 for(Profile profile : profiles) {
                     User user = profile.getUser();
-                    ans = ans + " " + user.getId() + " " + user.getName() + " " + user.getBuyCount() + " " + user.getSellCount();
+                    ans = ans + " " + user.getName();
                 }
                 ans = ans.trim();
                 sendCommand(ans);
@@ -64,20 +64,15 @@ public class ServerCommandController {
                 break;
             }
             case "get profile": {
-                /*
-                Profile profile = connection.getProfile();
-                User user = profile.getUser();
-                sendCommand(user.getId() + " " + user.getName() + " " + user.getBuyCount() + " " + user.getSellCount());
-                */
                 ArrayList<Profile> profiles = connection.getServer().getProfiles();
-                String send = "";
+                String ans = "";
                 for(Profile profile : profiles) {
-
-                    send = send + profile.getUser().getId() + " " + profile.getUser().getName() + " " +
-                            profile.getUser().getBuyCount() + " " + profile.getUser().getScore() + " ";
+                    User user = profile.getUser();
+                    ans = ans + " " + user.getId() + " " + user.getName() + " " + user.getBuyCount() + " " + user.getSellCount();
                 }
-                sendCommand(send);
-
+                ans = ans.trim();
+                sendCommand(ans);
+                break;
             }
         }
     }

@@ -350,8 +350,14 @@ public class GameScene {
             @Override
             public void handle(MouseEvent event) {
                 CommandController.commandController.saveGame("gameData");
-                MenuScene.menuScene.setPrimaryStage(primaryStage);
-                MenuScene.menuScene.start();
+                if (client == null) {
+                    MenuScene.menuScene.setPrimaryStage(primaryStage);
+                    MenuScene.menuScene.start();
+                }
+                else {
+                    ClientMenuScene.clientMenuScene.setPrimaryStage(primaryStage);
+                    ClientMenuScene.clientMenuScene.start(client);
+                }
             }
         });
     }
@@ -393,7 +399,7 @@ public class GameScene {
                     return;
                 Warehouse warehouse = CommandController.commandController.getGame().getCurrentLevel().getMap().getWarehouse();
                 for (ItemType itemType : itemTypes) {
-                    if(!warehouse.getItemTypes().contains(itemType))
+                    if (!warehouse.getItemTypes().contains(itemType))
                         return;
                 }
                 for (ItemType itemType : itemTypes) {
@@ -506,7 +512,7 @@ public class GameScene {
             @Override
             public void handle(MouseEvent event) {
                 if (level == 3) return;
-                if(upgrade_cost > CommandController.commandController.getGame().getCurrentLevel().getMap().getMoney())
+                if (upgrade_cost > CommandController.commandController.getGame().getCurrentLevel().getMap().getMoney())
                     return;
                 CommandController.commandController.getGame().getCurrentLevel().getMap().addMoney(-upgrade_cost);
 
