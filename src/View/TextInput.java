@@ -40,7 +40,10 @@ public class TextInput{
                 change = true;
             }
         });
-        MenuScene.root.getChildren().add(textField);
+        if(init.equals("item name") || init.equals("new cost"))
+            BazaarScene.root.getChildren().add(textField);
+        else
+            MenuScene.root.getChildren().add(textField);
 
     }
     public String getString(){

@@ -53,7 +53,7 @@ public class BazaarScene {
 
     public void start(Client client) {
         this.client = client;
-        ImageView background = getImage("./Graphic/helicopterback.jpg");
+        ImageView background = getImage("./Graphic/bazar.jpg");
         root.getChildren().add(background);
 
         ImageView back = getImage("./Graphic/backbutton.png");
@@ -90,6 +90,18 @@ public class BazaarScene {
         int startX = 30;
         int startY = 100, cur = 0;
 
+        TextInput itemName = new TextInput("item name", 200, 20);
+        TextInput cost = new TextInput("new cost", 200, 55);
+        ImageView submit = getImage("./Graphic/Menu/check.png");
+        submit.setX(160);
+        submit.setY(17);
+        root.getChildren().add(submit);
+        submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                client.addCommand("change " + itemName.getString() + " " + cost.getString());
+            }
+        });
         for (String product : products) {
             boolean bad = false;
 
@@ -115,7 +127,7 @@ public class BazaarScene {
                 ItemType itemType = ItemType.getItemType(product);
                 Text text = new Text(x + 70, y + 32, warehouse.count(itemType) + " " + get("count " + product) + "\n" + get("cost " + product));
 
-                text.setStyle("-fx-font: 18 arial;");
+                text.setStyle("-fx-font: normal bold 20px 'serif'");
 
                 ImageView buyButton = GameScene.getImage("./Graphic/buy.png");
                 buyButton.setX(x + 165);
@@ -165,6 +177,7 @@ public class BazaarScene {
                         primaryStage.setScene(GameScene.gameScene.getScene());
                     }
                 });
+
             }
         }
     }
