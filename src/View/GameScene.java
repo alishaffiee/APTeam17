@@ -357,6 +357,8 @@ public class GameScene {
 
         ItemType output = ItemType.getItemType(jsonObject.get("output").getAsString());
 
+        final int upgrade_cost = jsonObject.get("upgrade_cost").getAsInt() + level * jsonObject.get("cost_increase_step").getAsInt();
+
         int[] x = {105, 105, 105, 820, 820, 820};
         int[] y = {200, 350, 500, 200, 350, 500};
 
@@ -491,6 +493,9 @@ public class GameScene {
             @Override
             public void handle(MouseEvent event) {
                 if (level == 3) return;
+                if(upgrade_cost > CommandController.commandController.getGame().getCurrentLevel().getMap().getMoney())
+                    return;
+                CommandController.commandController.getGame().getCurrentLevel().getMap().addMoney(-upgrade_cost);
 
                 root.getChildren().remove(imageView);
                 root.getChildren().remove(upgradeButton);
