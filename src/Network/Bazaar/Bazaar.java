@@ -78,6 +78,13 @@ public class Bazaar {
                             formatter.flush();
                             break;
                         }
+                        case "change": {
+                            int value = Integer.valueOf(parts.get(2));
+                            cost.put(parts.get(1), value);
+                            formatter.format("completed!\n");
+                            formatter.flush();
+                            break;
+                        }
                     }
                 }
             }
