@@ -54,6 +54,30 @@ public class MenuScene {
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
         primaryStage.show();
+        ImageView speaker = GameScene.getImage("./Graphic/Menu/mute.png");
+        ImageView mute = GameScene.getImage("./Graphic/Menu/speaker.png");
+
+        addButton(100, 100, speaker);
+        speaker.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Sound.init();
+                Sound.play("menu");
+                root.getChildren().remove(speaker);
+                addButton(100, 100, mute);
+            }
+        });
+
+        mute.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Sound.mute();
+                root.getChildren().remove(mute);
+                addButton(100, 100, speaker);
+            }
+        });
+
+
     }
 
     private void addButton(int x, int y, ImageView button) {
@@ -66,7 +90,6 @@ public class MenuScene {
         text.setFont(Font.font(null, FontWeight.BOLD, 32));
         root.getChildren().add(text);
     }
-
     private void addStartButton(int x, int y) {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
         Text text = new Text(x + 64, y + 57, "New Game!");

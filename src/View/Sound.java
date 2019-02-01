@@ -11,7 +11,7 @@ import javafx.scene.media.MediaPlayer;
 public class Sound {
 
     private static HashMap<String, MediaPlayer> library = new HashMap<>();
-
+    public static boolean MenuSound = false;
     public static void init() {
         library.clear();
         Media sound = new Media(new File("Sounds/menu.mp3").toURI().toString());
@@ -22,7 +22,10 @@ public class Sound {
         MediaPlayer sound = library.get(name);
         if(name.equals("menu"))
             sound.setCycleCount(1000);
+
         sound.play();
+        MenuSound = true;
+
     }
 
     public static void mute() {

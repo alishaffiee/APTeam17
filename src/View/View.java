@@ -28,8 +28,6 @@ public class View extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
-        Sound.init();
-        Sound.play("menu");
         MenuScene.menuScene.setPrimaryStage(primaryStage);
         MenuScene.menuScene.start();
     }
