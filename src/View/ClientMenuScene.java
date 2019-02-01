@@ -58,11 +58,11 @@ public class ClientMenuScene {
         primaryStage.show();
         ImageView speaker = GameScene.getImage("./Graphic/Menu/mute.png");
         ImageView mute = GameScene.getImage("./Graphic/Menu/speaker.png");
-
+        int pos = 50;
         if(Sound.MenuSound)
-            addButton(100, 100, mute);
+            addButton(pos, pos, mute);
         else
-            addButton(100, 100, speaker);
+            addButton(pos, pos, speaker);
 
         speaker.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -70,7 +70,7 @@ public class ClientMenuScene {
                 Sound.init();
                 Sound.play("menu");
                 root.getChildren().remove(speaker);
-                addButton(100, 100, mute);
+                addButton(pos, pos, mute);
             }
         });
 
@@ -79,7 +79,7 @@ public class ClientMenuScene {
             public void handle(MouseEvent event) {
                 Sound.mute();
                 root.getChildren().remove(mute);
-                addButton(100, 100, speaker);
+                addButton(pos, pos, speaker);
             }
         });
 
@@ -248,7 +248,7 @@ public class ClientMenuScene {
     }
     private void addRankingButton(int x, int y) {
         int rankx = 50;
-        int ranky = 50;
+        int ranky = 150;
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
         ImageView ranks = GameScene.getImage("./Graphic/ranking.png");
         ranks.setX(rankx);
