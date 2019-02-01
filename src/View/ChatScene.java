@@ -1,7 +1,7 @@
 package View;
 
 import Network.Server;
-import com.sun.deploy.util.SessionState;
+
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
