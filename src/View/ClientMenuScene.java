@@ -59,7 +59,7 @@ public class ClientMenuScene {
         ImageView speaker = GameScene.getImage("./Graphic/Menu/mute.png");
         ImageView mute = GameScene.getImage("./Graphic/Menu/speaker.png");
         int pos = 50;
-        if(Sound.MenuSound)
+        if (Sound.MenuSound)
             addButton(pos, pos, mute);
         else
             addButton(pos, pos, speaker);
@@ -150,12 +150,13 @@ public class ClientMenuScene {
                 int n = array.length;
                 int cur = profiley;
                 cancel.setImage(image);
-                for(int i=0; i<n; i+=4){
+                for (int i = 0; i < n; i += 5) {
                     String s = "";
                     String id = array[i];
                     s = s + " ID: " + array[i] + "\n";
                     s = s + " Buy: " + array[i + 2] + "\n";
                     s = s + " Sell: " + array[i + 3] + "\n";
+                    s = s + " Friends: " + array[i + 4] + "\n";
                     Label prof = new Label();
                     prof.setStyle("-fx-font: normal bold 20px 'Comic Sans MS'");
                     prof.setText(s);
@@ -166,7 +167,15 @@ public class ClientMenuScene {
                     addFriend.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            client.addCommand("make friend " + client.getId() + " " + id);
+                            System.out.println("ss");
+                            client.addCommand("friend " + client.getId() + " " + id);
+                            for (Node o : show)
+                                if (o instanceof Label) {
+                                    ((Label) o).setText("");
+                                }
+                            root.getChildren().removeAll(show);
+                            cancel.setImage(null);
+                            text.setFill(Color.BLACK);
                         }
                     });
 
@@ -174,11 +183,11 @@ public class ClientMenuScene {
                     show.add(addFriend);
                     cur += 100;
                 }
-            //    show.add(cancel);
+                //    show.add(cancel);
                 for (Node o : show) {
                     root.getChildren().add(o);
                 }
-                if(!root.getChildren().contains(cancel))
+                if (!root.getChildren().contains(cancel))
                     root.getChildren().add(cancel);
             }
         });
@@ -186,11 +195,15 @@ public class ClientMenuScene {
         cancel.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                for (Node o : show)
+                    if (o instanceof Label) {
+                        ((Label) o).setText("");
+                    }
                 root.getChildren().removeAll(show);
                 cancel.setImage(null);
                 text.setFill(Color.BLACK);
-            }
-        });
+        }
+    });
         /*
         button.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
@@ -199,8 +212,7 @@ public class ClientMenuScene {
             }
         });
         */
-    }
-
+}
 
 
     private void addUsersButton(int x, int y) {
@@ -225,7 +237,7 @@ public class ClientMenuScene {
                 String[] array = ans.split(" ");
                 int n = array.length;
                 String text = "";
-                for(int i=0; i<n; i++){
+                for (int i = 0; i < n; i++) {
                     String s = String.valueOf(i + 1) + ". ";
                     s = s + array[i];
                     text = text + s + '\n';
@@ -246,6 +258,7 @@ public class ClientMenuScene {
             }
         });
     }
+
     private void addRankingButton(int x, int y) {
         int rankx = 50;
         int ranky = 150;
@@ -276,10 +289,10 @@ public class ClientMenuScene {
                     String player = arr[i];
                     int x = Integer.valueOf(arr[i + 1]);
                     score.put(player, x);
-                    array[i/2] = arr[i];
+                    array[i / 2] = arr[i];
                 }
                 int n = array.length;
-                for (int i = 0; i < n; i++){
+                for (int i = 0; i < n; i++) {
                     for (int j = 0; j + 1 < n; j++) {
                         if (score.get(array[j]) < score.get(array[j + 1])) {
                             String tmp = array[j];
@@ -289,7 +302,7 @@ public class ClientMenuScene {
                     }
                 }
                 String text = "";
-                for(int i=0; i<n; i++){
+                for (int i = 0; i < n; i++) {
                     String s = String.valueOf(i + 1) + ". ";
                     s = s + array[i] + " ";
                     s = s + score.get(array[i]);

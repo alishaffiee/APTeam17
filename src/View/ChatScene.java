@@ -116,7 +116,14 @@ public class ChatScene {
                             String message = scanner.nextLine();
                             Platform.runLater(new Runnable() {
                                 @Override public void run() {
-                                    vBox.getChildren().add(new Label(message));
+                                    Label label = new Label(message);
+                                    vBox.getChildren().add(label);
+                                    label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                        @Override
+                                        public void handle(MouseEvent event) {
+                                            textField.setText(label.getText() + " -> ");
+                                        }
+                                    });
                                 }
                             });
                         }
