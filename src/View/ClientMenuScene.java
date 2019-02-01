@@ -41,12 +41,13 @@ public class ClientMenuScene {
         this.client = client;
         ImageView background = GameScene.getImage("./Graphic/Menu/Background.png");
         root.getChildren().add(background);
-        int offset = 60;
+        int offset = 95;
 
-        addProfileButton(410, offset);
-        addUsersButton(410, 130 + offset);
-        addRankingButton(410, 260 + offset);
-        addChatRoomButton(410, 390 + offset);
+        addStartButton(410, offset);
+        addProfileButton(410, 130 + offset);
+        addUsersButton(410, 260 + offset);
+        addRankingButton(410, 390 + offset);
+        addChatRoomButton(410, 520 + offset);
 
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
@@ -63,6 +64,30 @@ public class ClientMenuScene {
     private void addText(Text text) {
         text.setFont(Font.font(null, FontWeight.BOLD, 32));
         root.getChildren().add(text);
+    }
+
+    private void addStartButton(int x, int y) {
+        ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
+        Text text = new Text(x + 64, y + 57, "New Game!");
+
+        addButton(x, y, button);
+        addText(text);
+
+        button.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                text.setFill(Color.rgb(200, 200, 200));
+            }
+        });
+
+        button.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                text.setFill(Color.rgb(0, 0, 0));
+                LevelScene.LevelScene.setPrimaryStage(primaryStage);
+                LevelScene.LevelScene.start();
+            }
+        });
     }
 
     private void addProfileButton(int x, int y) {
