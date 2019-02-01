@@ -3,6 +3,7 @@ package View;
 import Network.Client;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 
 import javafx.scene.image.ImageView;
@@ -17,6 +18,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ClientMenuScene {
@@ -93,50 +96,77 @@ public class ClientMenuScene {
     private void addProfileButton(int x, int y) {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
         ImageView profile = GameScene.getImage("./Graphic/profile.png");
+        ImageView cancel = GameScene.getImage("./Graphic/Menu/cancel.png");
         Text text = new Text(x + 102, y + 57, "Profile");
 
         addButton(x, y, button);
         addText(text);
-        int profilex = 800;
+        int profilex = 720;
         int profiley = 50;
         profile.setX(profilex);
-        profile.setY(profiley);
+        profile.setY(profiley + 100);
+        cancel.setX(profilex);
+        cancel.setY(profiley);
 
-        Label prof = new Label();
-        prof.setStyle("-fx-font: normal bold 20px 'Comic Sans MS'");
-        button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        ArrayList<Object> show = new ArrayList<>();
+        show.add(profile);
+        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(200, 200, 200));
                 String ans = client.addCommand("get profile");
-                System.out.println(ans);
+                System.out.println("PROFILES " + ans);
                 String[] array = ans.split(" ");
                 int n = array.length;
-                String text = "";
+                int cur = profiley;
                 for(int i=0; i<n; i+=4){
                     String s = "";
+                    String id = array[i];
                     s = s + " ID: " + array[i] + "\n";
-                    s = s + " Name: " + array[i + 1] + "\n";
                     s = s + " Buy: " + array[i + 2] + "\n";
                     s = s + " Sell: " + array[i + 3] + "\n";
-                    text = text + s + '\n';
+                    Label prof = new Label();
+                    prof.setStyle("-fx-font: normal bold 20px 'Comic Sans MS'");
+                    prof.setText(s);
+                    prof.relocate(profilex + 100, cur);
+                    ImageView addFriend = GameScene.getImage("./Graphic/addfriend.png");
+                    addFriend.setX(profilex + 100 - 32);
+                    addFriend.setY(cur);
+                    button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            client.addCommand("make friend " + client.getId() + " " + id);
+                        }
+                    });
+
+                    show.add(prof);
+                    show.add(addFriend);
+                    cur += 100;
                 }
-                prof.setText(text);
-                prof.relocate(profilex + 100, profiley);
-                root.getChildren().add(prof);
-                root.getChildren().add(profile);
+                show.add(cancel);
+                for (Object o : show) {
+                    root.getChildren().add((Node) o);
+                }
+
             }
         });
-
+        cancel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("CANcel");
+                for (Object o : show) {
+                    root.getChildren().remove((Node) o);
+                }
+            }
+        });
+        /*
         button.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                text.setFill(Color.rgb(0, 0, 0));
-                root.getChildren().remove(prof);
-                root.getChildren().remove(profile);
 
             }
         });
+        */
     }
 
 
@@ -159,6 +189,7 @@ public class ClientMenuScene {
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(200, 200, 200));
                 String ans = client.addCommand("get users");
+                System.out.println("USERS " + ans);
                 String[] array = ans.split(" ");
                 int n = array.length;
                 String text = "";
