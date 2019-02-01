@@ -82,7 +82,7 @@ public class Warehouse implements Upgradable, Printable, Serializable {
 
     public int count(ItemType itemType) {
         int ans = 0;
-        for (ItemType itemType1 : allItems) {
+        for (ItemType itemType1 : itemTypes) {
             if (itemType.equals(itemType1))
                 ans++;
         }

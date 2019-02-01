@@ -112,7 +112,8 @@ public class BazaarScene {
                 sell.setX(x);
                 sell.setY(y);
                 root.getChildren().add(sell);
-                Text text = new Text(x + 70, y + 32, get("cost " + ItemType.getItemType(product).getName()));
+                ItemType itemType = ItemType.getItemType(product);
+                Text text = new Text(x + 70, y + 32, warehouse.count(itemType) + " " + get("count " + product) + "\n" + get("cost " + product));
 
                 text.setStyle("-fx-font: 18 arial;");
 
@@ -121,9 +122,22 @@ public class BazaarScene {
 
                 buyButton.setY(y + 17);
 
+                final String name = product;
+
                 buyButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
+                        Warehouse warehouse = CommandController.commandController.getGame().getCurrentLevel().getMap().getWarehouse();
+                        ItemType itemType = ItemType.getItemType(name);
+                        int cnt = Integer.valueOf(get("count " + product));
+                        int cost = Integer.valueOf(get("cost " + name));
+                        if(cnt == 0 || warehouse.getFreeCapacity() < itemType.getVolume() || cost > CommandController.commandController.getGame().getCurrentLevel().getMap().getMoney())
+                            return;
+                        warehouse.add(itemType);
+                        CommandController.commandController.getGame().getCurrentLevel().getMap().addMoney(-Integer.valueOf(get("cost " + name)));
+                        get("remove " + name);
+                        root.getChildren().clear();
+                        primaryStage.setScene(GameScene.gameScene.getScene());
                     }
                 });
 
@@ -134,6 +148,23 @@ public class BazaarScene {
                 sellButton.setX(x + 125);
                 sellButton.setY(y + 17);
                 root.getChildren().add(sellButton);
+
+                sellButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        Warehouse warehouse = CommandController.commandController.getGame().getCurrentLevel().getMap().getWarehouse();
+                        ItemType itemType = ItemType.getItemType(name);
+                        if(warehouse.count(itemType) == 0)
+                            return;
+                        System.out.println(itemType.getName());
+                        warehouse.remove(itemType);
+                        System.out.println(warehouse.count(itemType));
+                        CommandController.commandController.getGame().getCurrentLevel().getMap().addMoney(Integer.valueOf(get("cost " + name)));
+                        get("add " + name);
+                        root.getChildren().clear();
+                        primaryStage.setScene(GameScene.gameScene.getScene());
+                    }
+                });
             }
         }
     }

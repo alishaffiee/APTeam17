@@ -48,6 +48,35 @@ public class Bazaar {
                         case "cost": {
                             formatter.format(cost.get(parts.get(1).toLowerCase()) + "\n");
                             formatter.flush();
+                            break;
+                        }
+                        case "count": {
+                            int count = 0;
+                            for(ItemType itemType : itemTypes) {
+                                if(itemType.getName().equals(parts.get(1)))
+                                    count++;
+                            }
+                            formatter.format(count + "\n");
+                            formatter.flush();
+                            break;
+                        }
+                        case "add": {
+                            itemTypes.add(ItemType.getItemType(parts.get(1)));
+                            formatter.format("completed!\n");
+                            formatter.flush();
+                            break;
+                        }
+                        case "remove": {
+                            ItemType itemType = ItemType.getItemType(parts.get(1));
+                            for(ItemType itemType1 : itemTypes) {
+                                if(itemType.equals(itemType1)) {
+                                    itemTypes.remove(itemType1);
+                                    break;
+                                }
+                            }
+                            formatter.format("completed!\n");
+                            formatter.flush();
+                            break;
                         }
                     }
                 }
