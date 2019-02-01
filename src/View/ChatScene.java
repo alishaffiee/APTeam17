@@ -2,6 +2,7 @@ package View;
 
 import Network.Server;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -85,11 +86,19 @@ public class ChatScene {
                     while(true) {
                         String cnt = scanner.nextLine();
                         int num = Integer.valueOf(cnt);
-                        if(vBox.getChildren().size() > 0)
-                            vBox.getChildren().clear();
+                        Platform.runLater(new Runnable() {
+                            @Override public void run() {
+                                vBox.getChildren().clear();
+                            }
+                        });
+
                         for(int i = 0; i < num; i++) {
                             String message = scanner.nextLine();
-                            vBox.getChildren().add(new Label(message));
+                            Platform.runLater(new Runnable() {
+                                @Override public void run() {
+                                    vBox.getChildren().add(new Label(message));
+                                }
+                            });
                         }
                     }
                 }
