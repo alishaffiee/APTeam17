@@ -11,6 +11,7 @@ public class Client {
     private Formatter formatter;
     private ClientCommandController clientCommandController;
     private String name, id;
+    private boolean server;
 
     public Client(String name, String id, String host) throws Exception{
         this.name = name;
@@ -66,6 +67,14 @@ public class Client {
             socket.close();
             throw new Exception("Server not found.");
         }
+    }
+
+    public boolean isServer() {
+        return server;
+    }
+
+    public void setServer(boolean server) {
+        this.server = server;
     }
 
     public Socket getSocket() {
