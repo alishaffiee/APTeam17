@@ -111,7 +111,7 @@ public class MenuScene {
                 text.setFill(Color.rgb(0, 0, 0));
                 CommandController.commandController.loadGame("gameData");
                 GameScene.gameScene.setPrimaryStage(primaryStage);
-                GameScene.gameScene.start(null);
+                GameScene.gameScene.start(null, null);
             }
         });
     }
@@ -190,6 +190,7 @@ public class MenuScene {
 
                         ClientMenuScene.clientMenuScene.setPrimaryStage(primaryStage);
                         ClientMenuScene.clientMenuScene.start(client);
+
                     }
                 });
             }

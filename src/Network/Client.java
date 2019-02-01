@@ -6,7 +6,7 @@ import java.util.Formatter;
 import java.util.Scanner;
 
 public class Client {
-    private Socket socket, chatSocket;
+    private Socket socket, chatSocket, bazaarSocket;
     private Scanner scanner;
     private Formatter formatter;
     private ClientCommandController clientCommandController;
@@ -51,6 +51,15 @@ public class Client {
                 }
             }
 
+            while (true) {
+                try {
+                    bazaarSocket = new Socket(host, port + 2);
+                    break;
+                }
+                catch (Exception e){
+                    System.out.println("not this time : (");
+                }
+            }
         } catch (Exception e) {
             System.out.println("Server not found.");
             e.printStackTrace();
@@ -77,5 +86,9 @@ public class Client {
 
     public String getId() {
         return id;
+    }
+
+    public Socket getBazaarSocket() {
+        return bazaarSocket;
     }
 }

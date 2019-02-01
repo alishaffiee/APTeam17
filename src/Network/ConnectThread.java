@@ -72,7 +72,12 @@ public class ConnectThread extends Thread{
                 Socket socket1 = serverSocket1.accept();
                 server.getChatRoom().addSocket(socket1);
 
-                System.err.println("User added");
+                ServerSocket serverSocket2 = new ServerSocket(cnt);
+                cnt++;
+                Socket socket2 = serverSocket2.accept();
+                server.getBazaar().addSocket(socket2);
+
+                System.err.println("User added!");
 
                 new ServerCommandController(new Connection(socket, server, profile)).start();
 

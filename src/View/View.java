@@ -2,6 +2,8 @@ package View;
 
 import Control.CommandController;
 import Control.Game;
+import Model.ItemType;
+import Values.ItemsCosts;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -27,6 +29,11 @@ public class View extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        for (String name : ItemsCosts.names) {
+            ItemType.addItemType(
+                    new ItemType(name, ItemsCosts.getDepotSize(name), ItemsCosts.getSaleCost(name), ItemsCosts.getBuyCost(name), 10)
+            );
+        }
         this.primaryStage = primaryStage;
         Sound.init();
         Sound.play("menu");

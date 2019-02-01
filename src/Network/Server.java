@@ -1,5 +1,6 @@
 package Network;
 
+import Network.Bazaar.Bazaar;
 import Network.Chatroom.ChatRoom;
 import Social.Profile;
 
@@ -16,12 +17,14 @@ public class Server {
     private Formatter formatter;
     private ArrayList<Profile> profiles = new ArrayList<>();
     private ChatRoom chatRoom;
+    private Bazaar bazaar;
 
     public Server() {
         try {
             ConnectThread connectThread = new ConnectThread(this);
             connectThread.start();
             chatRoom = new ChatRoom();
+            bazaar = new Bazaar();
             System.out.println("Building server was successful.");
         } catch (Exception e) {
             System.out.println("Server not found.");
@@ -39,5 +42,9 @@ public class Server {
 
     public ChatRoom getChatRoom() {
         return chatRoom;
+    }
+
+    public Bazaar getBazaar() {
+        return bazaar;
     }
 }
