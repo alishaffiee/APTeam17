@@ -80,7 +80,7 @@ public class Bazaar {
                         }
                         case "change": {
                             int value = Integer.valueOf(parts.get(2));
-                            cost.put(parts.get(1), value);
+                            cost.put(parts.get(1).toLowerCase(), value);
                             formatter.format("completed!\n");
                             formatter.flush();
                             break;

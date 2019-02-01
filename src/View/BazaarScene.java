@@ -99,7 +99,9 @@ public class BazaarScene {
         submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                client.addCommand("change " + itemName.getString() + " " + cost.getString());
+                get("change " + itemName.getString() + " " + cost.getString());
+                root.getChildren().clear();
+                primaryStage.setScene(GameScene.gameScene.getScene());
             }
         });
         for (String product : products) {
