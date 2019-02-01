@@ -156,7 +156,7 @@ public class MenuScene {
 
     private void addLoadButton(int x, int y) {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
-        Text text = new Text(x + 107, y + 57, "Load");
+        Text text = new Text(x + 113, y + 57, "Load");
 
         addButton(x, y, button);
         addText(text);
@@ -181,7 +181,7 @@ public class MenuScene {
 
     private void addQuitButton(int x, int y) {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
-        Text text = new Text(x + 112, y + 57, "Quit");
+        Text text = new Text(x + 120, y + 60, "Quit");
 
         addButton(x, y, button);
         addText(text);
@@ -213,8 +213,8 @@ public class MenuScene {
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(200, 200, 200));
                 int dy = 30;
-                TextInput name = new TextInput("name", 200, 500);
-                TextInput id = new TextInput("id", 200, 500 + dy);
+                TextInput name = new TextInput("admin", 200, 500);
+                TextInput id = new TextInput("admin", 200, 500 + dy);
                 ImageView check = GameScene.getImage("./Graphic/Menu/check.png");
                 ImageView cancel = GameScene.getImage("./Graphic/Menu/cancel.png");
                 cancel.setX(335);
@@ -271,7 +271,7 @@ public class MenuScene {
 
     private void addClientButton(int x, int y) {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
-        Text text = new Text(x + 105, y + 57, "Client");
+        Text text = new Text(x + 110, y + 57, "Client");
         addButton(x, y, button);
         addText(text);
 

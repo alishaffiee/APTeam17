@@ -591,7 +591,7 @@ public class GameScene {
         hint.setX(720);
         hint.setY(20);
         Label hints = new Label("");
-        hints.relocate(620, 10);
+        hints.relocate(540, 10);
         hints.setStyle("-fx-font: normal bold 20px 'serif'");
         hint.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override

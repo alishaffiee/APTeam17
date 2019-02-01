@@ -21,6 +21,8 @@ import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -53,7 +55,7 @@ public class ClientMenuScene {
         addUsersButton(410, 260 + offset);
         addRankingButton(410, 390 + offset);
         addChatRoomButton(410, 520 + offset);
-
+        addQuitButton(140, 50);
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -118,6 +120,27 @@ public class ClientMenuScene {
                 text.setFill(Color.rgb(0, 0, 0));
                 GameScene.gameScene.setPrimaryStage(primaryStage);
                 GameScene.gameScene.start("Level0", client);
+            }
+        });
+    }
+    private void addQuitButton(int x, int y) {
+        ImageView button = GameScene.getImage("./Graphic/Menu/escape.png");
+
+
+        addButton(x, y, button);
+
+
+        button.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                primaryStage.close();
+            }
+        });
+
+        button.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                primaryStage.close();
             }
         });
     }
