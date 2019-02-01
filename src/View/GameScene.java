@@ -1,7 +1,14 @@
 package View;
 
 import Control.CommandController;
+import javafx.animation.AnimationTimer;
+import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import Control.CommandController;
+import javafx.scene.control.TextField;
 import Model.ItemType;
+import Model.Level;
 import Model.Warehouse;
 import Model.Well;
 import Network.Client;
@@ -25,11 +32,16 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
+import java.util.Scanner;
 
 public class GameScene {
     private SpriteAnimation wellSpriteAnimation;
@@ -522,8 +534,45 @@ public class GameScene {
             }
         });
     }
+    public String read(String path) {
+        System.out.println(path);
+        String ans = "";
+        try {
+            FileReader inputStream = new FileReader(path);
+            Scanner scanner = new Scanner(inputStream);
+            while (scanner.hasNext()) {
+                ans = ans + scanner.nextLine();
+            }
+            inputStream.close();
+        } catch (IOException e) {
+            System.out.println("File not found.");
+        }
+        return ans;
+    }
+    public String readJson(String mapName){
+        String json = read("./Data/Levels/" + mapName + ".json");
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
 
+        int levelNumber = Integer.valueOf(mapName.substring(5));
+        JsonArray jsonGoals = jsonObject.get("goals").getAsJsonArray();
+        HashMap<ItemType, Integer> goals = new HashMap<>();
+        HashMap<String, Integer> goalAnimals = new HashMap<>();
+        String answer = "";
+        for (JsonElement element : jsonGoals) {
+            String name = element.getAsJsonObject().get("item").getAsString();
+            ItemType item = ItemType.getItemType(name);
+            int count = element.getAsJsonObject().get("count").getAsInt();
+            answer = answer + name + "-> " + count + "\n";
+
+            if (item != null)
+                goals.put(item, count);
+            else
+                goalAnimals.put(name, count);
+        }
+        return answer;
+    }
     public void start(String level, Client client) {
+        String goal = readJson(level);
         if (level != null)
             CommandController.commandController.run(level);
         this.client = client;
@@ -536,6 +585,31 @@ public class GameScene {
         clock.setY(20);
         root.getChildren().add(clock);
         Countdown countdown = new Countdown(root, 750, 20, primaryStage);
+
+        ImageView hint = getImage("./Graphic/lamp.png");
+        root.getChildren().add(hint);
+        hint.setX(720);
+        hint.setY(20);
+        Label hints = new Label("");
+        hints.relocate(620, 10);
+        hints.setStyle("-fx-font: normal bold 20px 'serif'");
+        hint.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                hints.setText(goal);
+                root.getChildren().add(hints);
+            }
+        });
+        hint.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                root.getChildren().remove(hints);
+            }
+        });
+
+
+
+
         int W = 60;
         addAnimalIcon("Chicken", 30, 30, Values.CHICKEN_COST);
         addAnimalIcon("Cow", 30 + W * 1, 30, Values.COW_COST);
