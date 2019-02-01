@@ -66,7 +66,10 @@ public class ChatScene {
     public void start(Socket socket, String id) {
         ImageView background = GameScene.getImage("./Graphic/Menu/Background.png");
         root.getChildren().add(background);
-
+        Sound.init();
+        Sound.mute();
+        Sound.play("chat");
+        Sound.MenuSound = false;
         VBox vBox = new VBox(10);
 
         ScrollPane scrollPane = new ScrollPane();
@@ -158,6 +161,7 @@ public class ChatScene {
             public void handle(MouseEvent event) {
                 root.getChildren().clear();
                 primaryStage.setScene(ClientMenuScene.clientMenuScene.getScene());
+                Sound.mute();
             }
         });
     }

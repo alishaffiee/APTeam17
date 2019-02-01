@@ -18,6 +18,8 @@ public class Sound {
         library.put("menu", new MediaPlayer(sound));
         Media guide = new Media(new File("Sounds/sc.m4a").toURI().toString());
         library.put("guide", new MediaPlayer(guide));
+        Media chat = new Media(new File("Sounds/chat.mp3").toURI().toString());
+        library.put("chat", new MediaPlayer(chat));
     }
 
     public static void play(String name) {
@@ -29,10 +31,11 @@ public class Sound {
             return;
         }
         MediaPlayer sound = library.get(name);
-        if(name.equals("menu"))
+        if(name.equals("menu") || name.equals("chat"))
             sound.setCycleCount(1000);
         sound.play();
-        MenuSound = true;
+        if(name.equals("menu"))
+            MenuSound = true;
 
     }
 
