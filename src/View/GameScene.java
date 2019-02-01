@@ -2,9 +2,9 @@ package View;
 
 import Control.CommandController;
 import Model.ItemType;
-import Model.Vehicle.Helicopter;
 import Model.Warehouse;
 import Model.Well;
+import Network.Client;
 import Values.Values;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -14,7 +14,6 @@ import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,6 +27,7 @@ import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -43,6 +43,7 @@ public class GameScene {
     public final static int rightBoundery = 790;
     public final static int upBoundery = 250;
     public final static int downBoundery = 590;
+    private Client client;
 
     protected static ImageView getImage(String path) {
         try {
@@ -114,6 +115,18 @@ public class GameScene {
                 }
             });
         }
+
+        if (name.equals("Depot") && client != null) {
+            image.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    System.out.println("Helicopter menu");
+                    BazaarScene.bazarScene.setPrimaryStage(primaryStage);
+                    BazaarScene.bazarScene.start(client);
+                }
+            });
+        }
+
         return image;
 
     }
@@ -504,9 +517,10 @@ public class GameScene {
         });
     }
 
-    public void start(String level) {
+    public void start(String level, Client client) {
         if (level != null)
             CommandController.commandController.run(level);
+        this.client = client;
         ImageView backImage = getImage("./Graphic/back.png");
         backImage.setX(0);
         backImage.setY(0);

@@ -43,7 +43,7 @@ public class LevelScene {
                     @Override
                     public void handle(MouseEvent event) {
                         GameScene.gameScene.setPrimaryStage(primaryStage);
-                        GameScene.gameScene.start("Level" + number);
+                        GameScene.gameScene.start("Level" + number, null);
                     }
                 });
             }

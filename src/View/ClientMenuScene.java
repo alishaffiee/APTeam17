@@ -44,7 +44,7 @@ public class ClientMenuScene {
         this.client = client;
         ImageView background = GameScene.getImage("./Graphic/Menu/Background.png");
         root.getChildren().add(background);
-        int offset = 95;
+        int offset = 100;
 
         addStartButton(410, offset);
         addProfileButton(410, 130 + offset);
@@ -87,8 +87,8 @@ public class ClientMenuScene {
             @Override
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
-                LevelScene.LevelScene.setPrimaryStage(primaryStage);
-                LevelScene.LevelScene.start();
+                GameScene.gameScene.setPrimaryStage(primaryStage);
+                GameScene.gameScene.start("Level0", client);
             }
         });
     }
