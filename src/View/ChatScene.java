@@ -32,7 +32,26 @@ public class ChatScene {
         root = new Group();
         scene = new Scene(root, 1100, 825);
     }
-
+    public static String translate(String string){
+        String smile = "😀";
+        String sad = "😞";
+        String kiss = "💋";
+        String laugh = "😂";
+        String wink = "😉";
+        String cry = "😢";
+        String angry = "😡";
+        string = string.replaceAll(":D", smile);
+        string = string.replaceAll("xD", laugh);
+        string = string.replaceAll("XD", laugh);
+        string = string.replaceAll(":wink:", wink);
+        string = string.replaceAll(":kiss:", kiss);
+        string = string.replaceAll(":sad:", sad);
+        string = string.replaceAll(":smile:", smile);
+        string = string.replaceAll(":laugh:", laugh);
+        string = string.replaceAll(":cry:", cry);
+        string = string.replaceAll(":angry:", angry);
+        return string;
+    }
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -50,7 +69,7 @@ public class ChatScene {
         scrollPane.setMinHeight(400);
         scrollPane.setMinWidth(300);
         scrollPane.setMaxHeight(400);
-
+        scrollPane.setStyle("-fx-font: normal bold 25px 'Comic Sans MS'");
         scrollPane.relocate(400, 150);
         root.getChildren().add(scrollPane);
 
@@ -73,9 +92,10 @@ public class ChatScene {
                 public void handle(MouseEvent event) {
                     if (textField.getText().equals(""))
                         return;
-                    formatter.format(id + ": " + textField.getText() + "\n");
+                    String pm = translate(textField.getText());
+                    formatter.format(id + ": " + pm + "\n");
                     formatter.flush();
-                    vBox.getChildren().add(new Label(id + ": " + textField.getText()));
+                    vBox.getChildren().add(new Label(id + ": " + pm));
                     textField.setText("");
                 }
             });
