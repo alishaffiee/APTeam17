@@ -42,8 +42,11 @@ public class TextInput{
         });
         if(init.equals("item name") || init.equals("new cost"))
             BazaarScene.root.getChildren().add(textField);
+        if(init.equals("send pv"))
+            ClientMenuScene.root.getChildren().add(textField);
         else
             MenuScene.root.getChildren().add(textField);
+
 
     }
     public String getString(){

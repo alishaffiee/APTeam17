@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -139,6 +140,8 @@ public class ClientMenuScene {
 
         ArrayList<Node> show = new ArrayList<>();
         show.add(profile);
+        TextInput textInput = new TextInput("send pv", 700, 0);
+        String target = "";
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -164,6 +167,16 @@ public class ClientMenuScene {
                     ImageView addFriend = GameScene.getImage("./Graphic/addfriend.png");
                     addFriend.setX(profilex + 100 - 32);
                     addFriend.setY(cur);
+                    ImageView sendMessage = GameScene.getImage("./Graphic/email.png");
+                    sendMessage.setX(profilex + 100 - 32);
+                    sendMessage.setY(cur + 50);
+                    sendMessage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            client.addCommand("send pv " + client.getId() + " " + id + " " + textInput.getString());
+                        }
+                    });
+
                     addFriend.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
@@ -178,7 +191,7 @@ public class ClientMenuScene {
                             text.setFill(Color.BLACK);
                         }
                     });
-
+                    show.add(sendMessage);
                     show.add(prof);
                     show.add(addFriend);
                     cur += 100;
