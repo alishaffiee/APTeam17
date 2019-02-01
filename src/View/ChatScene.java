@@ -50,7 +50,13 @@ public class ChatScene {
         string = string.replaceAll(":laugh:", laugh);
         string = string.replaceAll(":cry:", cry);
         string = string.replaceAll(":angry:", angry);
-        return string;
+        String text = "";
+        for(int i=0; i<string.length(); i++){
+            text += string.charAt(i);
+            if(i % 15 == 14)
+                text += '\n';
+        }
+        return text;
     }
 
     public void setPrimaryStage(Stage primaryStage) {
@@ -71,6 +77,7 @@ public class ChatScene {
         scrollPane.setMaxHeight(400);
         scrollPane.setStyle("-fx-font: normal bold 25px 'Comic Sans MS'");
         scrollPane.relocate(400, 150);
+        scrollPane.setMaxWidth(300);
         root.getChildren().add(scrollPane);
 
         TextField textField = new TextField();
