@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -97,6 +98,7 @@ public class ClientMenuScene {
         ImageView button = GameScene.getImage("./Graphic/Menu/Button.png");
         ImageView profile = GameScene.getImage("./Graphic/profile.png");
         ImageView cancel = GameScene.getImage("./Graphic/Menu/cancel.png");
+        Image image = cancel.getImage();
         Text text = new Text(x + 102, y + 57, "Profile");
 
         addButton(x, y, button);
@@ -108,17 +110,19 @@ public class ClientMenuScene {
         cancel.setX(profilex);
         cancel.setY(profiley);
 
-        ArrayList<Object> show = new ArrayList<>();
+        ArrayList<Node> show = new ArrayList<>();
         show.add(profile);
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                System.out.println("sALAM");
                 text.setFill(Color.rgb(200, 200, 200));
                 String ans = client.addCommand("get profile");
                 System.out.println("PROFILES " + ans);
                 String[] array = ans.split(" ");
                 int n = array.length;
                 int cur = profiley;
+                cancel.setImage(image);
                 for(int i=0; i<n; i+=4){
                     String s = "";
                     String id = array[i];
@@ -132,7 +136,7 @@ public class ClientMenuScene {
                     ImageView addFriend = GameScene.getImage("./Graphic/addfriend.png");
                     addFriend.setX(profilex + 100 - 32);
                     addFriend.setY(cur);
-                    button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    addFriend.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
                             client.addCommand("make friend " + client.getId() + " " + id);
@@ -143,20 +147,21 @@ public class ClientMenuScene {
                     show.add(addFriend);
                     cur += 100;
                 }
-                show.add(cancel);
-                for (Object o : show) {
-                    root.getChildren().add((Node) o);
+            //    show.add(cancel);
+                for (Node o : show) {
+                    root.getChildren().add(o);
                 }
-
+                if(!root.getChildren().contains(cancel))
+                    root.getChildren().add(cancel);
             }
         });
-        cancel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+        cancel.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("CANcel");
-                for (Object o : show) {
-                    root.getChildren().remove((Node) o);
-                }
+                root.getChildren().removeAll(show);
+                cancel.setImage(null);
+                text.setFill(Color.BLACK);
             }
         });
         /*
