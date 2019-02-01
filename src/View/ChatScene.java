@@ -64,7 +64,7 @@ public class ChatScene {
     }
 
     public void start(Socket socket, String id) {
-        ImageView background = GameScene.getImage("./Graphic/Menu/Background.png");
+        ImageView background = GameScene.getImage("./Graphic/Menu/chatback.jpeg");
         root.getChildren().add(background);
         Sound.init();
         Sound.mute();
