@@ -246,7 +246,7 @@ public class ClientMenuScene {
             public void handle(MouseEvent event) {
                 text.setFill(Color.rgb(0, 0, 0));
                 ChatScene.chatScene.setPrimaryStage(primaryStage);
-                ChatScene.chatScene.start();
+                ChatScene.chatScene.start(client.getChatSocket(), client.getId());
             }
         });
     }

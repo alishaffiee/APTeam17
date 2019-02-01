@@ -180,6 +180,16 @@ public class MenuScene {
                         root.getChildren().remove(check);
                         root.getChildren().remove(cancel);
                         text.setFill(Color.BLACK);
+
+                        Client client;
+                        try {
+                            client = new Client(name.getString(), id.getString(), "localhost");
+                        } catch (Exception e) {
+                            return;
+                        }
+
+                        ClientMenuScene.clientMenuScene.setPrimaryStage(primaryStage);
+                        ClientMenuScene.clientMenuScene.start(client);
                     }
                 });
             }

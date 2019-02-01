@@ -14,6 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.net.Socket;
+import java.util.Formatter;
+import java.util.Scanner;
+
 import static View.GameScene.getImage;
 
 public class ChatScene {
@@ -33,14 +37,11 @@ public class ChatScene {
         this.primaryStage = primaryStage;
     }
 
-    public void start() {
+    public void start(Socket socket, String id) {
         ImageView background = GameScene.getImage("./Graphic/Menu/Background.png");
         root.getChildren().add(background);
 
         VBox vBox = new VBox(10);
-        vBox.getChildren().add(new Label("salam"));
-        vBox.getChildren().add(new Label("hi"));
-        vBox.getChildren().add(new Label("hikk"));
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(vBox);
@@ -62,15 +63,41 @@ public class ChatScene {
         check.relocate(670, 570);
         root.getChildren().add(check);
 
-        check.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if(textField.getText().equals(""))
-                    return;
-                vBox.getChildren().add(new Label(textField.getText()));
-                textField.setText("");
-            }
-        });
+        try {
+            Scanner scanner = new Scanner(socket.getInputStream());
+            Formatter formatter = new Formatter(socket.getOutputStream());
+
+            check.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (textField.getText().equals(""))
+                        return;
+                    formatter.format(id + ": " + textField.getText() + "\n");
+                    formatter.flush();
+                    vBox.getChildren().add(new Label(id + ": " + textField.getText()));
+                    textField.setText("");
+                }
+            });
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while(true) {
+                        String cnt = scanner.nextLine();
+                        int num = Integer.valueOf(cnt);
+                        if(vBox.getChildren().size() > 0)
+                            vBox.getChildren().clear();
+                        for(int i = 0; i < num; i++) {
+                            String message = scanner.nextLine();
+                            vBox.getChildren().add(new Label(message));
+                        }
+                    }
+                }
+            }).start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         addBackButton();
         primaryStage.setTitle("Farm frenzy");

@@ -1,5 +1,6 @@
 package Network;
 
+import Network.Chatroom.ChatRoom;
 import Social.Profile;
 
 import java.net.ServerSocket;
@@ -14,11 +15,13 @@ public class Server {
     private Scanner scanner;
     private Formatter formatter;
     private ArrayList<Profile> profiles = new ArrayList<>();
+    private ChatRoom chatRoom;
 
     public Server() {
         try {
             ConnectThread connectThread = new ConnectThread(this);
             connectThread.start();
+            chatRoom = new ChatRoom();
             System.out.println("Building server was successful.");
         } catch (Exception e) {
             System.out.println("Server not found.");
@@ -32,5 +35,9 @@ public class Server {
 
     public ArrayList<Profile> getProfiles() {
         return profiles;
+    }
+
+    public ChatRoom getChatRoom() {
+        return chatRoom;
     }
 }

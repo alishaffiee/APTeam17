@@ -6,12 +6,15 @@ import java.util.Formatter;
 import java.util.Scanner;
 
 public class Client {
-    private Socket socket;
+    private Socket socket, chatSocket;
     private Scanner scanner;
     private Formatter formatter;
     private ClientCommandController clientCommandController;
+    private String name, id;
 
     public Client(String name, String id, String host) throws Exception{
+        this.name = name;
+        this.id = id;
         try {
 
             socket = new Socket(host, 8050);
@@ -22,6 +25,10 @@ public class Client {
             formatter.flush();
             int port = Integer.valueOf(scanner.nextLine());
             socket.close();
+            if(port == -1) {
+                System.out.println("salam");
+                throw new Exception("cannot build client.");
+            }
             while (true) {
                 try {
                     socket = new Socket(host, port);
@@ -33,6 +40,16 @@ public class Client {
             }
             clientCommandController = new ClientCommandController(this);
             clientCommandController.start();
+
+            while (true) {
+                try {
+                    chatSocket = new Socket(host, port + 1);
+                    break;
+                }
+                catch (Exception e){
+                    System.out.println("not this time : (");
+                }
+            }
 
         } catch (Exception e) {
             System.out.println("Server not found.");
@@ -48,5 +65,17 @@ public class Client {
 
     public String addCommand(String command) {
         return clientCommandController.sendCommand(command);
+    }
+
+    public Socket getChatSocket() {
+        return chatSocket;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getId() {
+        return id;
     }
 }

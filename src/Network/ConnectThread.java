@@ -41,6 +41,8 @@ public class ConnectThread extends Thread{
                 String id = scanner.nextLine();
 
                 if(!validate(name, id)) {
+                    formatter.format("-1\n");
+                    formatter.flush();
                     serverSocket.close();
                     System.err.println("invalid name of id.");
                     continue;
@@ -64,6 +66,11 @@ public class ConnectThread extends Thread{
                 Profile profile = new Profile(new User(name, id), socket);
                 server.addProfile(profile);
                 profile.setServer(server);
+
+                ServerSocket serverSocket1 = new ServerSocket(cnt);
+                cnt++;
+                Socket socket1 = serverSocket1.accept();
+                server.getChatRoom().addSocket(socket1);
 
                 System.err.println("User added");
 
