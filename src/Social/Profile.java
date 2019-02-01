@@ -35,6 +35,10 @@ public class Profile {
     }
 
     public void addFriend(Profile profile) {
+        for (Profile friend : friends) {
+            if(friend.getUser().getId().equals(profile.getUser().getId()))
+                return;
+        }
         friends.add(profile);
     }
 }
