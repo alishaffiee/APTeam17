@@ -56,6 +56,33 @@ public class ClientMenuScene {
         primaryStage.setTitle("Farm Frenzy");
         primaryStage.setScene(scene);
         primaryStage.show();
+        ImageView speaker = GameScene.getImage("./Graphic/Menu/mute.png");
+        ImageView mute = GameScene.getImage("./Graphic/Menu/speaker.png");
+
+        if(Sound.MenuSound)
+            addButton(100, 100, mute);
+        else
+            addButton(100, 100, speaker);
+
+        speaker.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Sound.init();
+                Sound.play("menu");
+                root.getChildren().remove(speaker);
+                addButton(100, 100, mute);
+            }
+        });
+
+        mute.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Sound.mute();
+                root.getChildren().remove(mute);
+                addButton(100, 100, speaker);
+            }
+        });
+
     }
 
     private void addButton(int x, int y, ImageView button) {

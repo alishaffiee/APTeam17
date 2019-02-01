@@ -22,7 +22,6 @@ public class Sound {
         MediaPlayer sound = library.get(name);
         if(name.equals("menu"))
             sound.setCycleCount(1000);
-
         sound.play();
         MenuSound = true;
 
@@ -31,6 +30,7 @@ public class Sound {
     public static void mute() {
         for (Map.Entry<String, MediaPlayer> entry : library.entrySet()) {
             entry.getValue().stop();
+            MenuSound = false;
         }
     }
 
