@@ -194,7 +194,7 @@ public class ClientMenuScene {
                     show.add(sendMessage);
                     show.add(prof);
                     show.add(addFriend);
-                    cur += 100;
+                    cur += 120;
                 }
                 //    show.add(cancel);
                 for (Node o : show) {
