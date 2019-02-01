@@ -3,6 +3,7 @@ package View;
 import Control.CommandController;
 import Model.ItemType;
 import Model.Vehicle.Helicopter;
+import Model.Warehouse;
 import Model.Well;
 import Values.Values;
 import com.google.gson.JsonArray;
@@ -93,7 +94,7 @@ public class GameScene {
         image.setX(x);
         image.setY(y);
         root.getChildren().add(image);
-        if(name.equals("Truck")){
+        if (name.equals("Truck")) {
             image.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -103,7 +104,7 @@ public class GameScene {
                 }
             });
         }
-        if(name.equals("Helicopter")){
+        if (name.equals("Helicopter")) {
             image.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -181,6 +182,7 @@ public class GameScene {
             }
         });
     }
+
     private void addGrass(int x, int y) {
         int id = new Random().nextInt(4) + 1;
         ImageView image = getImage("./Graphic/Grass/grass" + id + ".png");
@@ -225,9 +227,10 @@ public class GameScene {
         root.getChildren().add(rectangle);
         new AnimationTimer() {
             long prv = -1;
+
             @Override
             public void handle(long now) {
-                if(now - prv < 2e8)
+                if (now - prv < 2e8)
                     return;
                 Well well = CommandController.commandController.getGame().getCurrentLevel().getMap().getWell();
                 int capacity = well.getCapacity();
@@ -254,14 +257,15 @@ public class GameScene {
                     CommandController.commandController.getGame().getCurrentLevel().getMap().getWarehouse().add(itemType);
                     new AnimationTimer() {
                         long prv = -1, x = positionX, y = positionY;
+
                         @Override
                         public void handle(long now) {
-                            if(now - prv < 2e8)
+                            if (now - prv < 2e8)
                                 return;
-                            x += (500 - x) / 10;
-                            y += (650 - y) / 10;
+                            x += (500.0 - x) / 10;
+                            y += (650.0 - y) / 10;
                             imageView.relocate(x, y);
-                            if(Math.abs(x - 500) < 20 && Math.abs(y - 650) < 20) {
+                            if (Math.abs(x - 500) < 20 && Math.abs(y - 650) < 20) {
                                 root.getChildren().remove(imageView);
                                 stop();
                             }
@@ -276,27 +280,29 @@ public class GameScene {
 
         new AnimationTimer() {
             long prv = -1;
+
             @Override
             public void handle(long now) {
-                if(now - prv < 5e9 && prv != -1)
+                if (now - prv < 5e9 && prv != -1)
                     return;
-                if(prv == -1) {
+                if (prv == -1) {
                     prv = now;
                     return;
                 }
-                if(!root.getChildren().contains(imageView)) {
+                if (!root.getChildren().contains(imageView)) {
                     stop();
                     return;
                 }
                 new AnimationTimer() {
                     long prv = -1, cnt = 0;
+
                     @Override
                     public void handle(long now) {
-                        if(now - prv < 8e8)
+                        if (now - prv < 8e8)
                             return;
                         cnt++;
-                        if(cnt==25) stop();
-                        if(cnt % 2 == 1) {
+                        if (cnt == 25) stop();
+                        if (cnt % 2 == 1) {
                             root.getChildren().remove(imageView);
                             return;
                         }
@@ -321,7 +327,7 @@ public class GameScene {
         root.getChildren().add(coin);
     }
 
-    private void addReturnToMenu (int x, int y) {
+    private void addReturnToMenu(int x, int y) {
         ImageView button = getImage("./Graphic/returnMenu.png");
         button.setX(x);
         button.setY(y);
@@ -365,10 +371,41 @@ public class GameScene {
 
         imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             boolean flag = false;
+
             @Override
             public void handle(MouseEvent event) {
                 if (flag)
                     return;
+                Warehouse warehouse = CommandController.commandController.getGame().getCurrentLevel().getMap().getWarehouse();
+                for (ItemType itemType : itemTypes) {
+                    if(!warehouse.getItemTypes().contains(itemType))
+                        return;
+                }
+                for (ItemType itemType : itemTypes) {
+                    warehouse.getItemTypes().remove(itemType);
+
+                    ImageView imageView = getImage("./Graphic/Products/" + itemType.getName() + ".png");
+                    imageView.setX(500);
+                    imageView.setY(650);
+                    root.getChildren().add(imageView);
+
+                    new AnimationTimer() {
+                        long prv = -1, xx = 500, yy = 650;
+
+                        @Override
+                        public void handle(long now) {
+                            if (now - prv < 5e7)
+                                return;
+                            xx -= (0.0 + xx - x[place] - 30) / 10;
+                            yy -= (0.0 + yy - y[place] - 30) / 10;
+                            imageView.relocate(xx, yy);
+                            if (Math.abs(xx - x[place] - 30) < 20 && Math.abs(yy - y[place] - 30) < 20) {
+                                root.getChildren().remove(imageView);
+                                stop();
+                            }
+                        }
+                    }.start();
+                }
                 flag = true;
                 new AnimationTimer() {
                     long prv = -1, count = 0;
@@ -380,11 +417,30 @@ public class GameScene {
                         }
                         count++;
                         if (count == 60) {
+                            addItemType(output, x[place] + 100, y[place] + 100);
                             stop();
                             flag = false;
                         }
                         prv = now;
                         spriteAnimation.interpolate(1);
+                    }
+                }.start();
+
+                Rectangle rectangle = new Rectangle(x[place] + 100, y[place], 7, 100);
+                rectangle.setFill(Color.BROWN);
+                root.getChildren().add(rectangle);
+                new AnimationTimer() {
+                    long prv = -1;
+
+                    @Override
+                    public void handle(long now) {
+                        if (now - prv < 6e6)
+                            return;
+                        prv = now;
+                        rectangle.setHeight(rectangle.getHeight() - 1);
+                        rectangle.setY(rectangle.getY() + 1);
+                        if (rectangle.getHeight() == 0)
+                            stop();
                     }
                 }.start();
             }
@@ -444,7 +500,7 @@ public class GameScene {
     }
 
     public void start(String level) {
-        if(level != null)
+        if (level != null)
             CommandController.commandController.run(level);
         ImageView backImage = getImage("./Graphic/back.png");
         backImage.setX(0);

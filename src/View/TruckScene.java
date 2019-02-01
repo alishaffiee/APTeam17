@@ -3,9 +3,11 @@ package View;
 import Control.CommandController;
 import Model.Item;
 import Model.ItemType;
+import Model.Vehicle.Helicopter;
 import Model.Vehicle.Truck;
 import Model.Warehouse;
 import Values.ItemsCosts;
+import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -172,6 +174,34 @@ public class TruckScene {
                 addValue(-value);
                 root.getChildren().clear();
                 primaryStage.setScene(GameScene.gameScene.getScene());
+                Group group = GameScene.root;
+                int level = truck.getLevel() + 1;
+                ImageView imageView = GameScene.getImage("./Graphic/UI/Truck/" + level + ".png");
+                imageView.setX(1000);
+                imageView.setY(120);
+                imageView.setScaleX(2);
+                imageView.setScaleY(2);
+                SpriteAnimation spriteAnimation = new SpriteAnimation(imageView, 2, 2);
+                spriteAnimation.interpolate(1);
+                group.getChildren().add(imageView);
+
+                new AnimationTimer() {
+                    long prv = -1;
+
+                    @Override
+                    public void handle(long now) {
+                        if (now - prv < 5e7) {
+                            return;
+                        }
+                        prv = now;
+                        spriteAnimation.interpolate(1);
+                        imageView.setX(imageView.getX() - 5);
+                        if(imageView.getX() < 740) {
+                            group.getChildren().remove(imageView);
+                            stop();
+                        }
+                    }
+                }.start();
             }
         });
     }
