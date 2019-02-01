@@ -16,9 +16,18 @@ public class Sound {
         library.clear();
         Media sound = new Media(new File("Sounds/menu.mp3").toURI().toString());
         library.put("menu", new MediaPlayer(sound));
+        Media guide = new Media(new File("Sounds/sc.m4a").toURI().toString());
+        library.put("guide", new MediaPlayer(guide));
     }
 
     public static void play(String name) {
+        if(name.equals("guide")){
+            MediaPlayer guide = library.get(name);
+            guide.setCycleCount(1000);
+            guide.play();
+            System.out.println("PLAYED");
+            return;
+        }
         MediaPlayer sound = library.get(name);
         if(name.equals("menu"))
             sound.setCycleCount(1000);

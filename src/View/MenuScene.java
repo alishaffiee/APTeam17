@@ -20,6 +20,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.sql.Time;
+
 
 public class MenuScene {
     public static MenuScene menuScene = new MenuScene();
@@ -76,8 +78,46 @@ public class MenuScene {
                 addButton(100, 100, speaker);
             }
         });
+        ImageView guide = GameScene.getImage("./Graphic/Menu/guide.png");
+        guide.setX(1000);
+        guide.setY(50);
+        root.getChildren().add(guide);
+        ImageView guideback = GameScene.getImage("./Graphic/Menu/guideback.png");
+        guideback.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            int cnt = 3;
+            @Override
+            public void handle(MouseEvent event) {
+                if(cnt == 0) {
+                    Sound.mute();
+                    root.getChildren().remove(guideback);
+                    cnt = 3;
+                }
+                else
+                    cnt--;
+            }
+        });
+        guide.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            int cnt = 1;
 
+            @Override
+            public void handle(MouseEvent event) {
+                if(cnt < 3) {
+                    cnt++;
+                    return;
+                }
+                if(cnt >= 3){
+                    cnt++;
+                    Sound.init();
+                    Sound.mute();
+                    System.err.println("PRANKED :D");
+                    Sound.play("guide");
 
+                    root.getChildren().add(guideback);
+                    return;
+                }
+
+            }
+        });
     }
 
     private void addButton(int x, int y, ImageView button) {
