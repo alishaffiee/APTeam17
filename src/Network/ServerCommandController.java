@@ -47,7 +47,7 @@ public class ServerCommandController {
                 String ans = "";
                 for(Profile profile : profiles) {
                     User user = profile.getUser();
-                    ans = ans + " " + user.getName();
+                    ans = ans + " " + user.getId();
                 }
                 ans = ans.trim();
                 sendCommand(ans);
@@ -68,11 +68,29 @@ public class ServerCommandController {
                 String ans = "";
                 for(Profile profile : profiles) {
                     User user = profile.getUser();
-                    ans = ans + " " + user.getId() + " " + user.getName() + " " + user.getBuyCount() + " " + user.getSellCount();
+                    ans = ans + " " + user.getId() + " " + user.getName() + " " + user.getBuyCount() + " " + user.getSellCount() + " " + profile.getFriends();
                 }
                 ans = ans.trim();
                 sendCommand(ans);
                 break;
+            }
+            default: {
+                System.out.println("here");
+                String[] parts = command.split(" ");
+                ArrayList<Profile> profiles = connection.getServer().getProfiles();
+                Profile profile1 = null, profile2 = null;
+                for(Profile profile : profiles) {
+                    if(profile.getUser().getId().equals(parts[1]))
+                        profile1 = profile;
+                    if(profile.getUser().getId().equals(parts[2]))
+                        profile2 = profile;
+                }
+                sendCommand("completed!");
+                if(parts[1].equals(parts[2]))
+                    return;
+                System.out.println("salamll");
+                profile1.addFriend(profile2);
+                profile2.addFriend(profile1);
             }
         }
     }
