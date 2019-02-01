@@ -140,12 +140,13 @@ public class ClientMenuScene {
 
         ArrayList<Node> show = new ArrayList<>();
         show.add(profile);
-        TextInput textInput = new TextInput("send pv", 700, 0);
+        TextInput textInput = new TextInput("send pv", 720, 10);
+        root.getChildren().remove(textInput.getTextField());
         String target = "";
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("sALAM");
+                root.getChildren().add(textInput.getTextField());
                 text.setFill(Color.rgb(200, 200, 200));
                 String ans = client.addCommand("get profile");
                 System.out.println("PROFILES " + ans);
@@ -208,6 +209,7 @@ public class ClientMenuScene {
         cancel.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                root.getChildren().remove(textInput.getTextField());
                 for (Node o : show)
                     if (o instanceof Label) {
                         ((Label) o).setText("");
