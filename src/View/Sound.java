@@ -23,7 +23,7 @@ public class Sound {
     public static void play(String name) {
         if(name.equals("guide")){
             MediaPlayer guide = library.get(name);
-            guide.setCycleCount(1000);
+            guide.setCycleCount(2);
             guide.play();
             System.out.println("PLAYED");
             return;
