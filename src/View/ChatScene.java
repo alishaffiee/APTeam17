@@ -113,8 +113,11 @@ public class ChatScene {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    formatter.format("&\n");
+                    formatter.flush();
                     while(true) {
                         String cnt = scanner.nextLine();
+                        System.out.println(cnt);
                         int num = Integer.valueOf(cnt);
                         Platform.runLater(new Runnable() {
                             @Override public void run() {
@@ -127,6 +130,7 @@ public class ChatScene {
                             Platform.runLater(new Runnable() {
                                 @Override public void run() {
                                     Label label = new Label(message);
+                                    System.out.println(message);
                                     vBox.getChildren().add(label);
                                     label.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                         @Override

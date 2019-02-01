@@ -1,5 +1,7 @@
 package Network.Chatroom;
 
+import Social.User;
+
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -24,7 +26,7 @@ public class ChatRoom {
         formatter.flush();
     }
 
-    public void addSocket(Socket socket) {
+    public void addSocket(User user, Socket socket) {
         Scanner scanner;
         Formatter formatter;
         try {
@@ -44,6 +46,12 @@ public class ChatRoom {
             public void run() {
                 while (true) {
                     String message = scanner.nextLine();
+                    if(message.equals("&")) {
+                        System.out.println("salalm");
+                        sendData(formatter);
+                        continue;
+                    }
+                    user.setScore(user.getScore() + 1);
                     messages.add(message);
                     for (Formatter formatter : formatters) {
                         sendData(formatter);

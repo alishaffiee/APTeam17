@@ -7,7 +7,7 @@ public class User {
     public User (String name, String id) {
         this.name = name;
         this.id = id;
-        score = name.length();
+        score = 0;
     }
 
     public String getName() {
@@ -19,7 +19,7 @@ public class User {
     }
 
     public int getScore() {
-        return name.length();
+        return score;
     }
 
     public void setScore(int score) {

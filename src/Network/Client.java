@@ -36,7 +36,6 @@ public class Client {
                     break;
                 }
                 catch (Exception e){
-                    System.out.println("not this time : (");
                 }
             }
             clientCommandController = new ClientCommandController(this);
@@ -48,7 +47,6 @@ public class Client {
                     break;
                 }
                 catch (Exception e){
-                    System.out.println("not this time : (");
                 }
             }
 

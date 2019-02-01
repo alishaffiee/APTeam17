@@ -70,7 +70,7 @@ public class ConnectThread extends Thread{
                 ServerSocket serverSocket1 = new ServerSocket(cnt);
                 cnt++;
                 Socket socket1 = serverSocket1.accept();
-                server.getChatRoom().addSocket(socket1);
+                server.getChatRoom().addSocket(profile.getUser(), socket1);
 
                 ServerSocket serverSocket2 = new ServerSocket(cnt);
                 cnt++;
