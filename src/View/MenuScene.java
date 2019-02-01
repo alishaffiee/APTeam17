@@ -207,6 +207,7 @@ public class MenuScene {
                         Client client;
                         try {
                             client = new Client(name.getString(), id.getString(), "localhost");
+                            client.setServer(true);
                         } catch (Exception e) {
                             return;
                         }

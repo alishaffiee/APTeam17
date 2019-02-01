@@ -90,20 +90,27 @@ public class BazaarScene {
         int startX = 30;
         int startY = 100, cur = 0;
 
-        TextInput itemName = new TextInput("item name", 200, 20);
-        TextInput cost = new TextInput("new cost", 200, 55);
-        ImageView submit = getImage("./Graphic/Menu/check.png");
-        submit.setX(160);
-        submit.setY(17);
-        root.getChildren().add(submit);
-        submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                get("change " + itemName.getString() + " " + cost.getString());
-                root.getChildren().clear();
-                primaryStage.setScene(GameScene.gameScene.getScene());
-            }
-        });
+        if(client.isServer()) {
+            TextInput itemName = new TextInput("item name", 200, 20);
+            TextInput cost = new TextInput("new cost", 200, 55);
+            ImageView submit = getImage("./Graphic/Menu/check.png");
+            submit.setX(160);
+            submit.setY(17);
+            root.getChildren().add(submit);
+            submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        Integer.valueOf(cost.getString());
+                    } catch (Exception e) {
+                        return;
+                    }
+                    get("change " + itemName.getString() + " " + cost.getString());
+                    root.getChildren().clear();
+                    primaryStage.setScene(GameScene.gameScene.getScene());
+                }
+            });
+        }
         for (String product : products) {
             boolean bad = false;
 
